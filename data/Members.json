@@ -1,0 +1,78 @@
+{
+  "memberCode": "MI07",
+  "type": "M",
+  "primaryContact": "007",
+  "name": "James Bond",
+  "address": {
+    "street": "2356 Queen street",
+    "city": "Liverpool",
+    "state": "LV",
+    "zip": "34538567",
+    "country": "UK"
+  }
+}
+{
+  "memberCode": "M002",
+  "type": "S",
+  "primaryContact": "1519",
+  "name": "Huy Vuong",
+  "address": {
+    "street": "Apt 3 230 North 22nd",
+    "city": "Lincoln",
+    "state": "NE",
+    "zip": "68503",
+    "country": "USA"
+  }
+}
+{
+  "memberCode": "M003",
+  "type": "S",
+  "primaryContact": "3245",
+  "name": "Vu Thai",
+  "address": {
+    "street": "Selleck hall",
+    "city": "Lincoln",
+    "state": "NE",
+    "zip": "68526",
+    "country": "USA"
+  }
+}
+{
+  "memberCode": "M004",
+  "type": "G",
+  "primaryContact": "1235",
+  "name": "Harry Porter",
+  "address": {
+    "street": "9800 Hogwarts",
+    "city": "Fort Cauhon",
+    "state": "ME",
+    "zip": "20755",
+    "country": "UK"
+  }
+}
+{
+  "memberCode": "M005",
+  "type": "G",
+  "primaryContact": "5306",
+  "name": "Just want a name",
+  "address": {
+    "street": "1060 West Addison",
+    "city": "Chicago",
+    "state": "IL",
+    "zip": "67676",
+    "country": "USA"
+  }
+}
+{
+  "memberCode": "M006",
+  "type": "S",
+  "primaryContact": "3214",
+  "name": "Gregory Smith",
+  "address": {
+    "street": "Some Place on earth",
+    "city": "Omaha",
+    "state": "NE",
+    "zip": "68545",
+    "country": "USA"
+  }
+}

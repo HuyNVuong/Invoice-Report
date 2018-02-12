@@ -1,0 +1,297 @@
+{
+  "personCode": "0001",
+  "firstName": "Vladimir",
+  "lastName": " Starlin",
+  "address": {
+    "street": "245 Royal Street",
+    "city": "Moscow",
+    "state": "MS",
+    "zip": "60613",
+    "country": "Russia"
+  },
+  "email": [
+    "scastro@cubs.com",
+    "starlin_castro13@gmail.com"
+  ]
+}
+{
+  "personCode": "0306",
+  "firstName": "Huy",
+  "lastName": " Vuong",
+  "address": {
+    "street": "230 N 22nd Street",
+    "city": "Lincoln",
+    "state": "NE",
+    "zip": "68503",
+    "country": "USA"
+  },
+  "email": [
+    "vuongnguyenhuy@yahoo.com"
+  ]
+}
+{
+  "personCode": "5554",
+  "firstName": "McCarthy",
+  "lastName": " James",
+  "address": {
+    "street": "294th Ave.",
+    "city": "Dallas",
+    "state": "NE",
+    "zip": "68001",
+    "country": "USA"
+  },
+  "email": [
+    "mccarthy@ds9.com",
+    "mccarthy@enterprise.gov"
+  ]
+}
+{
+  "personCode": "2342",
+  "firstName": "Thor",
+  "lastName": " Odinson",
+  "address": {
+    "street": "123 Asgard Street",
+    "city": "Asgard",
+    "state": "9R",
+    "zip": "0G9",
+    "country": "Observable Universe"
+  }
+}
+{
+  "personCode": "3679",
+  "firstName": "Peter",
+  "lastName": " Parker",
+  "address": {
+    "street": "1 Brooklyn Street",
+    "city": "New York",
+    "state": "NY",
+    "zip": "10005-0012",
+    "country": "USA"
+  }
+}
+{
+  "personCode": "321f",
+  "firstName": "Fox",
+  "lastName": " Bud",
+  "address": {
+    "street": "321 Bronx Street",
+    "city": "New York",
+    "state": "NY",
+    "zip": "10004",
+    "country": "USA"
+  },
+  "email": [
+    "bfox@gmail.com",
+    "csheen@crazy.net"
+  ]
+}
+{
+  "personCode": "3567",
+  "firstName": "Bruce",
+  "lastName": " Wane",
+  "address": {
+    "street": "Under waterFall",
+    "city": "Gotham",
+    "state": "NY",
+    "zip": "60613",
+    "country": "USA"
+  },
+  "email": [
+    "wane$yahoo.com"
+  ]
+}
+{
+  "personCode": "3213",
+  "firstName": "Elon",
+  "lastName": " Musk",
+  "address": {
+    "street": "Some Street",
+    "city": "Cape Town",
+    "state": "CT",
+    "zip": "60613",
+    "country": "South Africa"
+  },
+  "email": [
+    "musk@gmail.com"
+  ]
+}
+{
+  "personCode": "3467",
+  "firstName": "DJ",
+  "lastName": " Patrick",
+  "address": {
+    "street": "1060 West Albuquerque Street",
+    "city": "Dallas",
+    "state": "IL",
+    "zip": "60613",
+    "country": "USA"
+  },
+  "email": [
+    "ptrou32@unl.edu"
+  ]
+}
+{
+  "personCode": "3216",
+  "firstName": "Pertwee",
+  "lastName": " Jon",
+  "address": {
+    "street": "301 Front St W",
+    "city": " Toronto",
+    "state": " ON",
+    "zip": " M5V 2T6",
+    "country": " Canada"
+  },
+  "email": [
+    "jpet@whofan.com"
+  ]
+}
+{
+  "personCode": "2313",
+  "firstName": "Baker",
+  "lastName": "Tom",
+  "address": {
+    "street": "1 Blue Jays Way",
+    "city": " Toronto",
+    "state": " ON",
+    "zip": " M5V 1J1",
+    "country": " Canada"
+  },
+  "email": [
+    "famousdoc@who.com",
+    "tbaker@cse.unl.edu",
+    "mostfamous@whovian.com",
+    "thedoctor@bbc.com"
+  ]
+}
+{
+  "personCode": "6689",
+  "firstName": "Nguyen",
+  "lastName": " Vuong",
+  "address": {
+    "street": "230 N 22nd Street",
+    "city": "Lincoln",
+    "state": "NE",
+    "zip": "68503",
+    "country": "USA"
+  },
+  "email": [
+    "vuongnguyenhuy@yahoo.com"
+  ]
+}
+{
+  "personCode": "3215",
+  "firstName": "Baker",
+  "lastName": " Fat",
+  "address": {
+    "street": "356 Avery Hall",
+    "city": "Lincoln",
+    "state": "NE",
+    "zip": "68503",
+    "country": "USA"
+  },
+  "email": [
+    "dr@baker.com"
+  ]
+}
+{
+  "personCode": "4567",
+  "firstName": "McCoy",
+  "lastName": "Sylvester",
+  "address": {
+    "street": "Detrtaskge Ave",
+    "city": " Flushing",
+    "state": " OO",
+    "zip": "11368",
+    "country": "SomeplaceOnEarth"
+  },
+  "email": [
+    "slyguy@hotmail.com",
+    "mccoy@whofan.com"
+  ]
+}
+{
+  "personCode": "3567",
+  "firstName": "Bruce",
+  "lastName": " Wane",
+  "address": {
+    "street": "Under waterFall",
+    "city": "Gotham",
+    "state": "NY",
+    "zip": "60613",
+    "country": "USA"
+  },
+  "email": [
+    "wane$yahoo.com"
+  ]
+}
+{
+  "personCode": "3785",
+  "firstName": "Eccleston",
+  "lastName": " Chris",
+  "address": {
+    "street": "1 E 161st St",
+    "city": " Bronx",
+    "state": " NY",
+    "zip": "10451",
+    "country": "USA"
+  },
+  "email": [
+    "newguy@whovian.com"
+  ]
+}
+{
+  "personCode": "5776",
+  "firstName": "Tennant",
+  "lastName": " David",
+  "address": {
+    "street": "359 G wood Ave",
+    "city": " San Francisco",
+    "state": " CA",
+    "zip": " 60611",
+    "country": "USA"
+  },
+  "email": [
+    "actor@shakespeare.com",
+    "tdavid@unl.edu"
+  ]
+}
+{
+  "personCode": "56758",
+  "firstName": "Smith",
+  "lastName": " Matt",
+  "address": {
+    "street": "333 W 35th St",
+    "city": " Wahoo",
+    "state": " NE",
+    "zip": "60616",
+    "country": "USA"
+  },
+  "email": [
+    "msmith@who.com",
+    "thedoc@cse.unl.edu"
+  ]
+}
+{
+  "personCode": "3333",
+  "firstName": "LOL",
+  "lastName": " Kaylee",
+  "address": {
+    "street": "800 West North 7th Street",
+    "city": " Omaha",
+    "state": " NE",
+    "zip": " 87105",
+    "country": "USA"
+  }
+}
+{
+  "personCode": "2799",
+  "firstName": "David",
+  "lastName": " CopperFile",
+  "address": {
+    "street": "Llalala Land",
+    "city": " lalala state",
+    "state": " LA",
+    "zip": "1111134",
+    "country": " LAlalala"
+  }
+}

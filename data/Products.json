@@ -1,0 +1,141 @@
+{
+  "YearMembership": {
+    "productCode": "b29e",
+    "productType": "Y",
+    "startDate": "2017-01-13",
+    "endDate": "2018-01-12",
+    "address": {
+      "street": "179 West Lane",
+      "city": "Lincoln",
+      "state": "NE",
+      "zip": "68588-0115",
+      "country": "USA"
+    },
+    "membershipName": "Gold Package",
+    "pricePerUnit": "450.00"
+  }
+}
+{
+  "EquipmentRentals": {
+    "productCode": "ff23",
+    "productType": "R",
+    "productName": "Boxing Glove-Large",
+    "productCost": "4.99"
+  }
+}
+{
+  "DayMembership": {
+    "productCode": "fp12",
+    "productType": "D",
+    "startDate": "2016-10-21 13:10",
+    "address": {
+      "street": "3555 South 140th Plaza",
+      "city": "Omaha",
+      "state": " NE",
+      "zip": " 68144",
+      "country": " USA"
+    },
+    "cost": "21.50"
+  }
+}
+{
+  "ParkingPasses": {
+    "productCode": "90fa",
+    "prodcutType": "P",
+    "parkingFee": "25.00"
+  }
+}
+{
+  "DayMembership": {
+    "productCode": "1239",
+    "productType": "D",
+    "startDate": "2018-01-16 15:30",
+    "address": {
+      "street": "755 Willard Drive",
+      "city": "Ashwaubenon",
+      "state": " WI",
+      "zip": " 54304",
+      "country": " USA"
+    },
+    "cost": "11.00"
+  }
+}
+{
+  "DayMembership": {
+    "productCode": "782g",
+    "productType": "D",
+    "startDate": "2016-11-10 10:00",
+    "address": {
+      "street": "6301 University Ave",
+      "city": "Cedar Falls",
+      "state": " IA",
+      "zip": " 50613",
+      "country": " USA"
+    },
+    "cost": "25.00"
+  }
+}
+{
+  "ParkingPasses": {
+    "productCode": "3289",
+    "prodcutType": "P",
+    "parkingFee": "55.00"
+  }
+}
+{
+  "EquipmentRentals": {
+    "productCode": "32f4",
+    "productType": "R",
+    "productName": "Tennis Racket",
+    "productCost": "5.50"
+  }
+}
+{
+  "YearMembership": {
+    "productCode": "3y92",
+    "productType": "Y",
+    "startDate": "2017-11-24",
+    "endDate": "2018-11-23",
+    "address": {
+      "street": "449 3rd Ave",
+      "city": "Omaha",
+      "state": "NE",
+      "zip": "68521-5593",
+      "country": "USA"
+    },
+    "membershipName": "Ultimate Workout",
+    "pricePerUnit": "550.0"
+  }
+}
+{
+  "ParkingPasses": {
+    "productCode": "90fb",
+    "prodcutType": "P",
+    "parkingFee": "20.00"
+  }
+}
+{
+  "YearMembership": {
+    "productCode": "xer4",
+    "productType": "Y",
+    "startDate": "2016-10-07",
+    "endDate": "2017-10-06",
+    "address": {
+      "street": "375 Northwoods",
+      "city": "Souix City",
+      "state": " IA",
+      "zip": " 44982",
+      "country": " USA"
+    },
+    "membershipName": "Bronze Fit",
+    "pricePerUnit": "185.0"
+  }
+}
+{
+  "EquipmentRentals": {
+    "productCode": "yp23",
+    "productType": "R",
+    "productName": "Cross Country Skis-Large",
+    "productCost": "19.50"
+  }
+}

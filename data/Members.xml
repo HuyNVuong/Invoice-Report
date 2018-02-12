@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<members>
+  <memberCode>MI07</memberCode>
+  <type>M</type>
+  <primaryContact>007</primaryContact>
+  <name>James Bond</name>
+  <address>
+    <street>2356 Queen street</street>
+    <city>Liverpool</city>
+    <state>LV</state>
+    <zip>34538567</zip>
+    <country>UK</country>
+  </address>
+</members><members>
+  <memberCode>M002</memberCode>
+  <type>S</type>
+  <primaryContact>1519</primaryContact>
+  <name>Huy Vuong</name>
+  <address>
+    <street>Apt 3 230 North 22nd</street>
+    <city>Lincoln</city>
+    <state>NE</state>
+    <zip>68503</zip>
+    <country>USA</country>
+  </address>
+</members><members>
+  <memberCode>M003</memberCode>
+  <type>S</type>
+  <primaryContact>3245</primaryContact>
+  <name>Vu Thai</name>
+  <address>
+    <street>Selleck hall</street>
+    <city>Lincoln</city>
+    <state>NE</state>
+    <zip>68526</zip>
+    <country>USA</country>
+  </address>
+</members><members>
+  <memberCode>M004</memberCode>
+  <type>G</type>
+  <primaryContact>1235</primaryContact>
+  <name>Harry Porter</name>
+  <address>
+    <street>9800 Hogwarts</street>
+    <city>Fort Cauhon</city>
+    <state>ME</state>
+    <zip>20755</zip>
+    <country>UK</country>
+  </address>
+</members><members>
+  <memberCode>M005</memberCode>
+  <type>G</type>
+  <primaryContact>5306</primaryContact>
+  <name>Just want a name</name>
+  <address>
+    <street>1060 West Addison</street>
+    <city>Chicago</city>
+    <state>IL</state>
+    <zip>67676</zip>
+    <country>USA</country>
+  </address>
+</members><members>
+  <memberCode>M006</memberCode>
+  <type>S</type>
+  <primaryContact>3214</primaryContact>
+  <name>Gregory Smith</name>
+  <address>
+    <street>Some Place on earth</street>
+    <city>Omaha</city>
+    <state>NE</state>
+    <zip>68545</zip>
+    <country>USA</country>
+  </address>
+</members>
