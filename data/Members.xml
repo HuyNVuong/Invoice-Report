@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <members>
-  <memberCode>MI07</memberCode>
-  <type>M</type>
-  <primaryContact>007</primaryContact>
-  <name>James Bond</name>
+  <memberCode>M001</memberCode>
+  <type>G</type>
+  <primaryContact>231</primaryContact>
+  <name>Clark Consultants</name>
   <address>
-    <street>2356 Queen street</street>
-    <city>Liverpool</city>
-    <state>LV</state>
-    <zip>34538567</zip>
-    <country>UK</country>
+    <street>259 Concorde Suites</street>
+    <city>Lincoln</city>
+    <state>NE</state>
+    <zip>68588-0115</zip>
+    <country>USA</country>
   </address>
 </members><members>
   <memberCode>M002</memberCode>
   <type>S</type>
-  <primaryContact>1519</primaryContact>
-  <name>Huy Vuong</name>
+  <primaryContact>944c</primaryContact>
+  <name>CAS International Fellows</name>
   <address>
-    <street>Apt 3 230 North 22nd</street>
+    <street>1223 Oldfather Hall</street>
     <city>Lincoln</city>
     <state>NE</state>
     <zip>68503</zip>
@@ -26,49 +26,49 @@
 </members><members>
   <memberCode>M003</memberCode>
   <type>S</type>
-  <primaryContact>3245</primaryContact>
-  <name>Vu Thai</name>
+  <primaryContact>306a</primaryContact>
+  <name>Valueless Club</name>
   <address>
-    <street>Selleck hall</street>
-    <city>Lincoln</city>
-    <state>NE</state>
-    <zip>68526</zip>
+    <street>123 Venture Way</street>
+    <city>Culver City</city>
+    <state>CA</state>
+    <zip>90230</zip>
     <country>USA</country>
   </address>
 </members><members>
   <memberCode>M004</memberCode>
   <type>G</type>
-  <primaryContact>1235</primaryContact>
-  <name>Harry Porter</name>
+  <primaryContact>321f</primaryContact>
+  <name>Stony Brook</name>
   <address>
-    <street>9800 Hogwarts</street>
-    <city>Fort Cauhon</city>
-    <state>ME</state>
+    <street>9800 Savage Rd</street>
+    <city>Fort Meade</city>
+    <state>MD</state>
     <zip>20755</zip>
-    <country>UK</country>
+    <country>USA</country>
   </address>
 </members><members>
   <memberCode>M005</memberCode>
   <type>G</type>
-  <primaryContact>5306</primaryContact>
-  <name>Just want a name</name>
+  <primaryContact>bbchar</primaryContact>
+  <name>Hewlett Industries</name>
   <address>
     <street>1060 West Addison</street>
     <city>Chicago</city>
     <state>IL</state>
-    <zip>67676</zip>
+    <zip>60601</zip>
     <country>USA</country>
   </address>
 </members><members>
   <memberCode>M006</memberCode>
   <type>S</type>
-  <primaryContact>3214</primaryContact>
+  <primaryContact>321dr</primaryContact>
   <name>Gregory Smith</name>
   <address>
-    <street>Some Place on earth</street>
+    <street>456 West 7th St.</street>
     <city>Omaha</city>
     <state>NE</state>
-    <zip>68545</zip>
+    <zip>68500</zip>
     <country>USA</country>
   </address>
 </members>

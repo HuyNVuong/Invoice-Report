@@ -1,23 +1,23 @@
 {
-  "memberCode": "MI07",
-  "type": "M",
-  "primaryContact": "007",
-  "name": "James Bond",
+  "memberCode": "M001",
+  "type": "G",
+  "primaryContact": "231",
+  "name": "Clark Consultants",
   "address": {
-    "street": "2356 Queen street",
-    "city": "Liverpool",
-    "state": "LV",
-    "zip": "34538567",
-    "country": "UK"
+    "street": "259 Concorde Suites",
+    "city": "Lincoln",
+    "state": "NE",
+    "zip": "68588-0115",
+    "country": "USA"
   }
 }
 {
   "memberCode": "M002",
   "type": "S",
-  "primaryContact": "1519",
-  "name": "Huy Vuong",
+  "primaryContact": "944c",
+  "name": "CAS International Fellows",
   "address": {
-    "street": "Apt 3 230 North 22nd",
+    "street": "1223 Oldfather Hall",
     "city": "Lincoln",
     "state": "NE",
     "zip": "68503",
@@ -27,52 +27,52 @@
 {
   "memberCode": "M003",
   "type": "S",
-  "primaryContact": "3245",
-  "name": "Vu Thai",
+  "primaryContact": "306a",
+  "name": "Valueless Club",
   "address": {
-    "street": "Selleck hall",
-    "city": "Lincoln",
-    "state": "NE",
-    "zip": "68526",
+    "street": "123 Venture Way",
+    "city": "Culver City",
+    "state": "CA",
+    "zip": "90230",
     "country": "USA"
   }
 }
 {
   "memberCode": "M004",
   "type": "G",
-  "primaryContact": "1235",
-  "name": "Harry Porter",
+  "primaryContact": "321f",
+  "name": "Stony Brook",
   "address": {
-    "street": "9800 Hogwarts",
-    "city": "Fort Cauhon",
-    "state": "ME",
+    "street": "9800 Savage Rd",
+    "city": "Fort Meade",
+    "state": "MD",
     "zip": "20755",
-    "country": "UK"
+    "country": "USA"
   }
 }
 {
   "memberCode": "M005",
   "type": "G",
-  "primaryContact": "5306",
-  "name": "Just want a name",
+  "primaryContact": "bbchar",
+  "name": "Hewlett Industries",
   "address": {
     "street": "1060 West Addison",
     "city": "Chicago",
     "state": "IL",
-    "zip": "67676",
+    "zip": "60601",
     "country": "USA"
   }
 }
 {
   "memberCode": "M006",
   "type": "S",
-  "primaryContact": "3214",
+  "primaryContact": "321dr",
   "name": "Gregory Smith",
   "address": {
-    "street": "Some Place on earth",
+    "street": "456 West 7th St.",
     "city": "Omaha",
     "state": "NE",
-    "zip": "68545",
+    "zip": "68500",
     "country": "USA"
   }
 }
