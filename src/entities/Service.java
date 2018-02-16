@@ -1,35 +1,40 @@
 package entities;
 
 public class Service extends Products {
-	boolean isParkingPasses;
+boolean isStudent;
 
-	public boolean isParkingPasses() {
-		return isParkingPasses;
+	
+
+	public boolean isStudent() {
+		return isStudent;
 	}
 
-	public void setParkingPasses(boolean isParkingPasses) {
-		this.isParkingPasses = isParkingPasses;
+	public void setStudent(boolean isStudent) {
+		this.isStudent = isStudent;
 	}
 
-	public Service(entities.ParkingPasses parkingPasses, boolean isParkingPasses) {
+
+	public Service(entities.ParkingPasses parkingPasses, boolean isStudent) {
 		super(parkingPasses);
-		this.isParkingPasses = isParkingPasses;
+		this.isStudent = isStudent;
 	}
-	public Service(entities.EquipmentRentals equipmentRentals, boolean isParkingPasses) {
+	public Service(entities.EquipmentRentals equipmentRentals, boolean isStudent) {
 		super(equipmentRentals);
-		this.isParkingPasses = isParkingPasses;
+		this.isStudent = isStudent;
 	}
 
 	@Override
-	public double getDateCost() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public double getPassesCost() {
-		// TODO Auto-generated method stub
+	public double getCost() {
+		double cost = 0.0;
+		if(!isStudent) {
 		
+		}
+		return cost;
+	}
+
+	@Override
+	public double getTax() {
+		// TODO Auto-generated method stub
 		return 0;
 	}
 

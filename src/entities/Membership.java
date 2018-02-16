@@ -2,26 +2,33 @@
 package entities;
 
 public class Membership extends Products {
-	boolean isYearPass;
+	boolean isStudent;
 
-	public Membership(entities.YearMembership yearMembership, boolean isYearPass) {
+	public boolean isStudent() {
+		return isStudent;
+	}
+
+	public void setStudent(boolean isStudent) {
+		this.isStudent = isStudent;
+	}
+
+	
+	public Membership(entities.YearMembership yearMembership, boolean isStudent) {
 		super(yearMembership);
-		this.isYearPass = isYearPass;
-	}
-
-	public Membership(entities.DayMembership dayMembership, boolean isYearPass) {
-		super(dayMembership);
-		this.isYearPass  = isYearPass;
+		this.isStudent = isStudent;
 	}
 
 	@Override
-	public double getDateCost() {
-		// TODO Auto-generated method stub
-		return 0;
+	public double getCost() {
+		double cost = 0.0;
+		if(!isStudent) {
+			
+		}
+		return cost;
 	}
 
 	@Override
-	public double getPassesCost() {
+	public double getTax() {
 		// TODO Auto-generated method stub
 		return 0;
 	}

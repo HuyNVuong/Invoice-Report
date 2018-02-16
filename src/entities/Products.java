@@ -57,8 +57,8 @@ public abstract class Products {
 	public Products(entities.ParkingPasses parkingPasses) {
 		ParkingPasses = parkingPasses;
 	}
-	public abstract double getDateCost();
-	public abstract double getPassesCost();
+	public abstract double getCost();
+	public abstract double getTax();
 	
 	
 }
