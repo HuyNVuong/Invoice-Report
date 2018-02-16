@@ -44,5 +44,5 @@ public class Invoice {
 		this.invoiceDate = invoiceDate;
 		this.productsCode = productsCode;
 	}
-	
+
 }

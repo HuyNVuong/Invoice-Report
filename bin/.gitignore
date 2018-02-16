@@ -2,5 +2,9 @@
 /driver/
 /entities/
 /reader/
+<<<<<<< HEAD
 /umlDiagram.ucls
 /writer/
+=======
+/driver/
+>>>>>>> refs/remotes/origin/master

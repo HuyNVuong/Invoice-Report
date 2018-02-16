@@ -1,7 +1,7 @@
 /* Member Classes that provide necessary Members varaibles */
 package entities;
 
-public abstract class Members {
+public class Members {
 	private String memberCode;
 	private String type;
 	private String primaryContact;
@@ -50,6 +50,6 @@ public abstract class Members {
 		this.name = name;
 	}
 	// Changes added to phase 2
-	public abstract double getDiscount();
-	public abstract double getExtraFees();
+//	public abstract double getDiscount();
+//	public abstract double getExtraFees();
 }
