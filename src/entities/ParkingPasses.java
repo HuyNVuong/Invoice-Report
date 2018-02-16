@@ -36,7 +36,7 @@ public class ParkingPasses extends Service {
 		this.isStudent = membersType.toLowerCase().equals("s");
 		System.out.println(this.isStudent);
 		if(!isStudent) {
-			tax = this.getCost() * 0.06;
+			tax = this.getCost() * 0.04;
 		}
 		return tax;
 	}
