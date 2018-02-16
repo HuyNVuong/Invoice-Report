@@ -41,7 +41,7 @@ public class MembersFileReader {
 				MembersAddress address = new MembersAddress(street, city, state, zip, country);
 				
 				// Creates a Members object  // updated: changes made for phase 2
-				General members = new General(memberCode, type, primaryContact, name, address);
+				Members members = new Members(memberCode, type, primaryContact, name, address);
 				
 				// Adds the Members object into Person ArrayList
 				membersList.add(members);

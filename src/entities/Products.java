@@ -4,6 +4,7 @@ package entities;
 public abstract class Products {
 	private String productsCode;
 	private String productsType;
+
 	
 	public String getProductsCode() {
 		return productsCode;
