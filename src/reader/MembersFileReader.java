@@ -23,7 +23,7 @@ public class MembersFileReader {
 			ArrayList<Members> membersList = new ArrayList<Members>();
 			while(sc.hasNext()) {
 				String line = sc.nextLine(); // reads each line starting from 2nd line
-				String data[] = line.split(";"); // tokenizes the line and stores in a tring array 
+				String data[] = line.split(";"); // tokenizes the line and stores in a string array 
 				
 				// Stores the  array elements of each line into strings
 				String memberCode = data[0];

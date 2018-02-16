@@ -23,6 +23,7 @@ public class DataConverter {
 		MembersFileReader members = new MembersFileReader();
 		PersonsFileReader persons = new PersonsFileReader();
 		ProductsFileReader products = new ProductsFileReader();
+		
 		/* 
 		 * fr Reads data from the flat file;
 		 * Creates entities objects; and
@@ -31,6 +32,7 @@ public class DataConverter {
 		List<Members> membersList = members.readMembers();
 		List<Persons> personsList = persons.readPersons();
 		List<Products> productsList = products.readProducts();
+		
 		// Write entities from ArrayList into a Json file
 		JsonWriterMembers jWriterMembers = new JsonWriterMembers();
 		JsonWriterPersons jWriterPersons = new JsonWriterPersons();
