@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import entities.General;
 import entities.Members;
 import entities.MembersAddress;
 
@@ -38,8 +40,8 @@ public class MembersFileReader {
 				// Creates an Address object
 				MembersAddress address = new MembersAddress(street, city, state, zip, country);
 				
-				// Creates a Members object
-				Members members = new Members(memberCode, type, primaryContact, name, address);
+				// Creates a Members object .Updated: changes made for phase 2
+				General members = new General(memberCode, type, primaryContact, name, address, false);
 				
 				// Adds the Members object into Person ArrayList
 				membersList.add(members);

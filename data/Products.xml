@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<members>
+<entities.Membership>
   <YearMembership>
     <productCode>b29e</productCode>
     <productType>Y</productType>
@@ -15,14 +15,16 @@
     <membershipName>Gold Package</membershipName>
     <pricePerUnit>450.00</pricePerUnit>
   </YearMembership>
-</members><members>
+  <isYearPass>false</isYearPass>
+</entities.Membership><entities.Service>
   <EquipmentRentals>
     <productCode>ff23</productCode>
     <productType>R</productType>
     <productName>Boxing Glove-Large</productName>
     <productCost>4.99</productCost>
   </EquipmentRentals>
-</members><members>
+  <isParkingPasses>false</isParkingPasses>
+</entities.Service><entities.Membership>
   <DayMembership>
     <productCode>fp12</productCode>
     <productType>D</productType>
@@ -36,13 +38,15 @@
     </address>
     <cost>21.50</cost>
   </DayMembership>
-</members><members>
+  <isYearPass>false</isYearPass>
+</entities.Membership><entities.Service>
   <ParkingPasses>
     <productCode>90fa</productCode>
     <prodcutType>P</prodcutType>
     <parkingFee>25.00</parkingFee>
   </ParkingPasses>
-</members><members>
+  <isParkingPasses>false</isParkingPasses>
+</entities.Service><entities.Membership>
   <DayMembership>
     <productCode>1239</productCode>
     <productType>D</productType>
@@ -56,7 +60,8 @@
     </address>
     <cost>11.00</cost>
   </DayMembership>
-</members><members>
+  <isYearPass>false</isYearPass>
+</entities.Membership><entities.Membership>
   <DayMembership>
     <productCode>782g</productCode>
     <productType>D</productType>
@@ -70,20 +75,23 @@
     </address>
     <cost>25.00</cost>
   </DayMembership>
-</members><members>
+  <isYearPass>false</isYearPass>
+</entities.Membership><entities.Service>
   <ParkingPasses>
     <productCode>3289</productCode>
     <prodcutType>P</prodcutType>
     <parkingFee>55.00</parkingFee>
   </ParkingPasses>
-</members><members>
+  <isParkingPasses>false</isParkingPasses>
+</entities.Service><entities.Service>
   <EquipmentRentals>
     <productCode>32f4</productCode>
     <productType>R</productType>
     <productName>Tennis Racket</productName>
     <productCost>5.50</productCost>
   </EquipmentRentals>
-</members><members>
+  <isParkingPasses>false</isParkingPasses>
+</entities.Service><entities.Membership>
   <YearMembership>
     <productCode>3y92</productCode>
     <productType>Y</productType>
@@ -99,13 +107,15 @@
     <membershipName>Ultimate Workout</membershipName>
     <pricePerUnit>550.0</pricePerUnit>
   </YearMembership>
-</members><members>
+  <isYearPass>false</isYearPass>
+</entities.Membership><entities.Service>
   <ParkingPasses>
     <productCode>90fb</productCode>
     <prodcutType>P</prodcutType>
     <parkingFee>20.00</parkingFee>
   </ParkingPasses>
-</members><members>
+  <isParkingPasses>false</isParkingPasses>
+</entities.Service><entities.Membership>
   <YearMembership>
     <productCode>xer4</productCode>
     <productType>Y</productType>
@@ -121,11 +131,13 @@
     <membershipName>Bronze Fit</membershipName>
     <pricePerUnit>185.0</pricePerUnit>
   </YearMembership>
-</members><members>
+  <isYearPass>false</isYearPass>
+</entities.Membership><entities.Service>
   <EquipmentRentals>
     <productCode>yp23</productCode>
     <productType>R</productType>
     <productName>Cross Country Skis-Large</productName>
     <productCost>19.50</productCost>
   </EquipmentRentals>
-</members>
+  <isParkingPasses>false</isParkingPasses>
+</entities.Service>

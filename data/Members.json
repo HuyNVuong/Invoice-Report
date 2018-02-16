@@ -1,4 +1,5 @@
 {
+  "isStudent": false,
   "memberCode": "M001",
   "type": "G",
   "primaryContact": "231",
@@ -12,6 +13,7 @@
   }
 }
 {
+  "isStudent": false,
   "memberCode": "M002",
   "type": "S",
   "primaryContact": "944c",
@@ -25,6 +27,7 @@
   }
 }
 {
+  "isStudent": false,
   "memberCode": "M003",
   "type": "S",
   "primaryContact": "306a",
@@ -38,6 +41,7 @@
   }
 }
 {
+  "isStudent": false,
   "memberCode": "M004",
   "type": "G",
   "primaryContact": "321f",
@@ -51,6 +55,7 @@
   }
 }
 {
+  "isStudent": false,
   "memberCode": "M005",
   "type": "G",
   "primaryContact": "bbchar",
@@ -64,6 +69,7 @@
   }
 }
 {
+  "isStudent": false,
   "memberCode": "M006",
   "type": "S",
   "primaryContact": "321dr",

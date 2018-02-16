@@ -1,7 +1,7 @@
-/* Product classes that provide neccesarry varaible for productsclasses and call DayMembership, YearMembership, ParkingPasses and EquipmentRentals classes */
+/* Product classes that provide neccesarry variable for products classes and call DayMembership, YearMembership, ParkingPasses and EquipmentRentals classes */
 package entities;
 
-public class Products {
+public abstract class Products {
 	private String productsCode;
 	private String productsType;
 	private YearMembership YearMembership;
@@ -46,25 +46,19 @@ public class Products {
 		EquipmentRentals = equipmentRentals;
 	}
 	public Products(entities.YearMembership yearMembership) {
-//		this.productsCode = productsCode;
-//		this.productsType = productsType;
 		YearMembership = yearMembership;
 	}
 	public Products(entities.EquipmentRentals equipmentRentals) {
-//		this.productsCode = productsCode;
-//		this.productsType = productsType;
 		EquipmentRentals = equipmentRentals;
 	}
 	public Products(entities.DayMembership dayMembership) {
-//		this.productsCode = productsCode;
-//		this.productsType = productsType;
 		DayMembership = dayMembership;
 	}
 	public Products(entities.ParkingPasses parkingPasses) {
-//		this.productsCode = productsCode;
-//		this.productsType = productsType;
 		ParkingPasses = parkingPasses;
 	}
+	public abstract double getDateCost();
+	public abstract double getPassesCost();
 	
 	
 }

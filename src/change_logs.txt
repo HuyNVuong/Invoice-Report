@@ -1,0 +1,8 @@
+phase 1: Initial set ups and implement, no changes added.
+phase 2: + Added abstract to Members and Products classes, added some abstract method 
+           for those them.
+		 + Redesign the MembersFileReader and ProductsFileReader so they would
+		   compatible with the changes added to the Entities.
+		 + Implement 3 new classes: General that takes and differentiate 2 types of 
+		   Members classes. Added Membership and Service classes to support and 
+		   differentiate different types of Products.

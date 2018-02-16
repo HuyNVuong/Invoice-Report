@@ -1,4 +1,5 @@
 {
+  "isYearPass": false,
   "YearMembership": {
     "productCode": "b29e",
     "productType": "Y",
@@ -16,6 +17,7 @@
   }
 }
 {
+  "isParkingPasses": false,
   "EquipmentRentals": {
     "productCode": "ff23",
     "productType": "R",
@@ -24,6 +26,7 @@
   }
 }
 {
+  "isYearPass": false,
   "DayMembership": {
     "productCode": "fp12",
     "productType": "D",
@@ -39,6 +42,7 @@
   }
 }
 {
+  "isParkingPasses": false,
   "ParkingPasses": {
     "productCode": "90fa",
     "prodcutType": "P",
@@ -46,6 +50,7 @@
   }
 }
 {
+  "isYearPass": false,
   "DayMembership": {
     "productCode": "1239",
     "productType": "D",
@@ -61,6 +66,7 @@
   }
 }
 {
+  "isYearPass": false,
   "DayMembership": {
     "productCode": "782g",
     "productType": "D",
@@ -76,6 +82,7 @@
   }
 }
 {
+  "isParkingPasses": false,
   "ParkingPasses": {
     "productCode": "3289",
     "prodcutType": "P",
@@ -83,6 +90,7 @@
   }
 }
 {
+  "isParkingPasses": false,
   "EquipmentRentals": {
     "productCode": "32f4",
     "productType": "R",
@@ -91,6 +99,7 @@
   }
 }
 {
+  "isYearPass": false,
   "YearMembership": {
     "productCode": "3y92",
     "productType": "Y",
@@ -108,6 +117,7 @@
   }
 }
 {
+  "isParkingPasses": false,
   "ParkingPasses": {
     "productCode": "90fb",
     "prodcutType": "P",
@@ -115,6 +125,7 @@
   }
 }
 {
+  "isYearPass": false,
   "YearMembership": {
     "productCode": "xer4",
     "productType": "Y",
@@ -132,6 +143,7 @@
   }
 }
 {
+  "isParkingPasses": false,
   "EquipmentRentals": {
     "productCode": "yp23",
     "productType": "R",

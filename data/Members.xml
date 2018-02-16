@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<members>
+<entities.General>
   <memberCode>M001</memberCode>
   <type>G</type>
   <primaryContact>231</primaryContact>
@@ -11,7 +11,8 @@
     <zip>68588-0115</zip>
     <country>USA</country>
   </address>
-</members><members>
+  <isStudent>false</isStudent>
+</entities.General><entities.General>
   <memberCode>M002</memberCode>
   <type>S</type>
   <primaryContact>944c</primaryContact>
@@ -23,7 +24,8 @@
     <zip>68503</zip>
     <country>USA</country>
   </address>
-</members><members>
+  <isStudent>false</isStudent>
+</entities.General><entities.General>
   <memberCode>M003</memberCode>
   <type>S</type>
   <primaryContact>306a</primaryContact>
@@ -35,7 +37,8 @@
     <zip>90230</zip>
     <country>USA</country>
   </address>
-</members><members>
+  <isStudent>false</isStudent>
+</entities.General><entities.General>
   <memberCode>M004</memberCode>
   <type>G</type>
   <primaryContact>321f</primaryContact>
@@ -47,7 +50,8 @@
     <zip>20755</zip>
     <country>USA</country>
   </address>
-</members><members>
+  <isStudent>false</isStudent>
+</entities.General><entities.General>
   <memberCode>M005</memberCode>
   <type>G</type>
   <primaryContact>bbchar</primaryContact>
@@ -59,7 +63,8 @@
     <zip>60601</zip>
     <country>USA</country>
   </address>
-</members><members>
+  <isStudent>false</isStudent>
+</entities.General><entities.General>
   <memberCode>M006</memberCode>
   <type>S</type>
   <primaryContact>321dr</primaryContact>
@@ -71,4 +76,5 @@
     <zip>68500</zip>
     <country>USA</country>
   </address>
-</members>
+  <isStudent>false</isStudent>
+</entities.General>
