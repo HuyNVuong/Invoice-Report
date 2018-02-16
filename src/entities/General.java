@@ -12,10 +12,10 @@ public class General extends Members {
 		this.isStudent = isStudent;
 	}
 
-	public General(String memberCode, String type, String primaryContact, String name, MembersAddress address,
-			boolean isStudent) {
+	public General(String memberCode, String type, String primaryContact, String name, MembersAddress address) {
 		super(memberCode, type, primaryContact, name, address);
-		this.isStudent = isStudent;
+		//this.isStudent = isStudent;
+		this.isStudent = type.toLowerCase().equals("s");
 	}
 
 	@Override

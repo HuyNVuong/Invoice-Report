@@ -1,7 +1,7 @@
 /* Supports Products classes */
 package entities;
 
-public class YearMembership {
+public class YearMembership extends Membership {
 	private String productCode;
 	private String productType;
 	private String startDate;
@@ -9,6 +9,7 @@ public class YearMembership {
 	private ProductsAddress address;
 	private String membershipName;
 	private String pricePerUnit;
+	private boolean isStudent;
 	
 	public String getProductCode() {
 		return productCode;
@@ -52,10 +53,9 @@ public class YearMembership {
 	public void setPricePerUnit(String pricePerUnit) {
 		this.pricePerUnit = pricePerUnit;
 	}
-	
-	public YearMembership(String productCode, String productType, String startDate, String endDate,
-			ProductsAddress address, String membershipName, String pricePerUnit) {
-		
+	public YearMembership(YearMembership yearMembership, String productCode, String productType,
+			String startDate, String endDate, ProductsAddress address, String membershipName, String pricePerUnit) {
+		super(yearMembership);
 		this.productCode = productCode;
 		this.productType = productType;
 		this.startDate = startDate;
@@ -64,4 +64,23 @@ public class YearMembership {
 		this.membershipName = membershipName;
 		this.pricePerUnit = pricePerUnit;
 	}
+	@Override
+	public double getCost() {
+		double cost = Double.parseDouble(this.pricePerUnit);
+		return cost;
+	}
+	@Override
+	public double getTax() {
+		
+		return 0;
+	}
+	@Override
+	public double getTotal() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
+	
+	
 }

@@ -40,8 +40,8 @@ public class MembersFileReader {
 				// Creates an Address object
 				MembersAddress address = new MembersAddress(street, city, state, zip, country);
 				
-				// Creates a Members object .Updated: changes made for phase 2
-				General members = new General(memberCode, type, primaryContact, name, address, false);
+				// Creates a Members object  // updated: changes made for phase 2
+				General members = new General(memberCode, type, primaryContact, name, address);
 				
 				// Adds the Members object into Person ArrayList
 				membersList.add(members);

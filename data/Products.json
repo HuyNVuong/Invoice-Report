@@ -1,5 +1,5 @@
 {
-  "isYearPass": false,
+  "isStudent": false,
   "YearMembership": {
     "productCode": "b29e",
     "productType": "Y",
@@ -17,7 +17,7 @@
   }
 }
 {
-  "isParkingPasses": false,
+  "isStudent": false,
   "EquipmentRentals": {
     "productCode": "ff23",
     "productType": "R",
@@ -26,7 +26,7 @@
   }
 }
 {
-  "isYearPass": false,
+  "isStudent": false,
   "DayMembership": {
     "productCode": "fp12",
     "productType": "D",
@@ -42,7 +42,7 @@
   }
 }
 {
-  "isParkingPasses": false,
+  "isStudent": false,
   "ParkingPasses": {
     "productCode": "90fa",
     "prodcutType": "P",
@@ -50,7 +50,7 @@
   }
 }
 {
-  "isYearPass": false,
+  "isStudent": false,
   "DayMembership": {
     "productCode": "1239",
     "productType": "D",
@@ -66,7 +66,7 @@
   }
 }
 {
-  "isYearPass": false,
+  "isStudent": false,
   "DayMembership": {
     "productCode": "782g",
     "productType": "D",
@@ -82,7 +82,7 @@
   }
 }
 {
-  "isParkingPasses": false,
+  "isStudent": false,
   "ParkingPasses": {
     "productCode": "3289",
     "prodcutType": "P",
@@ -90,7 +90,7 @@
   }
 }
 {
-  "isParkingPasses": false,
+  "isStudent": false,
   "EquipmentRentals": {
     "productCode": "32f4",
     "productType": "R",
@@ -99,7 +99,7 @@
   }
 }
 {
-  "isYearPass": false,
+  "isStudent": false,
   "YearMembership": {
     "productCode": "3y92",
     "productType": "Y",
@@ -117,7 +117,7 @@
   }
 }
 {
-  "isParkingPasses": false,
+  "isStudent": false,
   "ParkingPasses": {
     "productCode": "90fb",
     "prodcutType": "P",
@@ -125,7 +125,7 @@
   }
 }
 {
-  "isYearPass": false,
+  "isStudent": false,
   "YearMembership": {
     "productCode": "xer4",
     "productType": "Y",
@@ -143,7 +143,7 @@
   }
 }
 {
-  "isParkingPasses": false,
+  "isStudent": false,
   "EquipmentRentals": {
     "productCode": "yp23",
     "productType": "R",

@@ -1,38 +1,18 @@
 /* A subclass of Products classes that contains year and days passses */
 package entities;
 
-public class Membership extends Products {
-	boolean isStudent;
+public abstract class Membership extends Products {
 
-	public boolean isStudent() {
-		return isStudent;
-	}
-
-	public void setStudent(boolean isStudent) {
-		this.isStudent = isStudent;
-	}
-
-	
-	public Membership(entities.YearMembership yearMembership, boolean isStudent) {
+	public Membership(entities.YearMembership yearMembership) {
 		super(yearMembership);
-		this.isStudent = isStudent;
+		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-	public double getCost() {
-		double cost = 0.0;
-		if(!isStudent) {
-			
-		}
-		return cost;
+	public Membership(entities.DayMembership dayMembership) {
+		super(dayMembership);
+		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-	public double getTax() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-	
+	public abstract double getCost();
+	public abstract double getTax();
+	public abstract double getTotal();
 	
 }

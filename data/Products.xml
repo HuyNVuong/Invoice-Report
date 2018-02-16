@@ -15,7 +15,7 @@
     <membershipName>Gold Package</membershipName>
     <pricePerUnit>450.00</pricePerUnit>
   </YearMembership>
-  <isYearPass>false</isYearPass>
+  <isStudent>false</isStudent>
 </entities.Membership><entities.Service>
   <EquipmentRentals>
     <productCode>ff23</productCode>
@@ -23,7 +23,7 @@
     <productName>Boxing Glove-Large</productName>
     <productCost>4.99</productCost>
   </EquipmentRentals>
-  <isParkingPasses>false</isParkingPasses>
+  <isStudent>false</isStudent>
 </entities.Service><entities.Membership>
   <DayMembership>
     <productCode>fp12</productCode>
@@ -38,14 +38,14 @@
     </address>
     <cost>21.50</cost>
   </DayMembership>
-  <isYearPass>false</isYearPass>
+  <isStudent>false</isStudent>
 </entities.Membership><entities.Service>
   <ParkingPasses>
     <productCode>90fa</productCode>
     <prodcutType>P</prodcutType>
     <parkingFee>25.00</parkingFee>
   </ParkingPasses>
-  <isParkingPasses>false</isParkingPasses>
+  <isStudent>false</isStudent>
 </entities.Service><entities.Membership>
   <DayMembership>
     <productCode>1239</productCode>
@@ -60,7 +60,7 @@
     </address>
     <cost>11.00</cost>
   </DayMembership>
-  <isYearPass>false</isYearPass>
+  <isStudent>false</isStudent>
 </entities.Membership><entities.Membership>
   <DayMembership>
     <productCode>782g</productCode>
@@ -75,14 +75,14 @@
     </address>
     <cost>25.00</cost>
   </DayMembership>
-  <isYearPass>false</isYearPass>
+  <isStudent>false</isStudent>
 </entities.Membership><entities.Service>
   <ParkingPasses>
     <productCode>3289</productCode>
     <prodcutType>P</prodcutType>
     <parkingFee>55.00</parkingFee>
   </ParkingPasses>
-  <isParkingPasses>false</isParkingPasses>
+  <isStudent>false</isStudent>
 </entities.Service><entities.Service>
   <EquipmentRentals>
     <productCode>32f4</productCode>
@@ -90,7 +90,7 @@
     <productName>Tennis Racket</productName>
     <productCost>5.50</productCost>
   </EquipmentRentals>
-  <isParkingPasses>false</isParkingPasses>
+  <isStudent>false</isStudent>
 </entities.Service><entities.Membership>
   <YearMembership>
     <productCode>3y92</productCode>
@@ -107,14 +107,14 @@
     <membershipName>Ultimate Workout</membershipName>
     <pricePerUnit>550.0</pricePerUnit>
   </YearMembership>
-  <isYearPass>false</isYearPass>
+  <isStudent>false</isStudent>
 </entities.Membership><entities.Service>
   <ParkingPasses>
     <productCode>90fb</productCode>
     <prodcutType>P</prodcutType>
     <parkingFee>20.00</parkingFee>
   </ParkingPasses>
-  <isParkingPasses>false</isParkingPasses>
+  <isStudent>false</isStudent>
 </entities.Service><entities.Membership>
   <YearMembership>
     <productCode>xer4</productCode>
@@ -131,7 +131,7 @@
     <membershipName>Bronze Fit</membershipName>
     <pricePerUnit>185.0</pricePerUnit>
   </YearMembership>
-  <isYearPass>false</isYearPass>
+  <isStudent>false</isStudent>
 </entities.Membership><entities.Service>
   <EquipmentRentals>
     <productCode>yp23</productCode>
@@ -139,5 +139,5 @@
     <productName>Cross Country Skis-Large</productName>
     <productCost>19.50</productCost>
   </EquipmentRentals>
-  <isParkingPasses>false</isParkingPasses>
+  <isStudent>false</isStudent>
 </entities.Service>

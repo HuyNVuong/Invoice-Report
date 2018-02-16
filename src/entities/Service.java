@@ -26,14 +26,17 @@ boolean isStudent;
 	@Override
 	public double getCost() {
 		double cost = 0.0;
-		if(!isStudent) {
-		
-		}
 		return cost;
 	}
 
 	@Override
 	public double getTax() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getTotal() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
