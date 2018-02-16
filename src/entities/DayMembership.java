@@ -1,24 +1,11 @@
 /* DayMembership classes that supports Products classes */
 package entities;
 
-public class DayMembership {
-	private String productCode;
-	private String productType;
+public class DayMembership extends Membership{
 	private String startDate;
 	private ProductsAddress address;
-	private String cost;
-	public String getProductCode() {
-		return productCode;
-	}
-	public void setProductCode(String productCode) {
-		this.productCode = productCode;
-	}
-	public String getProductType() {
-		return productType;
-	}
-	public void setProductType(String productType) {
-		this.productType = productType;
-	}
+	private String costPerUnit;
+
 	public String getStartDate() {
 		return startDate;
 	}
@@ -31,19 +18,37 @@ public class DayMembership {
 	public void setAddress(ProductsAddress address) {
 		this.address = address;
 	}
-	public String getCost() {
-		return cost;
+	public String getCostPerUnit() {
+		return costPerUnit;
 	}
-	public void setCost(String cost) {
-		this.cost = cost;
+	public void setCostPerUnit(String costPerUnit) {
+		this.costPerUnit = costPerUnit;
 	}
-	public DayMembership(String productCode, String productType, String startDate, ProductsAddress address,
-			String cost) {
-		this.productCode = productCode;
-		this.productType = productType;
+	
+	
+	public DayMembership(String productsCode, String productsType,
+			String startDate, ProductsAddress address, String costPerUnit) {
+		super(productsCode, productsType);
 		this.startDate = startDate;
 		this.address = address;
-		this.cost = cost;
+		this.costPerUnit = costPerUnit;
 	}
+	@Override
+	public double getCost() {
+		double cost = Double.parseDouble(this.costPerUnit);
+		return cost;
+	}
+	@Override
+	public double getTax() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public double getTotal() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
 	
 }

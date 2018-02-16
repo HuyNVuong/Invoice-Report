@@ -2,14 +2,10 @@
 package entities;
 
 public abstract class Membership extends Products {
-
-	public Membership(entities.YearMembership yearMembership) {
-		super(yearMembership);
-		// TODO Auto-generated constructor stub
-	}
-	public Membership(entities.DayMembership dayMembership) {
-		super(dayMembership);
-		// TODO Auto-generated constructor stub
+	
+	
+	public Membership(String productsCode, String productsType) {
+		super(productsCode, productsType);
 	}
 	public abstract double getCost();
 	public abstract double getTax();

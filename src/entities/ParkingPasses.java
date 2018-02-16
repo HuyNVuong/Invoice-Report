@@ -1,32 +1,36 @@
 /* Parking passes that supports Products classes */
 package entities;
 
-public class ParkingPasses {
-	private String productCode;
-	private String prodcutType;
+public class ParkingPasses extends Service {
+
 	private String parkingFee;
-	public String getProductCode() {
-		return productCode;
-	}
-	public void setProductCode(String productCode) {
-		this.productCode = productCode;
-	}
-	public String getProdcutType() {
-		return prodcutType;
-	}
-	public void setProdcutType(String prodcutType) {
-		this.prodcutType = prodcutType;
-	}
+	
 	public String getParkingFee() {
 		return parkingFee;
 	}
 	public void setParkingFee(String parkingFee) {
 		this.parkingFee = parkingFee;
 	}
-	public ParkingPasses(String productCode, String prodcutType, String parkingFee) {
-		this.productCode = productCode;
-		this.prodcutType = prodcutType;
+	
+	public ParkingPasses(String productsCode, String productsType, String parkingFee) {
+		super(productsCode, productsType);
 		this.parkingFee = parkingFee;
 	}
+	@Override
+	public double getCost() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public double getTax() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public double getTotal() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
 	
 }

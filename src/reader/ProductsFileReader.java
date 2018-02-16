@@ -49,8 +49,7 @@ public class ProductsFileReader {
 					String pricePerUnit = data[6];
 					YearMembership YearMembership = new YearMembership (productCode, productType, startDate, endDate, address, membershipName, pricePerUnit);
 					// Creates a Product object
-					Membership products = new Membership (YearMembership, false);
-					productsList.add(products);
+					productsList.add(YearMembership);
 
 				}
 				if(productType.equals("D")) {
@@ -67,23 +66,23 @@ public class ProductsFileReader {
 					String cost = data[4];
 					DayMembership DayMembership = new DayMembership (productCode, productType, startDate, address, cost);
 					// Creates a Product object
-					Membership products = new Membership(DayMembership, false);
-					productsList.add(products);
+					
+					productsList.add(DayMembership);
 				}
 				if(productType.equals("P")) {
 					String parkingFee = data[2];
 					ParkingPasses ParkingPasses = new ParkingPasses (productCode, productType, parkingFee);
-					Service products = new Service(ParkingPasses, false);
+					
 					// Creates a Product object
-					productsList.add(products);
+					productsList.add(ParkingPasses);
 				}
 				if(productType.equals("R")) {
 					String name = data[2];
 					String cost = data [3];
 					EquipmentRentals EquipmentRentals = new EquipmentRentals (productCode, productType, name, cost);
-					Service products = new Service(EquipmentRentals, false);
+				
 					// Creates a Product object
-					productsList.add(products);
+					productsList.add(EquipmentRentals);
 				}
 				
 								

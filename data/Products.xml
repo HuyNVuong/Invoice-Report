@@ -1,143 +1,110 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<entities.Membership>
-  <YearMembership>
-    <productCode>b29e</productCode>
-    <productType>Y</productType>
-    <startDate>2017-01-13</startDate>
-    <endDate>2018-01-12</endDate>
-    <address>
-      <street>179 West Lane</street>
-      <city>Lincoln</city>
-      <state>NE</state>
-      <zip>68588-0115</zip>
-      <country>USA</country>
-    </address>
-    <membershipName>Gold Package</membershipName>
-    <pricePerUnit>450.00</pricePerUnit>
-  </YearMembership>
+<entities.YearMembership>
+  <productsCode>b29e</productsCode>
+  <productsType>Y</productsType>
+  <startDate>2017-01-13</startDate>
+  <endDate>2018-01-12</endDate>
+  <address>
+    <street>179 West Lane</street>
+    <city>Lincoln</city>
+    <state>NE</state>
+    <zip>68588-0115</zip>
+    <country>USA</country>
+  </address>
+  <membershipName>Gold Package</membershipName>
+  <pricePerUnit>450.00</pricePerUnit>
   <isStudent>false</isStudent>
-</entities.Membership><entities.Service>
-  <EquipmentRentals>
-    <productCode>ff23</productCode>
-    <productType>R</productType>
-    <productName>Boxing Glove-Large</productName>
-    <productCost>4.99</productCost>
-  </EquipmentRentals>
+</entities.YearMembership><entities.EquipmentRentals>
+  <productsCode>ff23</productsCode>
+  <productsType>R</productsType>
+  <productName>Boxing Glove-Large</productName>
+  <productCost>4.99</productCost>
+</entities.EquipmentRentals><entities.DayMembership>
+  <productsCode>fp12</productsCode>
+  <productsType>D</productsType>
+  <startDate>2016-10-21 13:10</startDate>
+  <address>
+    <street>3555 South 140th Plaza</street>
+    <city>Omaha</city>
+    <state> NE</state>
+    <zip> 68144</zip>
+    <country> USA</country>
+  </address>
+  <costPerUnit>21.50</costPerUnit>
+</entities.DayMembership><entities.ParkingPasses>
+  <productsCode>90fa</productsCode>
+  <productsType>P</productsType>
+  <parkingFee>25.00</parkingFee>
+</entities.ParkingPasses><entities.DayMembership>
+  <productsCode>1239</productsCode>
+  <productsType>D</productsType>
+  <startDate>2018-01-16 15:30</startDate>
+  <address>
+    <street>755 Willard Drive</street>
+    <city>Ashwaubenon</city>
+    <state> WI</state>
+    <zip> 54304</zip>
+    <country> USA</country>
+  </address>
+  <costPerUnit>11.00</costPerUnit>
+</entities.DayMembership><entities.DayMembership>
+  <productsCode>782g</productsCode>
+  <productsType>D</productsType>
+  <startDate>2016-11-10 10:00</startDate>
+  <address>
+    <street>6301 University Ave</street>
+    <city>Cedar Falls</city>
+    <state> IA</state>
+    <zip> 50613</zip>
+    <country> USA</country>
+  </address>
+  <costPerUnit>25.00</costPerUnit>
+</entities.DayMembership><entities.ParkingPasses>
+  <productsCode>3289</productsCode>
+  <productsType>P</productsType>
+  <parkingFee>55.00</parkingFee>
+</entities.ParkingPasses><entities.EquipmentRentals>
+  <productsCode>32f4</productsCode>
+  <productsType>R</productsType>
+  <productName>Tennis Racket</productName>
+  <productCost>5.50</productCost>
+</entities.EquipmentRentals><entities.YearMembership>
+  <productsCode>3y92</productsCode>
+  <productsType>Y</productsType>
+  <startDate>2017-11-24</startDate>
+  <endDate>2018-11-23</endDate>
+  <address>
+    <street>449 3rd Ave</street>
+    <city>Omaha</city>
+    <state>NE</state>
+    <zip>68521-5593</zip>
+    <country>USA</country>
+  </address>
+  <membershipName>Ultimate Workout</membershipName>
+  <pricePerUnit>550.0</pricePerUnit>
   <isStudent>false</isStudent>
-</entities.Service><entities.Membership>
-  <DayMembership>
-    <productCode>fp12</productCode>
-    <productType>D</productType>
-    <startDate>2016-10-21 13:10</startDate>
-    <address>
-      <street>3555 South 140th Plaza</street>
-      <city>Omaha</city>
-      <state> NE</state>
-      <zip> 68144</zip>
-      <country> USA</country>
-    </address>
-    <cost>21.50</cost>
-  </DayMembership>
+</entities.YearMembership><entities.ParkingPasses>
+  <productsCode>90fb</productsCode>
+  <productsType>P</productsType>
+  <parkingFee>20.00</parkingFee>
+</entities.ParkingPasses><entities.YearMembership>
+  <productsCode>xer4</productsCode>
+  <productsType>Y</productsType>
+  <startDate>2016-10-07</startDate>
+  <endDate>2017-10-06</endDate>
+  <address>
+    <street>375 Northwoods</street>
+    <city>Souix City</city>
+    <state> IA</state>
+    <zip> 44982</zip>
+    <country> USA</country>
+  </address>
+  <membershipName>Bronze Fit</membershipName>
+  <pricePerUnit>185.0</pricePerUnit>
   <isStudent>false</isStudent>
-</entities.Membership><entities.Service>
-  <ParkingPasses>
-    <productCode>90fa</productCode>
-    <prodcutType>P</prodcutType>
-    <parkingFee>25.00</parkingFee>
-  </ParkingPasses>
-  <isStudent>false</isStudent>
-</entities.Service><entities.Membership>
-  <DayMembership>
-    <productCode>1239</productCode>
-    <productType>D</productType>
-    <startDate>2018-01-16 15:30</startDate>
-    <address>
-      <street>755 Willard Drive</street>
-      <city>Ashwaubenon</city>
-      <state> WI</state>
-      <zip> 54304</zip>
-      <country> USA</country>
-    </address>
-    <cost>11.00</cost>
-  </DayMembership>
-  <isStudent>false</isStudent>
-</entities.Membership><entities.Membership>
-  <DayMembership>
-    <productCode>782g</productCode>
-    <productType>D</productType>
-    <startDate>2016-11-10 10:00</startDate>
-    <address>
-      <street>6301 University Ave</street>
-      <city>Cedar Falls</city>
-      <state> IA</state>
-      <zip> 50613</zip>
-      <country> USA</country>
-    </address>
-    <cost>25.00</cost>
-  </DayMembership>
-  <isStudent>false</isStudent>
-</entities.Membership><entities.Service>
-  <ParkingPasses>
-    <productCode>3289</productCode>
-    <prodcutType>P</prodcutType>
-    <parkingFee>55.00</parkingFee>
-  </ParkingPasses>
-  <isStudent>false</isStudent>
-</entities.Service><entities.Service>
-  <EquipmentRentals>
-    <productCode>32f4</productCode>
-    <productType>R</productType>
-    <productName>Tennis Racket</productName>
-    <productCost>5.50</productCost>
-  </EquipmentRentals>
-  <isStudent>false</isStudent>
-</entities.Service><entities.Membership>
-  <YearMembership>
-    <productCode>3y92</productCode>
-    <productType>Y</productType>
-    <startDate>2017-11-24</startDate>
-    <endDate>2018-11-23</endDate>
-    <address>
-      <street>449 3rd Ave</street>
-      <city>Omaha</city>
-      <state>NE</state>
-      <zip>68521-5593</zip>
-      <country>USA</country>
-    </address>
-    <membershipName>Ultimate Workout</membershipName>
-    <pricePerUnit>550.0</pricePerUnit>
-  </YearMembership>
-  <isStudent>false</isStudent>
-</entities.Membership><entities.Service>
-  <ParkingPasses>
-    <productCode>90fb</productCode>
-    <prodcutType>P</prodcutType>
-    <parkingFee>20.00</parkingFee>
-  </ParkingPasses>
-  <isStudent>false</isStudent>
-</entities.Service><entities.Membership>
-  <YearMembership>
-    <productCode>xer4</productCode>
-    <productType>Y</productType>
-    <startDate>2016-10-07</startDate>
-    <endDate>2017-10-06</endDate>
-    <address>
-      <street>375 Northwoods</street>
-      <city>Souix City</city>
-      <state> IA</state>
-      <zip> 44982</zip>
-      <country> USA</country>
-    </address>
-    <membershipName>Bronze Fit</membershipName>
-    <pricePerUnit>185.0</pricePerUnit>
-  </YearMembership>
-  <isStudent>false</isStudent>
-</entities.Membership><entities.Service>
-  <EquipmentRentals>
-    <productCode>yp23</productCode>
-    <productType>R</productType>
-    <productName>Cross Country Skis-Large</productName>
-    <productCost>19.50</productCost>
-  </EquipmentRentals>
-  <isStudent>false</isStudent>
-</entities.Service>
+</entities.YearMembership><entities.EquipmentRentals>
+  <productsCode>yp23</productsCode>
+  <productsType>R</productsType>
+  <productName>Cross Country Skis-Large</productName>
+  <productCost>19.50</productCost>
+</entities.EquipmentRentals>

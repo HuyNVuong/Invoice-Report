@@ -13,7 +13,7 @@
   }
 }
 {
-  "isStudent": false,
+  "isStudent": true,
   "memberCode": "M002",
   "type": "S",
   "primaryContact": "944c",
@@ -27,7 +27,7 @@
   }
 }
 {
-  "isStudent": false,
+  "isStudent": true,
   "memberCode": "M003",
   "type": "S",
   "primaryContact": "306a",
@@ -69,7 +69,7 @@
   }
 }
 {
-  "isStudent": false,
+  "isStudent": true,
   "memberCode": "M006",
   "type": "S",
   "primaryContact": "321dr",

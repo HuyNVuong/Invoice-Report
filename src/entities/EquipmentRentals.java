@@ -1,23 +1,11 @@
 /* EquipmentRetals classes that supports Porducts classes */
 package entities;
 
-public class EquipmentRentals {
-	private String productCode;
-	private String productType;
+public class EquipmentRentals extends Service {
+	
 	private String productName;
 	private String productCost;
-	public String getProductCode() {
-		return productCode;
-	}
-	public void setProductCode(String productCode) {
-		this.productCode = productCode;
-	}
-	public String getProductType() {
-		return productType;
-	}
-	public void setProductType(String productType) {
-		this.productType = productType;
-	}
+	
 	public String getProductName() {
 		return productName;
 	}
@@ -30,11 +18,27 @@ public class EquipmentRentals {
 	public void setProductCost(String productCost) {
 		this.productCost = productCost;
 	}
-	public EquipmentRentals(String productCode, String productType, String productName, String productCost) {
-		this.productCode = productCode;
-		this.productType = productType;
+	public EquipmentRentals(String productsCode, String productsType, String productName, String productCost) {
+		super(productsCode, productsType);
 		this.productName = productName;
 		this.productCost = productCost;
 	}
+	@Override
+	public double getCost() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public double getTax() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public double getTotal() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
 	
 }

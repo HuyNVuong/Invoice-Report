@@ -2,8 +2,7 @@
 package entities;
 
 public class YearMembership extends Membership {
-	private String productCode;
-	private String productType;
+	
 	private String startDate;
 	private String endDate;
 	private ProductsAddress address;
@@ -11,18 +10,7 @@ public class YearMembership extends Membership {
 	private String pricePerUnit;
 	private boolean isStudent;
 	
-	public String getProductCode() {
-		return productCode;
-	}
-	public void setProductCode(String productCode) {
-		this.productCode = productCode;
-	}
-	public String getProductType() {
-		return productType;
-	}
-	public void setProductType(String productType) {
-		this.productType = productType;
-	}
+	
 	public String getStartDate() {
 		return startDate;
 	}
@@ -53,11 +41,10 @@ public class YearMembership extends Membership {
 	public void setPricePerUnit(String pricePerUnit) {
 		this.pricePerUnit = pricePerUnit;
 	}
-	public YearMembership(YearMembership yearMembership, String productCode, String productType,
+	public YearMembership(String productCode, String productType,
 			String startDate, String endDate, ProductsAddress address, String membershipName, String pricePerUnit) {
-		super(yearMembership);
-		this.productCode = productCode;
-		this.productType = productType;
+		super(productCode, productType);
+	
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.address = address;

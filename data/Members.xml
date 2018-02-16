@@ -24,7 +24,7 @@
     <zip>68503</zip>
     <country>USA</country>
   </address>
-  <isStudent>false</isStudent>
+  <isStudent>true</isStudent>
 </entities.General><entities.General>
   <memberCode>M003</memberCode>
   <type>S</type>
@@ -37,7 +37,7 @@
     <zip>90230</zip>
     <country>USA</country>
   </address>
-  <isStudent>false</isStudent>
+  <isStudent>true</isStudent>
 </entities.General><entities.General>
   <memberCode>M004</memberCode>
   <type>G</type>
@@ -76,5 +76,5 @@
     <zip>68500</zip>
     <country>USA</country>
   </address>
-  <isStudent>false</isStudent>
+  <isStudent>true</isStudent>
 </entities.General>
