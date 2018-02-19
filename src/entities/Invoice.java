@@ -1,11 +1,13 @@
 package entities;
 
+import java.util.List;
+
 public class Invoice {
 	private String invoiceCode;
 	private Members membersCode;
 	private Persons personsCode;
 	private String invoiceDate;
-	private Products productsCode;
+	private List<Products> products;
 	public String getInvoiceCode() {
 		return invoiceCode;
 	}
@@ -30,19 +32,20 @@ public class Invoice {
 	public void setInvoiceDate(String invoiceDate) {
 		this.invoiceDate = invoiceDate;
 	}
-	public Products getProductsCode() {
-		return productsCode;
+	public List<Products> getProducts() {
+		return products;
 	}
-	public void setProductsCode(Products productsCode) {
-		this.productsCode = productsCode;
+	public void setProducts(List<Products> products) {
+		this.products = products;
 	}
 	public Invoice(String invoiceCode, Members membersCode, Persons personsCode, String invoiceDate,
-			Products productsCode) {
+			List<Products> products) {
 		this.invoiceCode = invoiceCode;
 		this.membersCode = membersCode;
 		this.personsCode = personsCode;
 		this.invoiceDate = invoiceDate;
-		this.productsCode = productsCode;
+		this.products = products;
 	}
+	
 
 }

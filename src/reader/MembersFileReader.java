@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import entities.General;
 import entities.Members;
 import entities.MembersAddress;
 
