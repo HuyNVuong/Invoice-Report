@@ -29,9 +29,36 @@ public class InvoiceConsoleOutput {
 		System.out.println(String.format("%-20s %-50s %-32s %-15s %-15s %-15s %-15s %-15s", "Invoice", "Member",  "Personal Trainer", "Subtotal", "Fees", "Taxes", "Discount", "Total"));
 		
 		for(Invoice element : invoiceList) {
-			System.out.println(String.format("%-20s %-50s %-32s %-15.2f %-15.2f %-15.2f %-15.2f %-15.2f", element.getInvoiceCode(), element.getMembersCode(), element.getPersonsCode(), 0.0, 0.0, 0.0, 0.0, 0.0));
+			System.out.println(String.format("%-20s %-50s %-32s %-15.2f %-15.2f %-15.2f %-15.2f %-15.2f", element.getInvoiceCode(), element.getMembersCode().getName(), element.getPersonsCode(), 0.0, 0.0, 0.0, 0.0, 0.0));
 		}
 		System.out.println("==================================================================================================================================================================================");
-		
+		System.out.println("TOTALS");
+		System.out.println("\nIndividual Invoice Detail Reports");
+		System.out.println("=================================================");
+		for(Invoice element : invoiceList) {
+			System.out.println("Invoice " + element.getInvoiceCode());
+			System.out.println("========================================");
+			System.out.println("Personal trainer: " + element.getPersonsCode());
+			System.out.println("Members info: ");
+			for(Members aMember : membersList) {
+				if(aMember.getMemberCode().equals(element.getMembersCode().getMemberCode())) {
+					System.out.println(aMember.getName() + " (" + aMember.getMemberCode() + ")");
+					if(aMember.getType().toLowerCase().equals("s")) {
+						System.out.println("[Student]");
+					} else {
+						System.out.println("[General]");
+					}
+					for(Persons aPerson : personsList) {
+						if(aMember.getPrimaryContact().equals(aPerson.getPersonCode())) {
+							System.out.println(aPerson.getFirstName() + ", " + aPerson.getLastName());
+						}
+					}
+					System.out.println(aMember.getAddress());
+				}
+			}
+			System.out.println("-----------------------------");
+			
+			System.out.println();
+		}
 	}
 }

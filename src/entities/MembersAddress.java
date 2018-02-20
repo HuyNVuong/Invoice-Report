@@ -44,5 +44,9 @@ public class MembersAddress {
 	public void setCountry(String country) {
 		this.country = country;
 	}
+	@Override
+	public String toString() {
+		return String.format("%s\n%s %s %s %s", street, city, state, zip, country);
+	}
 	
 }
