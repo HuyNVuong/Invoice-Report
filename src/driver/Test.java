@@ -15,6 +15,7 @@ import reader.MembersFileReader;
 import reader.PersonsFileReader;
 import reader.ProductsFileReader;
 import reader.InvoiceFileReader;
+import writer.InvoiceConsoleOutput;
 
 public class Test {
 	public static void main (String args[]) {
@@ -41,6 +42,7 @@ public class Test {
 		for(Invoice element : invoiceList) {
 			System.out.println(element);
 		}
-		
+		InvoiceConsoleOutput writer = new InvoiceConsoleOutput();
+		writer.InvoiceReportWriter();
 	}
 }

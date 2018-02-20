@@ -50,6 +50,10 @@ public class Members {
 		this.name = name;
 	}
 	// Changes added to phase 2
-//	public abstract double getDiscount();
-//	public abstract double getExtraFees();
+
+	@Override
+	public String toString() {
+			return name;
+	}
+	
 }

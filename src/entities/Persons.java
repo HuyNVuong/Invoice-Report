@@ -48,6 +48,11 @@ public class Persons {
 		this.address = address;
 		this.email = email;
 	}
+	@Override
+	public String toString() {
+		return  firstName + ", "  + lastName;
+	}
+	
 
 	
 	

@@ -4,8 +4,8 @@ import java.util.List;
 
 public class Invoice {
 	private String invoiceCode;
-	private String membersCode;
-	private String personsCode;
+	private Members membersCode;
+	private Persons personsCode;
 	private String invoiceDate;
 	private Products products;
 	public String getInvoiceCode() {
@@ -15,17 +15,16 @@ public class Invoice {
 		this.invoiceCode = invoiceCode;
 	}
 	
-	
-	public String getMembersCode() {
+	public Members getMembersCode() {
 		return membersCode;
 	}
-	public void setMembersCode(String membersCode) {
+	public void setMembersCode(Members membersCode) {
 		this.membersCode = membersCode;
 	}
-	public String getPersonsCode() {
+	public Persons getPersonsCode() {
 		return personsCode;
 	}
-	public void setPersonsCode(String personsCode) {
+	public void setPersonsCode(Persons personsCode) {
 		this.personsCode = personsCode;
 	}
 	public String getInvoiceDate() {
@@ -40,7 +39,8 @@ public class Invoice {
 	public void setProducts(Products products) {
 		this.products = products;
 	}
-	public Invoice(String invoiceCode, String membersCode, String personsCode, String invoiceDate,
+	
+	public Invoice(String invoiceCode, Members membersCode, Persons personsCode, String invoiceDate,
 			Products products) {
 		this.invoiceCode = invoiceCode;
 		this.membersCode = membersCode;
@@ -48,7 +48,6 @@ public class Invoice {
 		this.invoiceDate = invoiceDate;
 		this.products = products;
 	}
-	@Override
 	public String toString() {
 		return "Invoice [ " + invoiceCode + " " + membersCode + " " + personsCode
 				+" " + invoiceDate + " " + products + "]";

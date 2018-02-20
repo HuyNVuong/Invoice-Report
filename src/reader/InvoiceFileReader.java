@@ -78,7 +78,7 @@ public class InvoiceFileReader {
 						foundMember = aMember;
 					}
 				}
-				Invoice invoice = new Invoice(invoiceCode, membersCode, trainerCode, invoiceDate, foundProduct);
+				Invoice invoice = new Invoice(invoiceCode, foundMember, foundPerson, invoiceDate, foundProduct);
 				invoiceList.add(invoice);
 			}
 			sc.close();
