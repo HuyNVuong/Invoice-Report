@@ -7,6 +7,7 @@ public class Members {
 	private String primaryContact;
 	private String name;
 	private MembersAddress address;
+	private boolean isStudent;
 	
 	public Members(String memberCode, String type, String primaryContact, String name, MembersAddress address) {
 		super();
@@ -15,6 +16,15 @@ public class Members {
 		this.primaryContact = primaryContact;
 		this.name = name;
 		this.address = address;
+		this.isStudent = type.toLowerCase().equals("s");
+	}
+	
+	public boolean isStudent() {
+		return isStudent;
+	}
+
+	public void setStudent(boolean isStudent) {
+		this.isStudent = isStudent;
 	}
 
 	public String getMemberCode() {
@@ -53,7 +63,10 @@ public class Members {
 
 	@Override
 	public String toString() {
-			return name;
+		if(isStudent) {
+			return name + " [Student]";
+		} 
+		return name + " [General]";
 	}
 	
 }

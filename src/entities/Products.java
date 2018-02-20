@@ -4,7 +4,7 @@ package entities;
 public abstract class Products {
 	private String productsCode;
 	private String productsType;
-
+	private int productsQuantity;
 	
 	public String getProductsCode() {
 		return productsCode;
@@ -19,9 +19,21 @@ public abstract class Products {
 		this.productsType = productsType;
 	}
 	
+	
+	public int getProductsQuantity() {
+		return productsQuantity;
+	}
+	public void setProductsQuantity(int productsQuantity) {
+		this.productsQuantity = productsQuantity;
+	}
 	public Products(String productsCode, String productsType) {
 		this.productsCode = productsCode;
 		this.productsType = productsType;
+		this.productsQuantity = 0;
+	}
+	public Products(Products products) {
+		this.productsCode = productsCode;
+		this.productsQuantity = products.productsQuantity;
 	}
 	public abstract double getCost();
 	public abstract double getTax();

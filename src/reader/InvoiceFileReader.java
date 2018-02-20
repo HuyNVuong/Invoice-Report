@@ -53,11 +53,11 @@ public class InvoiceFileReader {
 				if(productCodeDetails.length == 1) {
 					productCode = productCodeDetails[0];
 				}
-				else if(productCodeDetails.length == 2) {
+				if(productCodeDetails.length == 2) {
 					productCode = productCodeDetails[0];
 					productCodeQuantity = Integer.parseInt(productCodeDetails[1]);
 				}
-				else if(productCodeDetails.length == 3) {
+				if(productCodeDetails.length == 3) {
 					productCode = productCodeDetails[0];
 					productCodeQuantity = Integer.parseInt(productCodeDetails[1]);
 					productCodeAttach = productCodeDetails[2];

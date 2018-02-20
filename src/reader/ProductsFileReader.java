@@ -47,9 +47,10 @@ public class ProductsFileReader {
 					ProductsAddress address = new ProductsAddress(street, city, state, zip, country);
 					String membershipName = data[5];
 					String pricePerUnit = data[6];
-					YearMembership YearMembership = new YearMembership (productCode, productType, startDate, endDate, address, membershipName, pricePerUnit);
+					YearMembership yearMembership = new YearMembership (productCode, productType, startDate, endDate, address, membershipName, pricePerUnit);
 					// Creates a Product object
-					productsList.add(YearMembership);
+
+					productsList.add(yearMembership);
 
 				}
 				if(productType.equals("D")) {
@@ -85,8 +86,7 @@ public class ProductsFileReader {
 					productsList.add(EquipmentRentals);
 				}
 				
-								
-				// Adds the Product object into Person ArrayLis
+				
 			}
 			sc.close();
 			return productsList;

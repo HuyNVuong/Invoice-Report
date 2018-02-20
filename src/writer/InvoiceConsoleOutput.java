@@ -1,3 +1,4 @@
+/* Java classes that takes all the information from the reader and entities classes and output them in a nice and understandable format */
 package writer;
 
 
@@ -25,10 +26,12 @@ public class InvoiceConsoleOutput {
 		List<Persons> personsList = persons.readPersons();
 		List<Products> productsList = products.readProducts();
 		List<Invoice> invoiceList = invoice.readInvoice(productsList, membersList, personsList);
-		System.out.println(String.format("%-20s %-40s %-15s", "Invoice", "Member", "Personal Trainer"));
+		System.out.println(String.format("%-20s %-50s %-32s %-15s %-15s %-15s %-15s %-15s", "Invoice", "Member",  "Personal Trainer", "Subtotal", "Fees", "Taxes", "Discount", "Total"));
+		
 		for(Invoice element : invoiceList) {
-			System.out.println(String.format("%-20s %-40s %-15s", element.getInvoiceCode(), element.getMembersCode(), element.getPersonsCode()));
+			System.out.println(String.format("%-20s %-50s %-32s %-15.2f %-15.2f %-15.2f %-15.2f %-15.2f", element.getInvoiceCode(), element.getMembersCode(), element.getPersonsCode(), 0.0, 0.0, 0.0, 0.0, 0.0));
 		}
-		System.out.println("==================================");
+		System.out.println("==================================================================================================================================================================================");
+		
 	}
 }

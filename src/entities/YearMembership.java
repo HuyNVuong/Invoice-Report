@@ -41,18 +41,6 @@ public class YearMembership extends Membership {
 	public void setPricePerUnit(String pricePerUnit) {
 		this.pricePerUnit = pricePerUnit;
 	}
-	public YearMembership(String productCode, String productType,
-			String startDate, String endDate, ProductsAddress address, String membershipName, String pricePerUnit) {
-		super(productCode, productType);
-	
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.address = address;
-		this.membershipName = membershipName;
-		this.pricePerUnit = pricePerUnit;
-
-	}
-	
 	private String membersType;
 	public String getMembersType(Members members) {
 		membersType = members.getType();
@@ -68,6 +56,20 @@ public class YearMembership extends Membership {
 		isStudent = membersType.toLowerCase().equals("s");
 		this.isStudent = isStudent;
 	}
+	public YearMembership(String productCode, String productType,
+			String startDate, String endDate, ProductsAddress address, String membershipName, String pricePerUnit) {
+		super(productCode, productType);
+	
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.address = address;
+		this.membershipName = membershipName;
+		this.pricePerUnit = pricePerUnit;
+		// this.isStudent = membersType.toLowerCase().equals("s");
+
+	}
+	
+	
 	@Override
 	public double getCost() {
 		double cost = Double.parseDouble(this.pricePerUnit);
@@ -77,7 +79,6 @@ public class YearMembership extends Membership {
 	public double getTax() {
 		double tax = 10.50;
 		this.isStudent = membersType.toLowerCase().equals("s");
-		System.out.println(this.isStudent);
 		if(!isStudent) {
 			tax = this.getCost() * 0.06;
 		}
