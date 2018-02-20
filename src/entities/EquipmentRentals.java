@@ -54,6 +54,11 @@ public class EquipmentRentals extends Service {
 		} 
 		return this.getCost() - (this.getCost() * 0.08) + this.getTax();
 	}
+	@Override
+	public String toString() {
+		return "EquipmentRentals [" + productName + " " + productCost + " "
+				 + membersType + "]";
+	}
 	
 	
 	

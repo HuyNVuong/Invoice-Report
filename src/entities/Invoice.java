@@ -4,26 +4,28 @@ import java.util.List;
 
 public class Invoice {
 	private String invoiceCode;
-	private Members membersCode;
-	private Persons personsCode;
+	private String membersCode;
+	private String personsCode;
 	private String invoiceDate;
-	private List<Products> products;
+	private Products products;
 	public String getInvoiceCode() {
 		return invoiceCode;
 	}
 	public void setInvoiceCode(String invoiceCode) {
 		this.invoiceCode = invoiceCode;
 	}
-	public Members getMembersCode() {
+	
+	
+	public String getMembersCode() {
 		return membersCode;
 	}
-	public void setMembersCode(Members membersCode) {
+	public void setMembersCode(String membersCode) {
 		this.membersCode = membersCode;
 	}
-	public Persons getPersonsCode() {
+	public String getPersonsCode() {
 		return personsCode;
 	}
-	public void setPersonsCode(Persons personsCode) {
+	public void setPersonsCode(String personsCode) {
 		this.personsCode = personsCode;
 	}
 	public String getInvoiceDate() {
@@ -32,20 +34,26 @@ public class Invoice {
 	public void setInvoiceDate(String invoiceDate) {
 		this.invoiceDate = invoiceDate;
 	}
-	public List<Products> getProducts() {
+	public Products getProducts() {
 		return products;
 	}
-	public void setProducts(List<Products> products) {
+	public void setProducts(Products products) {
 		this.products = products;
 	}
-	public Invoice(String invoiceCode, Members membersCode, Persons personsCode, String invoiceDate,
-			List<Products> products) {
+	public Invoice(String invoiceCode, String membersCode, String personsCode, String invoiceDate,
+			Products products) {
 		this.invoiceCode = invoiceCode;
 		this.membersCode = membersCode;
 		this.personsCode = personsCode;
 		this.invoiceDate = invoiceDate;
 		this.products = products;
 	}
+	@Override
+	public String toString() {
+		return "Invoice [ " + invoiceCode + " " + membersCode + " " + personsCode
+				+" " + invoiceDate + " " + products + "]";
+	}
+	
 	
 
 }

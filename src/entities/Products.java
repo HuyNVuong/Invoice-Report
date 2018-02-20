@@ -26,5 +26,9 @@ public abstract class Products {
 	public abstract double getCost();
 	public abstract double getTax();
 	public abstract double getTotal();
+	@Override
+	public String toString() {
+		return "Products ["+ productsCode + " " + productsType + "]";
+	}
 	
 }
