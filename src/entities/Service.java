@@ -6,8 +6,11 @@ public abstract class Service extends Products {
 		super(productsCode, productsType);
 		// TODO Auto-generated constructor stub
 	}
+
 	public abstract double getCost();
+
 	public abstract double getTax();
+
 	public abstract double getTotal();
-	
+
 }

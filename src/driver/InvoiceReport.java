@@ -20,17 +20,16 @@ public class InvoiceReport {
 		PersonsFileReader persons = new PersonsFileReader();
 		ProductsFileReader products = new ProductsFileReader();
 		InvoiceFileReader invoice = new InvoiceFileReader();
-		
-		/* 
-		 * fr Reads data from the flat file;
-		 * Creates entities objects; and
-		 * Stores entities objects in a entities ArrayList
+
+		/*
+		 * fr Reads data from the flat file; Creates entities objects; and Stores
+		 * entities objects in a entities ArrayList
 		 */
 		List<Members> membersList = members.readMembers();
 		List<Persons> personsList = persons.readPersons();
 		List<Products> productsList = products.readProducts();
 		List<Invoice> invoiceList = invoice.readInvoice(productsList, membersList, personsList);
-	
+
 		System.out.println();
 		// Write invoice report to console
 		InvoiceConsoleOutput invoiceWriter = new InvoiceConsoleOutput();

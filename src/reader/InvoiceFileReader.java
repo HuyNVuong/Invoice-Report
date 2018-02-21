@@ -52,7 +52,7 @@ public class InvoiceFileReader {
 				invoice = new Invoice(invoiceCode, foundMember, foundPerson, invoiceDate);
 				// creates array for list of products
 				String productGetCodeString = data[4];
-				String productCodeList[] = productGetCodeString.split(","); // Store the whole List of code of Product in a string array and concatinate it
+				String productCodeList[] = productGetCodeString.split(","); // Store the whole List of code of Product in a string array and concatinates it
 				String productGetCodeList = null;
 				String productCode = null;
 				for (int i = 0; i < productCodeList.length; i++) { 
