@@ -46,7 +46,7 @@ public class MembersAddress {
 	}
 	@Override
 	public String toString() {
-		return String.format("%s\n%s %s %s %s", street, city, state, zip, country);
+		return String.format("%s\n  %s %s %s %s", street, city, state, zip, country);
 	}
 	
 }

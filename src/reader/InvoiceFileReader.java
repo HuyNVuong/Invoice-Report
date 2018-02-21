@@ -39,38 +39,6 @@ public class InvoiceFileReader {
 				String membersCode = data[1];
 				String trainerCode = data[2];
 				String invoiceDate = data[3];
-
-				// creates array for list of products
-				String productGetCodeString = data[4];
-				String productCodeList[] = productGetCodeString.split(","); // Store the whole List of code of Product in a string array and concatinate it
-				String productGetCodeList = null;
-				String productCode = null;
-				for (int i = 0; i < productCodeList.length; i++) { 
-					productGetCodeList = productCodeList[i]; 
-					String productCodeDetails [] = productGetCodeList.split(":"); // Tokenize a Product to get its productCode
-					int productCodeQuantity = 0;
-					String productCodeAttach = null;
-					if(productCodeDetails.length == 1) {
-						productCode = productCodeDetails[0];
-					}
-					if(productCodeDetails.length == 2) {
-						productCode = productCodeDetails[0];
-						productCodeQuantity = Integer.parseInt(productCodeDetails[1]);
-					}
-					if(productCodeDetails.length == 3) {
-						productCode = productCodeDetails[0];
-						productCodeQuantity = Integer.parseInt(productCodeDetails[1]);
-						productCodeAttach = productCodeDetails[2];
-					}
-				}
-				
-				
-				for (Products aProduct : productsList ) {
-					if(productCode.equals(aProduct.getProductsCode())) {
-						foundProduct = aProduct;
-
-					}
-				}
 				for (Persons aPerson : personsList ) {
 					if(trainerCode.equals(aPerson.getPersonCode())) {
 						foundPerson = aPerson;
@@ -82,7 +50,40 @@ public class InvoiceFileReader {
 					}
 				}
 				invoice = new Invoice(invoiceCode, foundMember, foundPerson, invoiceDate);
+				// creates array for list of products
+				String productGetCodeString = data[4];
+				String productCodeList[] = productGetCodeString.split(","); // Store the whole List of code of Product in a string array and concatinate it
+				String productGetCodeList = null;
+				String productCode = null;
+				for (int i = 0; i < productCodeList.length; i++) { 
+					productGetCodeList = productCodeList[i]; 
+					String productCodeDetails [] = productGetCodeList.split(":"); // Tokenize a Product to get its productCode
+					int productCodeQuantity = 0;
+					String productCodeAttach = null;
+					if(productCodeDetails.length == 2) {
+						productCode = productCodeDetails[0];
+						productCodeQuantity = Integer.parseInt(productCodeDetails[1]);
+					}
+					if(productCodeDetails.length == 3) {
+						productCode = productCodeDetails[0];
+						productCodeQuantity = Integer.parseInt(productCodeDetails[1]);
+						productCodeAttach = productCodeDetails[2];
+					}
+					// For every products that matches the product Code, add it to the Product ArrayList
+					for (Products aProduct : productsList ) {
+						if(productCode.equals(aProduct.getProductsCode())) {
+							foundProduct = aProduct;
+							invoice.addItem(foundProduct);
+							foundProduct.setProductsQuantity(productCodeQuantity);
+							foundProduct.setProductsCodeAttach(productCodeAttach);
+						}
+					}
+				}
+				
+			
+				// invoice = new Invoice(invoiceCode, foundMember, foundPerson, invoiceDate);
 				invoiceList.add(invoice);
+	
 			}
 			sc.close();
 			return invoiceList;

@@ -76,6 +76,7 @@ public class Invoice {
 	}
 	
 	public Invoice(String invoiceCode, Members membersCode, Persons personsCode, String invoiceDate) {
+		super();
 		this.invoiceCode = invoiceCode;
 		this.membersCode = membersCode;
 		this.personsCode = personsCode;
