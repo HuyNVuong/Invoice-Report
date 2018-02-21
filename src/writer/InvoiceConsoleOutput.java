@@ -57,7 +57,7 @@ public class InvoiceConsoleOutput {
 				}
 			}
 			System.out.println("-----------------------------");
-			
+			System.out.printf("%-10s %-80s %-20s %-15s %-15s\n", "Code", "Item", "Subtotal", "Taxes", "Total" );
 			System.out.println();
 		}
 	}

@@ -21,7 +21,7 @@ public class InvoiceFileReader {
 
 			// This Invoice ArrayList stores the Invoice objects
 			ArrayList<Invoice> invoiceList = new ArrayList<Invoice>();
-			
+//			List<Products> getInvoiceProducts = new List<Products>();
 			// Get the Products List from the Products ArrayList
 		
 			
@@ -32,6 +32,7 @@ public class InvoiceFileReader {
 				Products foundProduct = null;
 				Persons foundPerson = null;
 				Members foundMember = null;
+				Invoice invoice = null;
 
 				// Stores the array elements of each line into strings
 				String invoiceCode = data[0];
@@ -43,29 +44,31 @@ public class InvoiceFileReader {
 				String productGetCodeString = data[4];
 				String productCodeList[] = productGetCodeString.split(","); // Store the whole List of code of Product in a string array and concatinate it
 				String productGetCodeList = null;
+				String productCode = null;
 				for (int i = 0; i < productCodeList.length; i++) { 
 					productGetCodeList = productCodeList[i]; 
+					String productCodeDetails [] = productGetCodeList.split(":"); // Tokenize a Product to get its productCode
+					int productCodeQuantity = 0;
+					String productCodeAttach = null;
+					if(productCodeDetails.length == 1) {
+						productCode = productCodeDetails[0];
+					}
+					if(productCodeDetails.length == 2) {
+						productCode = productCodeDetails[0];
+						productCodeQuantity = Integer.parseInt(productCodeDetails[1]);
+					}
+					if(productCodeDetails.length == 3) {
+						productCode = productCodeDetails[0];
+						productCodeQuantity = Integer.parseInt(productCodeDetails[1]);
+						productCodeAttach = productCodeDetails[2];
+					}
 				}
-				String productCodeDetails [] = productGetCodeList.split(":"); // Tokenize a Product to get its productCode
-				String productCode = null;
-				int productCodeQuantity = 0;
-				String productCodeAttach = null;
-				if(productCodeDetails.length == 1) {
-					productCode = productCodeDetails[0];
-				}
-				if(productCodeDetails.length == 2) {
-					productCode = productCodeDetails[0];
-					productCodeQuantity = Integer.parseInt(productCodeDetails[1]);
-				}
-				if(productCodeDetails.length == 3) {
-					productCode = productCodeDetails[0];
-					productCodeQuantity = Integer.parseInt(productCodeDetails[1]);
-					productCodeAttach = productCodeDetails[2];
-				}
+				
 				
 				for (Products aProduct : productsList ) {
 					if(productCode.equals(aProduct.getProductsCode())) {
 						foundProduct = aProduct;
+
 					}
 				}
 				for (Persons aPerson : personsList ) {
@@ -78,7 +81,7 @@ public class InvoiceFileReader {
 						foundMember = aMember;
 					}
 				}
-				Invoice invoice = new Invoice(invoiceCode, foundMember, foundPerson, invoiceDate, foundProduct);
+				invoice = new Invoice(invoiceCode, foundMember, foundPerson, invoiceDate);
 				invoiceList.add(invoice);
 			}
 			sc.close();

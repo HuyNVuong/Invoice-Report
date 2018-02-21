@@ -30,7 +30,10 @@ public class InvoiceReport {
 		List<Persons> personsList = persons.readPersons();
 		List<Products> productsList = products.readProducts();
 		List<Invoice> invoiceList = invoice.readInvoice(productsList, membersList, personsList);
-		
+		for (Invoice element : invoiceList) {
+			System.out.println(element);
+		}
+		System.out.println();
 		// Write invoice report to console
 		InvoiceConsoleOutput invoiceWriter = new InvoiceConsoleOutput();
 		invoiceWriter.InvoiceReportWriter();
