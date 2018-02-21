@@ -21,8 +21,6 @@ import reader.ProductsFileReader;
 
 public class InvoiceConsoleOutput {
 	public void InvoiceReportWriter () {
-		System.out.println("Executive Summary Report");
-		System.out.println("=========================");
 		MembersFileReader members = new MembersFileReader();
 		PersonsFileReader persons = new PersonsFileReader();
 		ProductsFileReader products = new ProductsFileReader();
@@ -31,6 +29,8 @@ public class InvoiceConsoleOutput {
 		List<Persons> personsList = persons.readPersons();
 		List<Products> productsList = products.readProducts();
 		List<Invoice> invoiceList = invoice.readInvoice(productsList, membersList, personsList);
+		System.out.println("Executive Summary Report");
+		System.out.println("=========================");
 		System.out.println(String.format("%-20s %-50s %-32s %-15s %-15s %-15s %-15s %-15s", "Invoice", "Member",  "Personal Trainer", "Subtotal", "Fees", "Taxes", "Discount", "Total"));
 		
 		for(Invoice element : invoiceList) {
@@ -64,49 +64,57 @@ public class InvoiceConsoleOutput {
 					System.out.println("  " + aMember.getAddress());
 				}
 			}
-			System.out.println("-----------------------------");
+			System.out.println("--------------------------------------------------");
 			System.out.printf("%-10s %-80s %-20s %-15s %-15s\n", "Code", "Item", "Subtotal", "Taxes", "Total" );
-			//2nd.1 enhanced for loops that loops through all products list and upcast all its subclasses and print them out
+			//2nd.1 enhanced for loops that loops through all products list and downcast all its subclasses and print them out
 			for(Products elementsProducts : element.getProducts()) {
 				String productsNameType = null;
 			
 				if(elementsProducts.getProductsType().toLowerCase().equals("y")) {
 					productsNameType = "Year-long membership";
+					String getItem = productsNameType + " '" +  ((YearMembership) elementsProducts).getMembershipName() + "' @ " +
+							((YearMembership) elementsProducts).getAddress();
 					if(elementsProducts instanceof YearMembership) {
-					System.out.println(String.format("%-10s %s '%s' @ %-80s\n%-10s (%s) - (%s) (%d units @ $%.1f with off) "
-							, elementsProducts.getProductsCode(), productsNameType, ((YearMembership) elementsProducts).getMembershipName(), ((YearMembership) elementsProducts).getAddress(), " ",  ((YearMembership) elementsProducts).getStartDate(),
-							((YearMembership) elementsProducts).getEndDate(), elementsProducts.getProductsQuantity(), Double.parseDouble(((YearMembership) elementsProducts).getPricePerUnit())));
+					System.out.println(String.format("%-10s %-76s %-5s %.2f\n%-10s (%s) - (%s) (%d units @ $%.2f) ",
+							elementsProducts.getProductsCode(), getItem, "$", 0.0, " ",  ((YearMembership) elementsProducts).getStartDate(),
+							((YearMembership) elementsProducts).getEndDate(), elementsProducts.getProductsQuantity(), 
+							Double.parseDouble(((YearMembership) elementsProducts).getPricePerUnit())));
 					}
 				} else if (elementsProducts.getProductsType().toLowerCase().equals("d")) {
 					productsNameType = "Day-long membership";
+					String getItem = productsNameType + " @ "+ ((DayMembership) elementsProducts).getAddress();
 					if(elementsProducts instanceof DayMembership) {
-					System.out.println(String.format("%-10s %s @ %-80s\n%-10s (%s) (%d units @ $%.1f) ", elementsProducts.getProductsCode(), 
-							productsNameType, ((DayMembership) elementsProducts).getAddress(), " ", ((DayMembership) elementsProducts).getStartDate(),
+					System.out.println(String.format("%-10s %-76s %-5s %.2f\n%-10s (%s) (%d units @ $%.2f) ", elementsProducts.getProductsCode(), 
+							getItem, "$",  0.0, " ", ((DayMembership) elementsProducts).getStartDate(),
 							elementsProducts.getProductsQuantity(), Double.parseDouble(((DayMembership) elementsProducts).getCostPerUnit())));
 					}
 				} else if (elementsProducts.getProductsType().toLowerCase().equals("r")) {
 					productsNameType = "Rental Equipment";
+					String getItem = null;
 					if(elementsProducts instanceof EquipmentRentals) {
 						if(elementsProducts.getProductsCodeAttach() != null) {
-						System.out.println(String.format("%-10s %s - %s - %s\n%-10s (%d units @ $%.1f/unit)", elementsProducts.getProductsCode(), productsNameType,
-								elementsProducts.getProductsCodeAttach(), ((EquipmentRentals) elementsProducts).getProductName(), " ",
-								elementsProducts.getProductsQuantity(), Double.parseDouble(((EquipmentRentals) elementsProducts).getProductCost())));
+							getItem = productsNameType + " - "  + elementsProducts.getProductsCodeAttach() + " - " +
+									((EquipmentRentals) elementsProducts).getProductName();
+						System.out.println(String.format("%-10s %-76s %-5s %.2f\n%-10s (%d units @ $%.2f/unit)", elementsProducts.getProductsCode(), 
+								 getItem, "$", 0.0, " ", elementsProducts.getProductsQuantity(), Double.parseDouble(((EquipmentRentals) elementsProducts).getProductCost())));
 						} else {
-							System.out.println(String.format("%-10s %s - %s\n%-10s (%d units @ $%.1f/unit)", elementsProducts.getProductsCode(), productsNameType,
-									((EquipmentRentals) elementsProducts).getProductName(), " ", elementsProducts.getProductsQuantity(),
-									Double.parseDouble(((EquipmentRentals) elementsProducts).getProductCost())));	
+							getItem = productsNameType + " - " + ((EquipmentRentals) elementsProducts).getProductName();
+						System.out.println(String.format("%-10s %-76s %-5s %.2f\n%-10s (%d units @ $%.2f/unit)", elementsProducts.getProductsCode(), 
+								 getItem, "$", 0.0, " ", elementsProducts.getProductsQuantity(), Double.parseDouble(((EquipmentRentals) elementsProducts).getProductCost())));
 						}
 					}
 				} else {
 					productsNameType = "Parking Pass";
 					if(elementsProducts instanceof ParkingPasses) {
+						String getItem = null;
 						if(elementsProducts.getProductsCodeAttach() != null) {
-						System.out.println(String.format("%-10s %s %s (%d units @ $%.1f)", elementsProducts.getProductsCode(), productsNameType,
-								elementsProducts.getProductsCodeAttach(), elementsProducts.getProductsQuantity(), 
-								Double.parseDouble(((ParkingPasses) elementsProducts).getParkingFee())));
+							getItem = productsNameType + " " + elementsProducts.getProductsCodeAttach() + " (" +  elementsProducts.getProductsQuantity() + 
+									" units @ " + Double.parseDouble(((ParkingPasses) elementsProducts).getParkingFee()) + ")";
+						System.out.println(String.format("%-10s %-76s %-5s %.2f", elementsProducts.getProductsCode(), getItem, "$", 0.0));
 						} else {
-							System.out.println(String.format("%-10s %s (%d units @ $%.1f)", elementsProducts.getProductsCode(), productsNameType,
-									elementsProducts.getProductsQuantity(), Double.parseDouble(((ParkingPasses) elementsProducts).getParkingFee())));
+							getItem = productsNameType + " "+ "(" +  elementsProducts.getProductsQuantity() + 
+									" units @ " + Double.parseDouble(((ParkingPasses) elementsProducts).getParkingFee()) + ")";
+							System.out.println(String.format("%-10s %-76s %-5s %.2f", elementsProducts.getProductsCode(), getItem, "$", 0.0));
 						}
 					}
 				}

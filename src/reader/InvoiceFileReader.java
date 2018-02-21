@@ -81,7 +81,6 @@ public class InvoiceFileReader {
 				}
 				
 			
-				// invoice = new Invoice(invoiceCode, foundMember, foundPerson, invoiceDate);
 				invoiceList.add(invoice);
 	
 			}
