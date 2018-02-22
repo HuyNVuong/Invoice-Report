@@ -9,6 +9,7 @@ public class YearMembership extends Membership {
 	private String membershipName;
 	private String pricePerUnit;
 	private boolean isStudent;
+	private int quantity;
 	
 	
 	public String getStartDate() {
@@ -66,19 +67,28 @@ public class YearMembership extends Membership {
 		this.membershipName = membershipName;
 		this.pricePerUnit = pricePerUnit;
 		// this.isStudent = membersType.toLowerCase().equals("s");
-
+		this.quantity = 0;
 	}
 	
-	
+	// Copy constructor
+	public YearMembership(YearMembership yearMembership, int quantity) {
+		super(yearMembership, quantity);
+		this.startDate = yearMembership.startDate;
+		this.endDate = yearMembership.endDate;
+		this.address = yearMembership.address;
+		this.membershipName = yearMembership.membershipName;
+		this.pricePerUnit = yearMembership.pricePerUnit;
+		this.quantity = yearMembership.getProductsQuantity();
+	}
 	@Override
 	public double getCost() {
 		double cost = Double.parseDouble(this.pricePerUnit);
-		return cost;
+		return cost * quantity;
 	}
 	@Override
 	public double getTax() {
-		double tax = 10.50;
-		this.isStudent = membersType.toLowerCase().equals("s");
+		double tax = 0.0;
+		//this.isStudent = membersType.toLowerCase().equals("s");
 		if(!isStudent) {
 			tax = this.getCost() * 0.06;
 		}
@@ -86,10 +96,7 @@ public class YearMembership extends Membership {
 	}
 	@Override
 	public double getTotal() {
-		this.isStudent = membersType.toLowerCase().equals("s");
-		if(!isStudent) {
-			return this.getCost() + this.getTax();
-		} 
-		return this.getCost() - (this.getCost() * 0.08) + this.getTax();
+		// this.isStudent = membersType.toLowerCase().equals("s");
+		return this.getCost() + this.getTax();
 	}
 }

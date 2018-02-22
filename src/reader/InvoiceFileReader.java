@@ -4,10 +4,15 @@ import java.util.List;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Scanner; 
+import java.util.Scanner;
+
+import entities.DayMembership;
+import entities.EquipmentRentals;
 import entities.Invoice;
 import entities.Members;
+import entities.ParkingPasses;
 import entities.Products;
+import entities.YearMembership;
 import entities.Persons;
 
 public class InvoiceFileReader {
@@ -63,26 +68,67 @@ public class InvoiceFileReader {
 					if(productCodeDetails.length == 2) {
 						productCode = productCodeDetails[0];
 						productCodeQuantity = Integer.parseInt(productCodeDetails[1]);
+						//foundProduct.setProductsQuantity(productCodeQuantity);
+						
 					}
 					if(productCodeDetails.length == 3) {
 						productCode = productCodeDetails[0];
 						productCodeQuantity = Integer.parseInt(productCodeDetails[1]);
 						productCodeAttach = productCodeDetails[2];
+//						foundProduct.setProductsQuantity(productCodeQuantity);
+//						foundProduct.setProductsCodeAttach(productCodeAttach);
+						
 					}
+					//Products foundNewProduct = new Products(foundProduct);
 					// For every products that matches the product Code, add it to the Product ArrayList
 					for (Products aProduct : productsList ) {
 						if(productCode.equals(aProduct.getProductsCode())) {
-							foundProduct = aProduct;
-							invoice.addItem(foundProduct);
-							foundProduct.setProductsQuantity(productCodeQuantity);
-							foundProduct.setProductsCodeAttach(productCodeAttach);
+							if(aProduct instanceof YearMembership) {
+								foundProduct = aProduct;
+								foundProduct.setProductsQuantity(productCodeQuantity);
+								YearMembership newProduct = new YearMembership((YearMembership)aProduct, foundProduct.getProductsQuantity());
+								invoice.addItem(newProduct);
+										/*Also add a membership if one is attached only applies to Rentals and Parking passes*/
+							}
+							if(aProduct instanceof DayMembership) {
+								foundProduct = aProduct;
+								foundProduct.setProductsQuantity(productCodeQuantity);
+								DayMembership newProduct = new DayMembership((DayMembership)aProduct, foundProduct.getProductsQuantity());
+								invoice.addItem(newProduct);
+							}
+							/*Also add a membership if one is attached only applies to Rentals and Parking passes*/
+							if(aProduct instanceof EquipmentRentals) {
+								foundProduct = aProduct;
+								foundProduct.setProductsQuantity(productCodeQuantity);
+								if(productCodeAttach != null) {
+									foundProduct.setProductsCodeAttach(productCodeAttach);
+									EquipmentRentals newProduct = new EquipmentRentals((EquipmentRentals)aProduct, 
+											foundProduct.getProductsQuantity(), foundProduct.getProductsCodeAttach());
+									invoice.addItem(newProduct);
+								} else {
+									EquipmentRentals newProduct = new EquipmentRentals((EquipmentRentals)aProduct, 
+											foundProduct.getProductsQuantity());
+									invoice.addItem(newProduct);
+								}
+							}
+							if(aProduct instanceof ParkingPasses) {
+								foundProduct = aProduct;
+								foundProduct.setProductsQuantity(productCodeQuantity);
+								if(productCodeAttach != null) {
+									foundProduct.setProductsCodeAttach(productCodeAttach);
+									ParkingPasses newProduct = new ParkingPasses((ParkingPasses)aProduct, 
+											foundProduct.getProductsQuantity(), foundProduct.getProductsCodeAttach());
+									invoice.addItem(newProduct);
+								} else {
+									ParkingPasses newProduct = new ParkingPasses((ParkingPasses)aProduct, 
+											foundProduct.getProductsQuantity());
+									invoice.addItem(newProduct);
+								}
+							}
 						}
 					}
 				}
-				
-			
 				invoiceList.add(invoice);
-	
 			}
 			sc.close();
 			return invoiceList;

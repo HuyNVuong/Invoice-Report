@@ -41,10 +41,17 @@ public abstract class Products {
 		this.productsCodeAttach = productsCodeAttach;
 		this.productsQuantity = 0;
 	}
-	public Products(Products products) {
-		this.productsCode = productsCode;
-		this.productsType = productsType;
-		this.productsCodeAttach = productsCodeAttach;
+	// Copy constructor for service
+	public Products(Products products, int quantity, String attach) {
+		this.productsCode = products.productsCode;
+		this.productsType = products.productsType;
+		this.productsCodeAttach = products.productsCodeAttach;
+		this.productsQuantity = products.productsQuantity;
+	}
+	// Copy constructor for Membership
+	public Products(Products products, int quantity) {
+		this.productsCode = products.productsCode;
+		this.productsType = products.productsType;
 		this.productsQuantity = products.productsQuantity;
 	}
 	public abstract double getCost();
