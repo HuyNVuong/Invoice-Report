@@ -68,19 +68,10 @@ public class Members {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public String toString() { 
 		if(isStudent) {
 			return name + " [Student]";
 		} 
 		return name + " [General]";
-=======
-	public String toString() {
-		if (isStudent) {
-			return name + ": Student";
-		}
-		return name + ": General";
->>>>>>> branch 'master' of git@git.unl.edu:vuongnguyenhuy/156-Project.git
 	}
-
 }

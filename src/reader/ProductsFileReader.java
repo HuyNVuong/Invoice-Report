@@ -36,11 +36,10 @@ public class ProductsFileReader {
 					String startDate = data[2];
 					String endDate = data[3];
 					String productsData = data[4];
-<<<<<<< HEAD
+
 					String productsDataSplit [] = productsData.split(","); 
-=======
-					String productsDataSplit[] = productsData.split(",");
->>>>>>> branch 'master' of git@git.unl.edu:vuongnguyenhuy/156-Project.git
+
+
 					String street = productsDataSplit[0];
 					String city = productsDataSplit[1];
 					String state = productsDataSplit[2];

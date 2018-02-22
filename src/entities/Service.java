@@ -10,7 +10,7 @@ public abstract class Service extends Products {
 		this.quantity = 0;
 		this.attach = null;
 	}
-<<<<<<< HEAD
+
 	
 	public Service(Service service, int quantity) {
 		super(service, quantity);
@@ -22,8 +22,6 @@ public abstract class Service extends Products {
 		attach = service.getProductsCodeAttach();
 	}
 
-=======
->>>>>>> branch 'master' of git@git.unl.edu:vuongnguyenhuy/156-Project.git
 
 	public abstract double getCost();
 

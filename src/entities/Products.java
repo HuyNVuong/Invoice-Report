@@ -46,7 +46,7 @@ public abstract class Products {
 		this.productsCodeAttach = productsCodeAttach;
 		this.productsQuantity = 0;
 	}
-<<<<<<< HEAD
+
 	// Copy constructor for service
 	public Products(Products products, int quantity, String attach) {
 		this.productsCode = products.productsCode;
@@ -58,13 +58,6 @@ public abstract class Products {
 	public Products(Products products, int quantity) {
 		this.productsCode = products.productsCode;
 		this.productsType = products.productsType;
-=======
-
-	public Products(Products products) {
-		this.productsCode = productsCode;
-		this.productsType = productsType;
-		this.productsCodeAttach = productsCodeAttach;
->>>>>>> branch 'master' of git@git.unl.edu:vuongnguyenhuy/156-Project.git
 		this.productsQuantity = products.productsQuantity;
 	}
 

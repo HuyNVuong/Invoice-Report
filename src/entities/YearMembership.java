@@ -9,13 +9,11 @@ public class YearMembership extends Membership {
 	private String membershipName;
 	private String pricePerUnit;
 	private boolean isStudent;
-<<<<<<< HEAD
+
 	private int quantity;
 	
 	
-=======
 
->>>>>>> branch 'master' of git@git.unl.edu:vuongnguyenhuy/156-Project.git
 	public String getStartDate() {
 		return startDate;
 	}
@@ -85,7 +83,7 @@ public class YearMembership extends Membership {
 		// this.isStudent = membersType.toLowerCase().equals("s");
 		this.quantity = 0;
 	}
-<<<<<<< HEAD
+
 	
 	// Copy constructor
 	public YearMembership(YearMembership yearMembership, int quantity) {
@@ -97,28 +95,21 @@ public class YearMembership extends Membership {
 		this.pricePerUnit = yearMembership.pricePerUnit;
 		this.quantity = yearMembership.getProductsQuantity();
 	}
-	@Override 
-=======
+
 
 	@Override
->>>>>>> branch 'master' of git@git.unl.edu:vuongnguyenhuy/156-Project.git
+
 	public double getCost() {
 		double cost = Double.parseDouble(this.pricePerUnit);
 		return cost * quantity;
 	}
 
 	@Override
-<<<<<<< HEAD
+
 	public double getTax() {
 		double tax = 0.0;
 		//this.isStudent = membersType.toLowerCase().equals("s");
 		if(!isStudent) {
-=======
-	public double getTax() { //FIXME 15% discount if purchased in first month of the year
-		double tax = 0;
-		this.isStudent = membersType.toLowerCase().equals("s"); // student tax is $0, one time fee of $10.50 to register as student
-		if (!isStudent) {
->>>>>>> branch 'master' of git@git.unl.edu:vuongnguyenhuy/156-Project.git
 			tax = this.getCost() * 0.06;
 		}
 		return tax;
@@ -126,15 +117,9 @@ public class YearMembership extends Membership {
 
 	@Override
 	public double getTotal() {
-<<<<<<< HEAD
+
 		// this.isStudent = membersType.toLowerCase().equals("s");
 		return this.getCost() + this.getTax();
-=======
-		this.isStudent = membersType.toLowerCase().equals("s");
-		if (!isStudent) {
-			return this.getCost() + this.getTax();
-		}
-		return this.getCost() - (this.getCost() * 0.08) + this.getTax();
->>>>>>> branch 'master' of git@git.unl.edu:vuongnguyenhuy/156-Project.git
+
 	}
 }
