@@ -6,4 +6,4 @@ phase 2: + Added abstract to Members and Products classes, added some abstract m
 		 + Implement 3 new classes: General that takes and differentiate 2 types of 
 		   Members classes. Added Membership and Service classes to support and 
 		   differentiate different types of Products.
-		 + Create 3 override method for Products, 2 override methos for Members
+		 + Create 3 override method for Products, 2 override methods for Members
