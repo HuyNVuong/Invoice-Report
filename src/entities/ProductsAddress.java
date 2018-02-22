@@ -46,7 +46,7 @@ public class ProductsAddress {
 	}
 	@Override
 	public String toString() {
-		return street;
+		return street; 
 	}
 	
 }

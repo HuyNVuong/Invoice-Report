@@ -32,7 +32,7 @@ public class Persons {
 		return address;
 	}
 	public void setAddress(PersonsAddress address) {
-		this.address = address;
+		this.address = address; 
 	}
 	public String [] getEmail() {
 		return email;

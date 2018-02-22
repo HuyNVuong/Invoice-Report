@@ -18,7 +18,7 @@ public class XMLwriterPersons {
 		try {
 			xmlPrintWriter = new PrintWriter(xmlOutputPersons);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			e.printStackTrace(); 
 		}
 		
 		xmlPrintWriter.write("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");

@@ -37,7 +37,7 @@ public class ProductsFileReader {
 					String startDate = data[2];
 					String endDate = data[3];
 					String productsData = data[4];
-					String productsDataSplit [] = productsData.split(",");
+					String productsDataSplit [] = productsData.split(","); 
 					String street = productsDataSplit[0];
 					String city = productsDataSplit[1];
 					String state = productsDataSplit[2];

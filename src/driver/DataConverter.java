@@ -33,7 +33,7 @@ public class DataConverter {
 		List<Persons> personsList = persons.readPersons();
 		List<Products> productsList = products.readProducts();
 		
-		// Write entities from ArrayList into a Json file
+		// Write entities from ArrayList into a Json file 
 		JsonWriterMembers jWriterMembers = new JsonWriterMembers();
 		JsonWriterPersons jWriterPersons = new JsonWriterPersons();
 		JsonWriterProducts jWriterProducts = new JsonWriterProducts();

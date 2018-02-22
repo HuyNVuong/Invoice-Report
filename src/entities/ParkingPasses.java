@@ -54,7 +54,7 @@ public class ParkingPasses extends Service {
 		this.parkingFee = service.parkingFee;
 		this.quantity = service.getProductsQuantity();
 		this.attach = service.getProductsCodeAttach();
-		
+		 
 	}
 	public ParkingPasses(ParkingPasses service, int quantity) {
 		super(service, quantity);

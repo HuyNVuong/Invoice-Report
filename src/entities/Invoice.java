@@ -6,7 +6,7 @@ import java.util.List;
 public class Invoice {
 	private String invoiceCode;
 	private Members membersCode;
-	private Persons personsCode;
+	private Persons personsCode;  
 	private String invoiceDate;
 	private List<Products> products;
 //	private double subTotal = 0.0;

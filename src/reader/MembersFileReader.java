@@ -29,7 +29,7 @@ public class MembersFileReader {
 				String type = data[1];
 				String primaryContact = data[2];
 				String name = data[3];
-				String dataAddress = data[4];
+				String dataAddress = data[4];  
 				String dataAddressSplit [] = dataAddress.split(",");
 				String street = dataAddressSplit[0];
 				String city = dataAddressSplit[1];

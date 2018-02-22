@@ -75,7 +75,7 @@ public class DayMembership extends Membership{
 	}
 	@Override
 	public double getTax() {
-		double tax = 0.0;
+		double tax = 0.0; 
 		// this.isStudent = membersType.toLowerCase().equals("s");
 		if(!isStudent) {
 			tax = this.getCost() * 0.06;

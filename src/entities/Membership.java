@@ -1,7 +1,7 @@
 /* A subclass of Products classes that contains year and days passses */
 package entities;
 
-public abstract class Membership extends Products {
+public abstract class Membership extends Products { 
 	
 	private int quantity;
 	public Membership(String productsCode, String productsType) {

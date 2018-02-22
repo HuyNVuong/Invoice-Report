@@ -62,7 +62,7 @@ public class Members {
 	// Changes added to phase 2
 
 	@Override
-	public String toString() {
+	public String toString() { 
 		if(isStudent) {
 			return name + " [Student]";
 		} 

@@ -1,4 +1,4 @@
-/* PersonsAddress that supports Persons classes and provide more specific for addres varaible */
+ /* PersonsAddress that supports Persons classes and provide more specific for addres varaible */
 package entities;
 
 public class PersonsAddress {

@@ -75,7 +75,7 @@ public class EquipmentRentals extends Service {
 		if(!isStudent) {
 			tax = this.getCost() * 0.04;
 		}
-		return tax;
+		return tax; 
 	}
 	@Override
 	public double getTotal() {

@@ -26,7 +26,7 @@ public class PersonsFileReader {
 				String line = sc.nextLine(); // reads each line starting from 2nd line
 				String data[] = line.split(";"); // tokenizes the line and stores in a string array 
 								// Stores the 4 array elements of each line into strings
-				String personCode = data[0];
+				String personCode = data[0]; 
 				String name = data[1];
 				String dataName [] = name.split(",");
 				String firstName = dataName[0];

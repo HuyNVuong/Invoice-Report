@@ -45,7 +45,7 @@ public class InvoiceConsoleOutput {
 		
 		for(Invoice element : invoiceList) {
 			System.out.println(String.format("%-20s %-50s %-29s %s %9.2f  %s %9.2f  %s %12.2f  %s %14.2f  %s %10.2f", element.getInvoiceCode(),
-					element.getMembersCode().getName(), element.getPersonsCode(), "$", 0.0, "$", 0.0, "$", 0.0, "$", 0.0, "$", 0.0));
+					element.getMembersCode().getName(), element.getPersonsCode(), "$", 0.0, "$", 0.0, "$", 0.0, "$", 0.0, "$", 0.0)); 
 		}
 		System.out.println("==================================================================================================================================================================================");
 		System.out.println(String.format("TOTALS %96s %9.2f  %s %9.2f  %s %12.2f  %s %14.2f  %s %10.2f",  "$", 0.0, "$", 0.0, "$", 0.0, "$", 0.0, "$", 0.0));

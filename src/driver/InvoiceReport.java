@@ -34,7 +34,7 @@ public class InvoiceReport {
 		System.out.println();
 		// Write invoice report to console
 		InvoiceConsoleOutput invoiceWriter = new InvoiceConsoleOutput();
-		invoiceWriter.InvoiceReportWriter();
+		invoiceWriter.InvoiceReportWriter(); 
 
 	}
 

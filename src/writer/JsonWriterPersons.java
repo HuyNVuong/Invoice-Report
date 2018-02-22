@@ -17,7 +17,7 @@ public class JsonWriterPersons {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		File jsonOutput = new File("data/Persons.json");
 		
-		PrintWriter jsonPrintWriter = null;
+		PrintWriter jsonPrintWriter = null; 
 		
 		try {
 			jsonPrintWriter = new PrintWriter(jsonOutput);

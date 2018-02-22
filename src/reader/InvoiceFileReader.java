@@ -77,7 +77,7 @@ public class InvoiceFileReader {
 						productCodeAttach = productCodeDetails[2];
 //						foundProduct.setProductsQuantity(productCodeQuantity);
 //						foundProduct.setProductsCodeAttach(productCodeAttach);
-						
+						  
 					}
 					//Products foundNewProduct = new Products(foundProduct);
 					// For every products that matches the product Code, add it to the Product ArrayList

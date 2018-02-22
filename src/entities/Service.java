@@ -14,7 +14,7 @@ public abstract class Service extends Products {
 	public Service(Service service, int quantity) {
 		super(service, quantity);
 		quantity = service.getProductsQuantity();
-	}
+	} 
 	public Service(Service service, int quantity, String attach) {
 		super(service, quantity, attach);
 		quantity = service.getProductsQuantity();

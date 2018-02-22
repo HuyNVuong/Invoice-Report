@@ -80,7 +80,7 @@ public class YearMembership extends Membership {
 		this.pricePerUnit = yearMembership.pricePerUnit;
 		this.quantity = yearMembership.getProductsQuantity();
 	}
-	@Override
+	@Override 
 	public double getCost() {
 		double cost = Double.parseDouble(this.pricePerUnit);
 		return cost * quantity;

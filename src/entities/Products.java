@@ -37,7 +37,7 @@ public abstract class Products {
 	public Products(String productsCode, String productsType) {
 		super();
 		this.productsCode = productsCode;
-		this.productsType = productsType;
+		this.productsType = productsType; 
 		this.productsCodeAttach = productsCodeAttach;
 		this.productsQuantity = 0;
 	}
