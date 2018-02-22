@@ -26,8 +26,7 @@ import reader.ProductsFileReader;
 public class InvoiceConsoleOutput {
 	public void InvoiceReportWriter () {
 		// for parsing string got from products file to pattern
-		DateTimeFormatter m = DateTimeFormat.forPattern("yyyy-MM-dd");
-		DateTimeFormatter s = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
+		
 		MembersFileReader members = new MembersFileReader();
 		PersonsFileReader persons = new PersonsFileReader();
 		ProductsFileReader products = new ProductsFileReader();
@@ -42,17 +41,18 @@ public class InvoiceConsoleOutput {
 		System.out.println("=========================");
 		System.out.println(String.format("%-20s %-50s %-32s %-15s %-15s %-15s %-15s %-15s", "Invoice", "Member",  ""
 				+ "Personal Trainer", "Subtotal", "Fees", "Taxes", "Discount", "Total"));
-		
-		for(Invoice element : invoiceList) {
-			System.out.println(String.format("%-20s %-50s %-29s %s %9.2f  %s %9.2f  %s %12.2f  %s %14.2f  %s %10.2f", element.getInvoiceCode(),
-					element.getMembersCode().getName(), element.getPersonsCode(), "$", 0.0, "$", 0.0, "$", 0.0, "$", 0.0, "$", 0.0)); 
-		}
+		double[] totals = printExecReport(invoiceList, membersList, personsList, productsList);
 		System.out.println("==================================================================================================================================================================================");
-		System.out.println(String.format("TOTALS %96s %9.2f  %s %9.2f  %s %12.2f  %s %14.2f  %s %10.2f",  "$", 0.0, "$", 0.0, "$", 0.0, "$", 0.0, "$", 0.0));
+		System.out.println(String.format("TOTALS %96s %9.2f  %s %9.2f  %s %12.2f  %s %14.2f  %s %10.2f",  "$", totals[0], "$", totals[1], "$", totals[2], "$", totals[3], "$", totals[4]));
 		System.out.println("\nIndividual Invoice Detail Reports");
 		System.out.println("=================================================");
-		// First enhanced for loops that goes all over the invoice list
 		
+		printIndividualReport(invoiceList, membersList, personsList, productsList);
+	}
+		// First enhanced for loops that goes all over the invoice list
+	public void printIndividualReport(List<Invoice> invoiceList, List<Members> membersList, List<Persons> personsList, List<Products> productsLists) {
+		DateTimeFormatter m = DateTimeFormat.forPattern("yyyy-MM-dd");
+		DateTimeFormatter s = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
 		for(Invoice element : invoiceList) {
 			// Create neccessarily variable to store subtotal, taxes, discount,etc
 			double allTotalTotal = 0.0;
@@ -64,6 +64,7 @@ public class InvoiceConsoleOutput {
 			double storeDayLongSubTotal = 0.0, storeDayLongTaxTotal = 0.0;
 			double storeEquipmentSubTotal = 0.0 , storeEquipmentTaxTotal = 0.0;
 			double storeFeeSubTotal = 0.0 , storeFeeTaxTotal = 0.0;
+
 			System.out.println("Invoice " + element.getInvoiceCode());
 			System.out.println("========================================");
 			System.out.println("Personal trainer: " + element.getPersonsCode());
@@ -257,8 +258,157 @@ public class InvoiceConsoleOutput {
 			}
 			System.out.printf("\n\n				Thank you for your purchase!\n");
 			System.out.println();
-			summaryReportArray = new double [] {InvoiceSubtotalTotal, 10.50, InvoiceTaxTotal, studentDiscount, totalTotal};  
+			// summaryReportArray = new double [] {InvoiceSubtotalTotal, 10.50, InvoiceTaxTotal, studentDiscount, totalTotal};  
 		}
+	}
+	public double[] printExecReport(List<Invoice> invoiceList, List<Members> membersList, List<Persons> personsList, List<Products> productsLists) {
+		DateTimeFormatter m = DateTimeFormat.forPattern("yyyy-MM-dd");
+		DateTimeFormatter s = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
+		double[] totals = new double[5];
+		for(Invoice element : invoiceList) {
+			// Create neccessarily variable to store subtotal, taxes, discount,etc
+			double additionalFee = 0.0;
+			double InvoiceSubtotalTotal = 0.0;
+			double InvoiceTaxTotal = 0.0;
+			double totalTotal = 0.0;
+			double studentDiscount = 0.0;
+			double storeYearLongSubTotal = 0.0, storeYearLongTaxTotal = 0.0;
+			double storeDayLongSubTotal = 0.0, storeDayLongTaxTotal = 0.0;
+			double storeEquipmentSubTotal = 0.0 , storeEquipmentTaxTotal = 0.0;
+			double storeFeeSubTotal = 0.0 , storeFeeTaxTotal = 0.0;
+			double allTotalTotal = 0.0;
+			// 2nd enhanced for loops that goes all over the memebers list
+			
+			// Since this class only take the whole arraylist of an entities, therefore it should not store any products type
+			// so that use flag and break points to compare and get products informations
+			int flagYear = 0;
+			int flagDay = 0;
+			String codeYear = "";
+			String codeDay = "";
+			//2nd.1 enhanced for loops that loops through all products list and downcast all its subclasses and print them out
+			for(Products elementsProducts : element.getProducts()) {
+				String yearLongNameType = null;
+				String dayLongNameType = null;
+				String serviceNameType = null;
+				if(elementsProducts.getProductsType().toLowerCase().equals("y")) {
+					yearLongNameType = "Year-long membership";
+					flagYear = 1;
+					codeYear = elementsProducts.getProductsCode();
+					double subTotal = elementsProducts.getCost();
+					double tax = elementsProducts.getTax();
+					double total = elementsProducts.getTotal();
+					String getItem = yearLongNameType + " '" +  ((YearMembership) elementsProducts).getMembershipName() + "' @ " +
+							((YearMembership) elementsProducts).getAddress();
+					if(elementsProducts instanceof YearMembership) {
+						DateTime yearTimeStart = m.parseDateTime(((YearMembership) elementsProducts).getStartDate());
+						DateTime yearTimeEnd = m.parseDateTime(((YearMembership) elementsProducts).getEndDate());
+						int month = Integer.parseInt(yearTimeStart.toString("MM"));
+						if(month == 1) {
+							subTotal = elementsProducts.getCost() * 85.0 / 100.0;
+							total = elementsProducts.getTotal() * 85.0 / 100.0;
+							tax = elementsProducts.getTax() * 85.0 / 100.0;
+						}
+					}
+					storeYearLongSubTotal = subTotal;
+					storeYearLongTaxTotal = tax;				
+				} 
+				if (elementsProducts.getProductsType().toLowerCase().equals("d")) {
+					dayLongNameType = "Day-long membership";
+					flagDay = 1;
+					codeDay = elementsProducts.getProductsCode();
+					double subTotal = elementsProducts.getCost();
+					double tax = elementsProducts.getTax();
+					double total = elementsProducts.getTotal();
+					String getItem = dayLongNameType + " @ "+ ((DayMembership) elementsProducts).getAddress();
+					if(elementsProducts instanceof DayMembership) {
+						DateTime getDayTime = s.parseDateTime(((DayMembership) elementsProducts).getStartDate());
+						int month = Integer.parseInt(getDayTime.toString("MM"));
+						if(month == 1) {
+							subTotal = elementsProducts.getCost() / 2.0;
+							total = elementsProducts.getTotal() / 2.0;
+							tax = elementsProducts.getTax() / 2.0;
+						} 
+			
+					}
+					storeDayLongSubTotal = subTotal;
+					storeDayLongTaxTotal = tax;
+				} 
+				if (elementsProducts.getProductsType().toLowerCase().equals("r")) {
+					serviceNameType = "Rental Equipment";
+					String getItem = null;
+					String discountAnnounce = new String("");
+					double subTotal = elementsProducts.getCost();
+					double taxes = elementsProducts.getTax();
+					double total = elementsProducts.getTotal();
+					if(elementsProducts instanceof EquipmentRentals) {
+						if(elementsProducts.getProductsCodeAttach() != null) {
+								if(flagYear == 1) {
+									if(codeYear.equals(elementsProducts.getProductsCodeAttach())) {
+										discountAnnounce = " @ %5 off";
+										subTotal = elementsProducts.getCost() * 95.0 / 100.0;
+										taxes = elementsProducts.getTax() * 95.0 / 100.0;
+										total = subTotal + taxes;
+									}
+								}
+						}
+					}
+					storeEquipmentSubTotal = subTotal;
+					storeEquipmentTaxTotal = taxes;
+				} 
+				if (elementsProducts.getProductsType().toLowerCase().equals("p")) {
+					serviceNameType = "Parking Pass";
+					String freePasses = "";
+					double subTotal = elementsProducts.getCost();
+					double tax = elementsProducts.getTax();
+					double total = elementsProducts.getTotal();
+					if(elementsProducts instanceof ParkingPasses) {
+						String getItem = null;
+						if(elementsProducts.getProductsCodeAttach() != null) {
+							if(elementsProducts.getProductsCodeAttach() != null) {
+								if(flagYear == 1) {
+									if(codeYear.equals(elementsProducts.getProductsCodeAttach())) {
+										freePasses = " with 30 free";
+										subTotal = elementsProducts.getCost() - Double.parseDouble(((ParkingPasses) elementsProducts).getParkingFee()) * 30.0;
+										tax = 0.04 * subTotal;
+										total = subTotal + tax;
+									}
+								} 
+								if(flagDay == 1) {
+									if(codeDay.equals(elementsProducts.getProductsCodeAttach())) {
+										freePasses = " with 1 free";
+										subTotal = elementsProducts.getCost() - Double.parseDouble(((ParkingPasses) elementsProducts).getParkingFee());
+										tax = 0.04 * subTotal;
+										total = subTotal + tax;
+									}
+								}
+							} 
+						}
+					}
+					storeFeeSubTotal = subTotal;
+					storeFeeTaxTotal = tax;
+				}
+				
+					
+			}
+			InvoiceSubtotalTotal = storeYearLongSubTotal + storeDayLongSubTotal + storeEquipmentSubTotal + storeFeeSubTotal; 
+			InvoiceTaxTotal = storeYearLongTaxTotal + storeDayLongTaxTotal + storeEquipmentTaxTotal + storeFeeTaxTotal;
+			totalTotal = InvoiceSubtotalTotal + InvoiceTaxTotal;
+			studentDiscount = -1.0*(InvoiceSubtotalTotal * 8.0 / 100.0 + InvoiceTaxTotal);
+			allTotalTotal = totalTotal + studentDiscount;
+			if(element.getMembersCode().getType().toLowerCase().equals("s")) {
+				additionalFee = 10.50;
+			} 
+			System.out.println(String.format("%-20s %-50s %-29s %s %9.2f  %s %9.2f  %s %12.2f  %s %14.2f  %s %10.2f", element.getInvoiceCode(),
+					element.getMembersCode().getName(), element.getPersonsCode(), "$", InvoiceSubtotalTotal, "$", additionalFee, "$", InvoiceTaxTotal, "$", studentDiscount, "$", totalTotal));
+			totals[0] += InvoiceSubtotalTotal;
+			totals[1] += additionalFee;
+			totals[2] += InvoiceTaxTotal;
+			totals[3] += studentDiscount;
+			totals[4] += allTotalTotal;
+			
+			// summaryReportArray = new double [] {InvoiceSubtotalTotal, 10.50, InvoiceTaxTotal, studentDiscount, totalTotal};  
+		}
+		return totals;
 	}
 	
 }
