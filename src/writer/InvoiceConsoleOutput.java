@@ -1,4 +1,4 @@
-/* Java classes that takes all the information from the reader and entities classes and output them in a nice and understandable format */
+ /* Java classes that takes all the information from the reader and entities classes and output them in a nice and understandable format */
 package writer;
 
 

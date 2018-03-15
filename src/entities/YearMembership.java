@@ -101,7 +101,7 @@ public class YearMembership extends Membership {
 
 	public double getCost() {
 		double cost = Double.parseDouble(this.pricePerUnit);
-		return cost * quantity;
+		return cost * quantity ;
 	}
 
 	@Override
