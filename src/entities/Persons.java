@@ -2,8 +2,6 @@
 
 package entities;
 
-import java.util.ArrayList;
-
 public class Persons {
 	private String personCode;
 	private String firstName;
