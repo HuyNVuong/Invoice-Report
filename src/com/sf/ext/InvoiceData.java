@@ -108,8 +108,9 @@ public class InvoiceData {
 		}
 	}
 
-	/**
-	 * 2. Method to add a person record to the database with the provided data.
+	/** COMPLETED
+	 * 2. Method to add a person record to the database with the provided
+	 * data.
 	 * 
 	 * @param personCode
 	 * @param firstName
@@ -134,6 +135,7 @@ public class InvoiceData {
 			ps.setString(4, zip);
 			ps.setString(5, country);
 			ResultSet rs = ps.executeQuery();
+
 			if (rs.next()) {
 				foreignKeyID = rs.getInt("AddressID");
 			} else {
@@ -152,8 +154,8 @@ public class InvoiceData {
 					ResultSet rs2 = ps.executeQuery();
 					rs2.next();
 					foreignKeyID = rs2.getInt("LID");
-					rs2.close();
 
+					rs2.close();
 				} catch (SQLException e) {
 					System.out.println("SQLException: ");
 					e.printStackTrace();
@@ -189,8 +191,8 @@ public class InvoiceData {
 					ps1.setString(3, lastName);
 					ps1.setInt(4, foreignKeyID);
 					ps1.executeUpdate();
-					ps1.close();
 
+					ps1.close();
 				} catch (SQLException e) {
 					System.out.println("SQLException: ");
 					e.printStackTrace();
@@ -200,7 +202,6 @@ public class InvoiceData {
 			rs.close();
 			ps.close();
 			conn2.close();
-
 		} catch (SQLException e) {
 			System.out.println("SQLException: ");
 			e.printStackTrace();
@@ -208,9 +209,10 @@ public class InvoiceData {
 		}
 	}
 
-	/**
+	/** COMPLETED
 	 * 3. Adds an email record corresponding person record corresponding to the
 	 * provided <code>personCode</code>
+	 * 
 	 * 
 	 * @param personCode
 	 * @param email
@@ -218,7 +220,7 @@ public class InvoiceData {
 	public static void addEmail(String personCode, String email) {
 
 		int foreignKeyID = -1;
-		String checkPersonCodeQuery = "SELECT * FROM Persons WHERE PersonCode = ?;";
+		String checkPersonCodeQuery = "SELECT PersonID FROM Persons WHERE PersonCode = ?;";
 		Connection conn = DatabaseInfo.getConnection();
 
 		try {
@@ -227,18 +229,13 @@ public class InvoiceData {
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
-				foreignKeyID = rs.getInt(foreignKeyID);
+				foreignKeyID = rs.getInt("PersonID");
 			} else {
-
-				// FIXME cannot call addPerson without address parameters --> how to solve? No
-				// other way to make person without being able to identify any of the address
-				// variables.
-
-				// String personCode, String firstName, String lastName, String street, String
-				// city, String state, String zip, String country
-				// addPerson(personCode, );
+				System.out.println("error: person doesn't exist");
 			}
-
+			ps.close();
+			rs.close();
+			conn.close();
 		} catch (SQLException e) {
 			System.out.println("SQLException: ");
 			e.printStackTrace();
@@ -246,7 +243,37 @@ public class InvoiceData {
 		}
 
 		String checkEmailQuery = "SELECT * FROM Email WHERE Email = ?;";
+		Connection conn1 = DatabaseInfo.getConnection();
 
+		try {
+			PreparedStatement ps = conn1.prepareStatement(checkEmailQuery);
+			ps.setString(1, email);
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				System.out.println("error: email already exists");
+			} else {
+				String insertEmailQuery = "INSERT INTO Email (Email, PersonID) VALUES (?,?);"; //FIXME can't figure this error out
+				try {
+					PreparedStatement ps2 = conn1.prepareStatement(insertEmailQuery);
+					ps2.setString(1, email);
+					ps2.setInt(2, foreignKeyID);
+					ps2.executeUpdate();
+
+					ps2.close();
+					rs.close();
+					conn1.close();
+				} catch (SQLException e) {
+					System.out.println("SQLException: ");
+					e.printStackTrace();
+					throw new RuntimeException(e);
+				}
+			}
+		} catch (SQLException e) {
+			System.out.println("SQLException: ");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
 	}
 
 	/**
@@ -368,7 +395,7 @@ public class InvoiceData {
 	public static void main(String[] args) {
 		// addPerson("33ds5", "Jaime", "Lannister", "1 Casterly Rock", "Lannisport",
 		// "n/a", "n/a", "Westeros"); // WORKS
-		removeAllPersons();
+		addEmail("944c", "test@test.com");
 	}
 
 }
