@@ -150,11 +150,11 @@ public class InvoiceData {
 					ps2.executeUpdate();
 					ps2.close();
 
-					ps = conn1.prepareStatement("SELECT LAST_INSERT_ID() AS LID;");
-					ResultSet rs2 = ps.executeQuery();
+					PreparedStatement ps3 = conn1.prepareStatement("SELECT LAST_INSERT_ID() AS LID;");
+					ResultSet rs2 = ps3.executeQuery();
 					rs2.next();
 					foreignKeyID = rs2.getInt("LID");
-
+					ps3.close();
 					rs2.close();
 				} catch (SQLException e) {
 					System.out.println("SQLException: ");
@@ -298,7 +298,90 @@ public class InvoiceData {
 	 */
 	public static void addMember(String memberCode, String memberType, String primaryContactPersonCode, String name,
 			String street, String city, String state, String zip, String country) {
-		/** TODO */
+
+		int foreignKeyID = -1;
+		String checkAddressQuery = "SELECT * FROM Address WHERE (Street = ? AND City = ? AND State = ? AND Zip = ? AND Country = ?);";
+		Connection conn1 = DatabaseInfo.getConnection();
+		try {
+			PreparedStatement ps = conn1.prepareStatement(checkAddressQuery);
+			ps.setString(1, street);
+			ps.setString(2, city);
+			ps.setString(3, state);
+			ps.setString(4, zip);
+			ps.setString(5, country);
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				foreignKeyID = rs.getInt("AddressID");
+			} else {
+				String insertAddressQuery = "INSERT INTO Address (Street, City, State, Zip, Country) VALUES (?,?,?,?,?);";
+				try {
+					PreparedStatement ps2 = conn1.prepareStatement(insertAddressQuery);
+					ps2.setString(1, street);
+					ps2.setString(2, city);
+					ps2.setString(3, state);
+					ps2.setString(4, zip);
+					ps2.setString(5, country);
+					ps2.executeUpdate();
+					ps2.close();
+
+					PreparedStatement ps3 = conn1.prepareStatement("SELECT LAST_INSERT_ID() AS LID;");
+					ResultSet rs2 = ps3.executeQuery();
+					rs2.next();
+					foreignKeyID = rs2.getInt("LID");
+					rs2.close();
+				} catch (SQLException e) {
+					System.out.println("SQLException: ");
+					e.printStackTrace();
+					throw new RuntimeException(e);
+				}
+			}
+			conn1.close();
+			rs.close();
+			ps.close();
+		} catch (SQLException e) {
+			System.out.println("SQLException: ");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+		String checkMemberQuery = "SELECT * FROM Members WHERE (MemberCode = ? AND MemberType = ? AND MemberContact = ? AND MemberName = ?)";
+		Connection conn2 = DatabaseInfo.getConnection();
+		try {
+			PreparedStatement ps = conn2.prepareStatement(checkMemberQuery);
+			ps.setString(1, memberCode);
+			ps.setString(2, memberType);
+			ps.setString(3, primaryContactPersonCode);
+			ps.setString(4, name);
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				System.out.println("error: member already exists");
+			} else {
+				String insertMemberQuery = "INSERT INTO Members (MemberCode, MemberType, MemberContact, MemberName, AddressID) VALUES (?,?,?,?,?)";
+				try {
+					PreparedStatement ps2 = conn2.prepareStatement(insertMemberQuery);
+					ps2.setString(1, memberCode);
+					ps2.setString(2, memberType);
+					ps2.setString(3, primaryContactPersonCode);
+					ps2.setString(4, name);
+					ps2.setInt(5, foreignKeyID);
+					ps2.executeUpdate();
+					ps2.close();
+				} catch (SQLException e) {
+					System.out.println("SQLException: ");
+					e.printStackTrace();
+					throw new RuntimeException(e);
+				}
+			}
+			conn2.close();
+			ps.close();
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println("SQLException: ");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
 	}
 
 	/**
@@ -393,9 +476,23 @@ public class InvoiceData {
 	}
 
 	public static void main(String[] args) {
-		// addPerson("33ds5", "Jaime", "Lannister", "1 Casterly Rock", "Lannisport", "n/a", "n/a", "Westeros"); // WORKS
+		// addPerson("33ds5", "Jaime", "Lannister", "1 Casterly Rock", "Lannisport",
+		// "n/a", "n/a", "Westeros"); // WORKS
 		// addEmail("944c", "test@test.com"); // WORKS
-		
+		/**
+		 * 5. Method to add a member record to the database with the provided data
+		 * 
+		 * @param memberCode
+		 * @param memberType
+		 * @param primaryContactPersonCode
+		 * @param name
+		 * @param street
+		 * @param city
+		 * @param state
+		 * @param zip
+		 * @param country
+		 */
+		// test addMember();
 	}
 
 }
