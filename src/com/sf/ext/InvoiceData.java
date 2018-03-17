@@ -283,7 +283,7 @@ public class InvoiceData {
 		/** TODO */
 	}
 
-	/**
+	/** COMPLETE 
 	 * 5. Method to add a member record to the database with the provided data
 	 * 
 	 * @param memberCode
@@ -358,7 +358,7 @@ public class InvoiceData {
 			if (rs.next()) {
 				System.out.println("error: member already exists");
 			} else {
-				String insertMemberQuery = "INSERT INTO Members (MemberCode, MemberType, MemberContact, MemberName, AddressID) VALUES (?,?,?,?,?)";
+				String insertMemberQuery = "INSERT INTO Members (MemberCode, MemberType, MemberContact, MemberName, MemberAddressID) VALUES (?,?,?,?,?)";
 				try {
 					PreparedStatement ps2 = conn2.prepareStatement(insertMemberQuery);
 					ps2.setString(1, memberCode);
@@ -479,20 +479,7 @@ public class InvoiceData {
 		// addPerson("33ds5", "Jaime", "Lannister", "1 Casterly Rock", "Lannisport",
 		// "n/a", "n/a", "Westeros"); // WORKS
 		// addEmail("944c", "test@test.com"); // WORKS
-		/**
-		 * 5. Method to add a member record to the database with the provided data
-		 * 
-		 * @param memberCode
-		 * @param memberType
-		 * @param primaryContactPersonCode
-		 * @param name
-		 * @param street
-		 * @param city
-		 * @param state
-		 * @param zip
-		 * @param country
-		 */
-		// test addMember();
+		//addMember("M005", "S", "jf231", "Canopy Lofts", "266 South Montenegra Lane", "Lincoln", "NE", "68508", "USA"); WORKS
 	}
 
 }
