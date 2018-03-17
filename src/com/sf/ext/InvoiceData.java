@@ -32,12 +32,72 @@ public class InvoiceData {
 	 * 1. Method that removes every person record from the database
 	 */
 	public static void removeAllPersons() {
-		String update = "TRUNCATE TABLE Persons";
 
 		Connection conn = DatabaseInfo.getConnection();
 
+		String updateDayMembership = "TRUNCATE TABLE DayMembership;";
 		try {
-			PreparedStatement ps = conn.prepareStatement(update);
+			PreparedStatement ps = conn.prepareStatement(updateDayMembership);
+			ps.executeUpdate();
+			ps.close();
+
+		} catch (SQLException e) {
+			System.out.println("SQLException: ");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+		// String updateAddress = "TRUNCATE TABLE Address;";
+		// try {
+		// PreparedStatement ps = conn.prepareStatement(updateAddress);
+		// ps.executeUpdate();
+		// ps.close();
+		//
+		// } catch (SQLException e) {
+		// System.out.println("SQLException: ");
+		// e.printStackTrace();
+		// throw new RuntimeException(e);
+		// }
+
+		String updateInvoiceProducts = "TRUNCATE TABLE InvoiceProducts;";
+		try {
+			PreparedStatement ps = conn.prepareStatement(updateInvoiceProducts);
+			ps.executeUpdate();
+			ps.close();
+
+		} catch (SQLException e) {
+			System.out.println("SQLException: ");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+		String updateInvoice = "TRUNCATE TABLE Invoice;";
+		try {
+			PreparedStatement ps = conn.prepareStatement(updateInvoice);
+			ps.executeUpdate();
+			ps.close();
+
+		} catch (SQLException e) {
+			System.out.println("SQLException: ");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+		String updateEmail = "TRUNCATE TABLE Email;";
+		try {
+			PreparedStatement ps = conn.prepareStatement(updateEmail);
+			ps.executeUpdate();
+			ps.close();
+
+		} catch (SQLException e) {
+			System.out.println("SQLException: ");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+		String updatePersons = "TRUNCATE TABLE Persons;";
+		try {
+			PreparedStatement ps = conn.prepareStatement(updatePersons);
 			ps.executeUpdate();
 			ps.close();
 			conn.close();
@@ -64,7 +124,7 @@ public class InvoiceData {
 			String state, String zip, String country) {
 
 		int foreignKeyID = -1;
-		String checkAddressQuery = "SELECT * FROM Address WHERE (Street = ? AND City = ? AND State = ? AND Zip = ? AND Country = ?)";
+		String checkAddressQuery = "SELECT * FROM Address WHERE (Street = ? AND City = ? AND State = ? AND Zip = ? AND Country = ?);";
 		Connection conn1 = DatabaseInfo.getConnection();
 		try {
 			PreparedStatement ps = conn1.prepareStatement(checkAddressQuery);
@@ -74,7 +134,6 @@ public class InvoiceData {
 			ps.setString(4, zip);
 			ps.setString(5, country);
 			ResultSet rs = ps.executeQuery();
-			ps.close();
 			if (rs.next()) {
 				foreignKeyID = rs.getInt("AddressID");
 			} else {
@@ -89,11 +148,10 @@ public class InvoiceData {
 					ps2.executeUpdate();
 					ps2.close();
 
-					ps = conn1.prepareStatement("SELECT LAST_INSERT_ID() AS LID");
+					ps = conn1.prepareStatement("SELECT LAST_INSERT_ID() AS LID;");
 					ResultSet rs2 = ps.executeQuery();
 					rs2.next();
 					foreignKeyID = rs2.getInt("LID");
-					conn1.close();
 					rs2.close();
 
 				} catch (SQLException e) {
@@ -102,18 +160,20 @@ public class InvoiceData {
 					throw new RuntimeException(e);
 				}
 			}
+			conn1.close();
 			rs.close();
+			ps.close();
 		} catch (SQLException e) {
 			System.out.println("SQLException: ");
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
 
-		String checkPersonQuery = "SELECT * FROM Persons WHERE (PersonCode = ? AND PersonFirstName = ? AND PersonLastName = ?)";
+		String checkPersonQuery = "SELECT * FROM Persons WHERE (PersonCode = ? AND PersonFirstName = ? AND PersonLastName = ?);";
 		Connection conn2 = DatabaseInfo.getConnection();
 		try {
 			PreparedStatement ps = conn2.prepareStatement(checkPersonQuery);
-			ps.setInt(1, Integer.parseInt(personCode));
+			ps.setString(1, personCode);
 			ps.setString(2, firstName);
 			ps.setString(3, lastName);
 			ResultSet rs = ps.executeQuery();
@@ -121,10 +181,10 @@ public class InvoiceData {
 			if (rs.next()) {
 				System.out.println("error: person already exists");
 			} else {
-				String insertPersonQuery = "INSERT INTO Persons (PersonCode, PersonFirstName, PersonLastName) VALUES (?,?,?) WHERE AddressID = ?;";
+				String insertPersonQuery = "INSERT INTO Persons (PersonCode, PersonFirstName, PersonLastName, PersonAddressID) VALUES (?,?,?,?);";
 				try {
 					PreparedStatement ps1 = conn2.prepareStatement(insertPersonQuery);
-					ps1.setInt(1, Integer.parseInt(personCode));
+					ps1.setString(1, personCode);
 					ps1.setString(2, firstName);
 					ps1.setString(3, lastName);
 					ps1.setInt(4, foreignKeyID);
@@ -156,7 +216,37 @@ public class InvoiceData {
 	 * @param email
 	 */
 	public static void addEmail(String personCode, String email) {
-		/** TODO */
+
+		int foreignKeyID = -1;
+		String checkPersonCodeQuery = "SELECT * FROM Persons WHERE PersonCode = ?;";
+		Connection conn = DatabaseInfo.getConnection();
+
+		try {
+			PreparedStatement ps = conn.prepareStatement(checkPersonCodeQuery);
+			ps.setString(1, personCode);
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				foreignKeyID = rs.getInt(foreignKeyID);
+			} else {
+
+				// FIXME cannot call addPerson without address parameters --> how to solve? No
+				// other way to make person without being able to identify any of the address
+				// variables.
+
+				// String personCode, String firstName, String lastName, String street, String
+				// city, String state, String zip, String country
+				// addPerson(personCode, );
+			}
+
+		} catch (SQLException e) {
+			System.out.println("SQLException: ");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+		String checkEmailQuery = "SELECT * FROM Email WHERE Email = ?;";
+
 	}
 
 	/**
@@ -276,7 +366,9 @@ public class InvoiceData {
 	}
 
 	public static void main(String[] args) {
-
+		// addPerson("33ds5", "Jaime", "Lannister", "1 Casterly Rock", "Lannisport",
+		// "n/a", "n/a", "Westeros"); // WORKS
+		removeAllPersons();
 	}
 
 }
