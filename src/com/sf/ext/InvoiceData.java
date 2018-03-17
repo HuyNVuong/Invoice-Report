@@ -108,8 +108,8 @@ public class InvoiceData {
 		}
 	}
 
-	/** COMPLETED
-	 * 2. Method to add a person record to the database with the provided
+	/**
+	 * COMPLETED 2. Method to add a person record to the database with the provided
 	 * data.
 	 * 
 	 * @param personCode
@@ -209,9 +209,9 @@ public class InvoiceData {
 		}
 	}
 
-	/** COMPLETED
-	 * 3. Adds an email record corresponding person record corresponding to the
-	 * provided <code>personCode</code>
+	/**
+	 * COMPLETED 3. Adds an email record corresponding person record corresponding
+	 * to the provided <code>personCode</code>
 	 * 
 	 * 
 	 * @param personCode
@@ -253,7 +253,7 @@ public class InvoiceData {
 			if (rs.next()) {
 				System.out.println("error: email already exists");
 			} else {
-				String insertEmailQuery = "INSERT INTO Email (Email, PersonID) VALUES (?,?);"; //FIXME can't figure this error out
+				String insertEmailQuery = "INSERT INTO Email (Email, PersonID) VALUES (?,?);";
 				try {
 					PreparedStatement ps2 = conn1.prepareStatement(insertEmailQuery);
 					ps2.setString(1, email);
@@ -393,9 +393,9 @@ public class InvoiceData {
 	}
 
 	public static void main(String[] args) {
-		// addPerson("33ds5", "Jaime", "Lannister", "1 Casterly Rock", "Lannisport",
-		// "n/a", "n/a", "Westeros"); // WORKS
-		addEmail("944c", "test@test.com");
+		// addPerson("33ds5", "Jaime", "Lannister", "1 Casterly Rock", "Lannisport", "n/a", "n/a", "Westeros"); // WORKS
+		// addEmail("944c", "test@test.com"); // WORKS
+		
 	}
 
 }
