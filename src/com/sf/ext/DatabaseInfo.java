@@ -37,7 +37,6 @@ public class DatabaseInfo {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
-		
 		return conn;
 	}
 }

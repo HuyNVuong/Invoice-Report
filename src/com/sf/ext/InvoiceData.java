@@ -248,7 +248,6 @@ public class InvoiceData {
 					ps2.setString(1, email);
 					ps2.setInt(2, foreignKeyID);
 					ps2.executeUpdate();
-
 					ps2.close();
 					rs.close();
 					conn1.close();
@@ -320,6 +319,7 @@ public class InvoiceData {
 					rs2.next();
 					foreignKeyID = rs2.getInt("LID");
 					rs2.close();
+					ps3.close();
 				} catch (SQLException e) {
 					System.out.println("SQLException: ");
 					e.printStackTrace();
@@ -387,19 +387,40 @@ public class InvoiceData {
 	public static void addDayPass(String productCode, String dateTime, String street, String city, String state,
 			String zip, String country, double pricePerUnit) {
 
-		String checkInvoiceProductsQuery = "SELECT * FROM InvoiceProducts WHERE (InvoiceProductCode = ? AND InvoiceProductType = D);"; // FIXME
+		String checkInvoiceProductsQuery = "SELECT * FROM InvoiceProducts WHERE (InvoiceProductCode = ? AND InvoiceProductType = D);";
 		Connection conn = DatabaseInfo.getConnection();
-		int invoiceProductID = -1;
+		int invoiceID = -1;
 		try {
 			PreparedStatement ps = conn.prepareStatement(checkInvoiceProductsQuery);
 			ps.setString(1, productCode);
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
-				invoiceProductID = rs.getInt("InvoiceProductID");
+				invoiceID = rs.getInt("InvoiceID");
 			} else {
-				System.out.println("error: product type does not exist");
+				String insertInvoiceProductsQuery = "INSERT INTO InvoiceProducts (InvoiceProductCode, InvoiceProductType, InvoiceProductQuantity) VALUES (?,?,?);";
+				try {
+					PreparedStatement ps2 = conn.prepareStatement(insertInvoiceProductsQuery);
+					ps2.setString(1, productCode);
+					ps2.setString(2, "D");
+					ps2.setInt(3, 1);
+					ps2.executeUpdate();
+
+					PreparedStatement ps3 = conn.prepareStatement("SELECT LAST_INSERT_ID() AS LID;");
+					ResultSet rs2 = ps3.executeQuery();
+					rs2.next();
+					invoiceID = rs2.getInt("LID");
+					rs2.close();
+					ps3.close();
+					ps2.close();
+
+				} catch (SQLException e) {
+					System.out.println("SQLException: ");
+					e.printStackTrace();
+					throw new RuntimeException(e);
+				}
 			}
+			conn.close();
 			ps.close();
 			rs.close();
 
@@ -409,12 +430,11 @@ public class InvoiceData {
 			throw new RuntimeException(e);
 		}
 
-		// check from Address --> if exists, get foreignkey, else insert address
-
 		int addressID = -1;
+		Connection conn2 = DatabaseInfo.getConnection();
 		String checkAddressQuery = "SELECT * FROM Address WHERE (Street = ? AND City = ? AND State = ? AND Zip = ? AND Country = ?);";
 		try {
-			PreparedStatement ps = conn.prepareStatement(checkAddressQuery);
+			PreparedStatement ps = conn2.prepareStatement(checkAddressQuery);
 			ps.setString(1, street);
 			ps.setString(2, city);
 			ps.setString(3, state);
@@ -427,7 +447,7 @@ public class InvoiceData {
 			} else {
 				String insertAddressQuery = "INSERT INTO Address (Street, City, State, Zip, Country) VALUES (?,?,?,?,?);";
 				try {
-					PreparedStatement ps2 = conn.prepareStatement(insertAddressQuery);
+					PreparedStatement ps2 = conn2.prepareStatement(insertAddressQuery);
 					ps2.setString(1, street);
 					ps2.setString(2, city);
 					ps2.setString(3, state);
@@ -436,7 +456,7 @@ public class InvoiceData {
 					ps2.executeUpdate();
 					ps2.close();
 
-					PreparedStatement ps3 = conn.prepareStatement("SELECT LAST_INSERT_ID() AS LID;");
+					PreparedStatement ps3 = conn2.prepareStatement("SELECT LAST_INSERT_ID() AS LID;");
 					ResultSet rs2 = ps3.executeQuery();
 					rs2.next();
 					addressID = rs2.getInt("LID");
@@ -447,6 +467,7 @@ public class InvoiceData {
 					throw new RuntimeException(e);
 				}
 			}
+			conn2.close();
 			rs.close();
 			ps.close();
 		} catch (SQLException e) {
@@ -455,8 +476,24 @@ public class InvoiceData {
 			throw new RuntimeException(e);
 		}
 
-		// insert DayMembership
+		Connection conn3 = DatabaseInfo.getConnection();
+		String insertDayMembership = "INSERT INTO DayMembership (StartDate, Cost, DayAddressID, DayProductID, Quantity) VALUES (?,?,?,?,?);";
+		try {
+			PreparedStatement ps = conn3.prepareStatement(insertDayMembership);
+			ps.setString(1, dateTime);
+			ps.setDouble(2, pricePerUnit);
+			ps.setInt(3, addressID);
+			ps.setInt(4, invoiceID);
+			ps.setInt(5, 1);
+			ps.executeUpdate();
+			ps.close();
+			conn3.close();
 
+		} catch (SQLException e) {
+			System.out.println("SQLException: ");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
 	}
 
 	/**
@@ -464,7 +501,122 @@ public class InvoiceData {
 	 */
 	public static void addYearPass(String productCode, String StartDate, String EndDate, String street, String city,
 			String state, String zip, String country, String name, double pricePerUnit) {
-		/** TODO */
+		
+		// FIXME must add invoice first? Since InvoiceProducts requires InvoiceID --> However, there will be a separate method to add a YearPass to the Invoice table 
+		
+		// check InvoiceProducts, insert if nonexistent, retrieve foreignKey regardless
+		String checkInvoiceProductsQuery = "SELECT * FROM InvoiceProducts WHERE (InvoiceProductCode = ? AND InvoiceProductType = ?);";
+		Connection conn = DatabaseInfo.getConnection();
+		int invoiceID = -1;
+		try {
+			PreparedStatement ps = conn.prepareStatement(checkInvoiceProductsQuery);
+			ps.setString(1, productCode);
+			ps.setString(2, "Y");
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				invoiceID = rs.getInt("InvoiceID");
+			} else {
+				String insertInvoiceProductsQuery = "INSERT INTO InvoiceProducts (InvoiceProductCode, InvoiceProductType) VALUES (?,?);";
+				try {
+					PreparedStatement ps2 = conn.prepareStatement(insertInvoiceProductsQuery);
+					ps2.setString(1, productCode);
+					ps2.setString(2, "Y");
+					ps2.executeUpdate();
+
+					PreparedStatement ps3 = conn.prepareStatement("SELECT LAST_INSERT_ID() AS LID;");
+					ResultSet rs2 = ps3.executeQuery();
+					rs2.next();
+					invoiceID = rs2.getInt("LID");
+					rs2.close();
+					ps3.close();
+					ps2.close();
+
+				} catch (SQLException e) {
+					System.out.println("SQLException: ");
+					e.printStackTrace();
+					throw new RuntimeException(e);
+				}
+			}
+			conn.close();
+			ps.close();
+			rs.close();
+
+		} catch (SQLException e) {
+			System.out.println("SQLException: ");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		
+		// check Address, insert if nonexistent, retrieve foreignKey regardless
+		int addressID = -1;
+		Connection conn2 = DatabaseInfo.getConnection();
+		String checkAddressQuery = "SELECT * FROM Address WHERE (Street = ? AND City = ? AND State = ? AND Zip = ? AND Country = ?);";
+		try {
+			PreparedStatement ps = conn2.prepareStatement(checkAddressQuery);
+			ps.setString(1, street);
+			ps.setString(2, city);
+			ps.setString(3, state);
+			ps.setString(4, zip);
+			ps.setString(5, country);
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				addressID = rs.getInt("AddressID");
+			} else {
+				String insertAddressQuery = "INSERT INTO Address (Street, City, State, Zip, Country) VALUES (?,?,?,?,?);";
+				try {
+					PreparedStatement ps2 = conn2.prepareStatement(insertAddressQuery);
+					ps2.setString(1, street);
+					ps2.setString(2, city);
+					ps2.setString(3, state);
+					ps2.setString(4, zip);
+					ps2.setString(5, country);
+					ps2.executeUpdate();
+					ps2.close();
+
+					PreparedStatement ps3 = conn2.prepareStatement("SELECT LAST_INSERT_ID() AS LID;");
+					ResultSet rs2 = ps3.executeQuery();
+					rs2.next();
+					addressID = rs2.getInt("LID");
+					rs2.close();
+				} catch (SQLException e) {
+					System.out.println("SQLException: ");
+					e.printStackTrace();
+					throw new RuntimeException(e);
+				}
+			}
+			conn2.close();
+			rs.close();
+			ps.close();
+		} catch (SQLException e) {
+			System.out.println("SQLException: ");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		
+		// check YearMembership, insert if nonexistent, throw error is exists already (name/address)
+		Connection conn3 = DatabaseInfo.getConnection();
+		String insertDayMembership = "INSERT INTO YearMembership (StartDate, EndDate, Name, Price, ProductID, ProductAddressID, Quantity) VALUES (?,?,?,?,?,?,?);";
+		try {
+			PreparedStatement ps = conn3.prepareStatement(insertDayMembership);
+			ps.setString(1, StartDate);
+			ps.setString(2, EndDate);
+			ps.setString(3, name);
+			ps.setDouble(4, pricePerUnit);
+			ps.setInt(5, invoiceID);
+			ps.setInt(6, addressID);
+			ps.setInt(7, 1);
+			ps.executeUpdate();
+			ps.close();
+			conn3.close();
+
+		} catch (SQLException e) {
+			System.out.println("SQLException: ");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		
 	}
 
 	/**
@@ -541,6 +693,10 @@ public class InvoiceData {
 		// addEmail("944c", "test@test.com"); // WORKS
 		// addMember("M005", "S", "jf231", "Canopy Lofts", "266 South Montenegra Lane",
 		// "Lincoln", "NE", "68508", "USA"); WORKS
+		// check addDayMembership method
+//		String productCode, String StartDate, String EndDate, String street, String city,
+//		String state, String zip, String country, String name, double pricePerUnit
+		 addYearPass("2nj81", "2016/01/15", "2017/02/18", "144 La Patera Dr", "Camarillo", "CA", "93010", "USA", "Bronze Package", 155.99);
 	}
 
 }
