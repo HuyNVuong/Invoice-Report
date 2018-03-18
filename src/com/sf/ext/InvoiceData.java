@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
 import entities.Persons;
 import entities.PersonsAddress;
 /*
@@ -15,16 +14,6 @@ import entities.PersonsAddress;
  * Do not change any method signatures or the package name.
  * 
  */
-
-//import com.sf.model.DayMembership;
-//import com.sf.model.Invoice;
-//import com.sf.model.Member;
-//import com.sf.model.Membership;
-//import com.sf.model.Parkingpass;
-//import com.sf.model.Person;
-//import com.sf.model.Product;
-//import com.sf.model.RentalEquipment;
-//import com.sf.model.YearLongMembership;
 
 public class InvoiceData {
 
@@ -109,7 +98,7 @@ public class InvoiceData {
 	}
 
 	/**
-	 * COMPLETED 2. Method to add a person record to the database with the provided
+	 * COMPLETE 2. Method to add a person record to the database with the provided
 	 * data.
 	 * 
 	 * @param personCode
@@ -210,8 +199,8 @@ public class InvoiceData {
 	}
 
 	/**
-	 * COMPLETED 3. Adds an email record corresponding person record corresponding
-	 * to the provided <code>personCode</code>
+	 * COMPLETE 3. Adds an email record corresponding person record corresponding to
+	 * the provided <code>personCode</code>
 	 * 
 	 * 
 	 * @param personCode
@@ -283,8 +272,9 @@ public class InvoiceData {
 		/** TODO */
 	}
 
-	/** COMPLETE 
-	 * 5. Method to add a member record to the database with the provided data
+	/**
+	 * COMPLETE 5. Method to add a member record to the database with the provided
+	 * data
 	 * 
 	 * @param memberCode
 	 * @param memberType
@@ -396,7 +386,77 @@ public class InvoiceData {
 	 */
 	public static void addDayPass(String productCode, String dateTime, String street, String city, String state,
 			String zip, String country, double pricePerUnit) {
-		/** TODO */
+
+		String checkInvoiceProductsQuery = "SELECT * FROM InvoiceProducts WHERE (InvoiceProductCode = ? AND InvoiceProductType = D);"; // FIXME
+		Connection conn = DatabaseInfo.getConnection();
+		int invoiceProductID = -1;
+		try {
+			PreparedStatement ps = conn.prepareStatement(checkInvoiceProductsQuery);
+			ps.setString(1, productCode);
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				invoiceProductID = rs.getInt("InvoiceProductID");
+			} else {
+				System.out.println("error: product type does not exist");
+			}
+			ps.close();
+			rs.close();
+
+		} catch (SQLException e) {
+			System.out.println("SQLException: ");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+		// check from Address --> if exists, get foreignkey, else insert address
+
+		int addressID = -1;
+		String checkAddressQuery = "SELECT * FROM Address WHERE (Street = ? AND City = ? AND State = ? AND Zip = ? AND Country = ?);";
+		try {
+			PreparedStatement ps = conn.prepareStatement(checkAddressQuery);
+			ps.setString(1, street);
+			ps.setString(2, city);
+			ps.setString(3, state);
+			ps.setString(4, zip);
+			ps.setString(5, country);
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				addressID = rs.getInt("AddressID");
+			} else {
+				String insertAddressQuery = "INSERT INTO Address (Street, City, State, Zip, Country) VALUES (?,?,?,?,?);";
+				try {
+					PreparedStatement ps2 = conn.prepareStatement(insertAddressQuery);
+					ps2.setString(1, street);
+					ps2.setString(2, city);
+					ps2.setString(3, state);
+					ps2.setString(4, zip);
+					ps2.setString(5, country);
+					ps2.executeUpdate();
+					ps2.close();
+
+					PreparedStatement ps3 = conn.prepareStatement("SELECT LAST_INSERT_ID() AS LID;");
+					ResultSet rs2 = ps3.executeQuery();
+					rs2.next();
+					addressID = rs2.getInt("LID");
+					rs2.close();
+				} catch (SQLException e) {
+					System.out.println("SQLException: ");
+					e.printStackTrace();
+					throw new RuntimeException(e);
+				}
+			}
+			rs.close();
+			ps.close();
+		} catch (SQLException e) {
+			System.out.println("SQLException: ");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+		// insert DayMembership
+
 	}
 
 	/**
@@ -479,7 +539,8 @@ public class InvoiceData {
 		// addPerson("33ds5", "Jaime", "Lannister", "1 Casterly Rock", "Lannisport",
 		// "n/a", "n/a", "Westeros"); // WORKS
 		// addEmail("944c", "test@test.com"); // WORKS
-		//addMember("M005", "S", "jf231", "Canopy Lofts", "266 South Montenegra Lane", "Lincoln", "NE", "68508", "USA"); WORKS
+		// addMember("M005", "S", "jf231", "Canopy Lofts", "266 South Montenegra Lane",
+		// "Lincoln", "NE", "68508", "USA"); WORKS
 	}
 
 }
