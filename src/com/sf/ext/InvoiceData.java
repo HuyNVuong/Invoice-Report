@@ -502,7 +502,7 @@ public class InvoiceData {
 	public static void addYearPass(String productCode, String StartDate, String EndDate, String street, String city,
 			String state, String zip, String country, String name, double pricePerUnit) {
 		
-		// FIXME must add invoice first? Since InvoiceProducts requires InvoiceID --> However, there will be a separate method to add a YearPass to the Invoice table 
+		// FIXME must add invoice first? Since InvoiceProducts requires InvoiceID --> However, there will be a separate method to add a YearPass to the Invoice table below
 		
 		// check InvoiceProducts, insert if nonexistent, retrieve foreignKey regardless
 		String checkInvoiceProductsQuery = "SELECT * FROM InvoiceProducts WHERE (InvoiceProductCode = ? AND InvoiceProductType = ?);";
@@ -595,7 +595,7 @@ public class InvoiceData {
 			throw new RuntimeException(e);
 		}
 		
-		// check YearMembership, insert if nonexistent, throw error is exists already (name/address)
+		// check YearMembership, insert if nonexistent, throw error if exists already (name/address)
 		Connection conn3 = DatabaseInfo.getConnection();
 		String insertDayMembership = "INSERT INTO YearMembership (StartDate, EndDate, Name, Price, ProductID, ProductAddressID, Quantity) VALUES (?,?,?,?,?,?,?);";
 		try {
