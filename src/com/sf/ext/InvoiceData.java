@@ -29,6 +29,7 @@ import writer.InvoiceConsoleOutput;
 public class InvoiceData {
 	// bonus
 	public static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(InvoiceData.class);
+	
 	/**
 	 * 1. Method that removes every person record from the database
 	 */
@@ -1013,7 +1014,11 @@ public class InvoiceData {
     }
     public static void main (String args[]) {
     	BasicConfigurator.configure();
-    	InvoiceConsoleOutput invoiceWriter = new InvoiceConsoleOutput();
+    	InvoiceData.addMember("M001", "G", "abc123", "Consultant", "234 street", "Lincoln", "NE", "68503", "USA");
+    	InvoiceData.addPerson("abc123", "Guy", "Name", "23 street", "City", "Vietnam", "10000", "USA");
+    	InvoiceData.addEmail("abc123", "avb123@yahoo.com");
+    	InvoiceData.addDayPass("fp12", "12/22/2013", "24 street", "lincoln", "ne", "43555", "USA", 24.00);
+    	InvoiceDataWriter invoiceWriter = new InvoiceDataWriter();
 		invoiceWriter.InvoiceReportWriter(); 
     	
     	
