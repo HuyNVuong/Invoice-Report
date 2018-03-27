@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 import org.apache.log4j.BasicConfigurator;
-
+import writer.InvoiceConsoleOutput;
 //import com.sf.model.DayMembership;
 //import com.sf.model.Invoice;
 //import com.sf.model.Member;
@@ -637,16 +637,94 @@ public class InvoiceData {
 	public static void removeAllInvoices() {
 		Connection conn = DatabaseInfo.getConnection();
 		PreparedStatement ps = null;
-		ResultSet rs = null;
 		String query = null;
-		
+		// Remove Membership from Invoice
+		query = "DELETE FROM Membership;";
+		try {
+			ps = conn.prepareStatement(query);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			log.error(e);
+		}
+		// Remove Service from Invoice
+		query = "DELETE FROM Service;";
+		try {
+			ps = conn.prepareStatement(query);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			log.error(e);
+		}
+		// Remove all Invoice
+		query = "DELETE FROM Invoice;";
+		try {
+			ps = conn.prepareStatement(query);
+			int delete = ps.executeUpdate();
+			if (delete > 0) {
+				System.out.println("Remove all Invoice success");
+			} else {
+				System.out.println("Invoice table Empty");
+			}
+		} catch (SQLException e) {
+			log.error(e);
+		}
 	}
 
 	/**
 	 * 12. Adds an invoice record to the database with the given data.
 	 */
 	public static void addInvoice(String invoiceCode, String memberCode, String personalTrainerCode, String invoiceDate) {
-		/** TODO*/
+		Connection conn = DatabaseInfo.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String query = null;
+		int MemberID = 0;
+		int PersonID = 0;
+		try {
+		// Check that Member is there
+		query = "SELECT MemberID, MemberCode FROM Members;";
+		ps = conn.prepareStatement(query);
+		rs = ps.executeQuery();
+		while (rs.next()) {
+			String getMemberCode = rs.getString("MemberCode");
+			if (memberCode.equals(getMemberCode)) {
+				MemberID = rs.getInt("MemberID");
+			}
+		}
+		// Check for Person is there
+		query = "SELECT PersonID, PersonCode FROM Persons;";
+		ps = conn.prepareStatement(query);
+		rs = ps.executeQuery();
+		while (rs.next()) {
+			String getPersonCode = rs.getString("PersonCode");
+			if (personalTrainerCode.equals(getPersonCode)) {
+				PersonID = rs.getInt("PersonID");
+			}
+		}
+		// Insert found values into Invoice
+		query = "INSERT INTO Invoice (invoiceCode, InvoiceMemberID, InvoicePersonID, InvoiceDate) VALUES (?,?,?,?);";
+		ps = conn.prepareStatement(query);
+		ps.setString(1, invoiceCode);
+		ps.setInt(2, MemberID);
+		ps.setInt(3, PersonID);
+		ps.setString(4, invoiceDate);
+		ps.executeUpdate();
+		} catch (SQLIntegrityConstraintViolationException le) {
+			log.error(le);
+		} catch (SQLException e) {
+			log.error(e);
+		}
+		
+		try {
+			if(rs != null && !rs.isClosed())
+				rs.close();
+			if(ps != null && !ps.isClosed())
+				ps.close();
+		} catch (SQLException sqle) {
+			log.error(sqle);
+			
+		}
+        // Close connection
+		DatabaseInfo.closeConnection(conn);	
 	}
 
 	/**
@@ -656,7 +734,54 @@ public class InvoiceData {
 	 */
 
 	public static void addDayPassToInvoice(String invoiceCode, String productCode, int quantity) {
-		/** TODO*/
+		Connection conn = DatabaseInfo.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String query = null;
+		int ProductID = 0;
+		int InvoiceID = 0;
+		try {
+		// Check that Product is there
+		query = "SELECT ProductID, ProductCode FROM Products;";
+		ps = conn.prepareStatement(query);
+		rs = ps.executeQuery();
+		while (rs.next()) {
+			String getProductCode = rs.getString("ProductCode");
+			if (productCode.equals(getProductCode)) {
+				ProductID = rs.getInt("ProductID");
+			}
+		}
+		query = "SELECT InvoiceID, InvoiceCode FROM Invoice;";
+		ps = conn.prepareStatement(query);
+		rs = ps.executeQuery();
+		while (rs.next()) {
+			String getInvoiceCode = rs.getString("InvoiceCode");
+			if (invoiceCode.equals(getInvoiceCode)) {
+				InvoiceID = rs.getInt("Invoice");
+			}
+		}
+		query = "INSERT TO Membership (MembershipProductID, MembershipInvoiceID, quantity) VALUES(?,?,?);";
+		ps.setInt(1, ProductID);
+		ps.setInt(2, InvoiceID);
+		ps.setInt(3, quantity);
+		ps.executeUpdate();
+		} catch (SQLIntegrityConstraintViolationException le) {
+			log.error(le);
+		} catch (SQLException e) {
+			log.error(e);
+		}
+		
+		try {
+			if(rs != null && !rs.isClosed())
+				rs.close();
+			if(ps != null && !ps.isClosed())
+				ps.close();
+		} catch (SQLException sqle) {
+			log.error(sqle);
+			
+		}
+        // Close connection
+		DatabaseInfo.closeConnection(conn);	
 	}
 
 	/**
@@ -665,7 +790,54 @@ public class InvoiceData {
 	 * the given begin/end dates
 	 */
 	public static void addYearPassToInvoice(String invoiceCode, String productCode, int quantity) {
-		/** TODO*/
+		Connection conn = DatabaseInfo.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String query = null;
+		int ProductID = 0;
+		int InvoiceID = 0;
+		try {
+		// Check that Product is there
+		query = "SELECT ProductID, ProductCode FROM Products;";
+		ps = conn.prepareStatement(query);
+		rs = ps.executeQuery();
+		while (rs.next()) {
+			String getProductCode = rs.getString("ProductCode");
+			if (productCode.equals(getProductCode)) {
+				ProductID = rs.getInt("ProductID");
+			}
+		}
+		query = "SELECT InvoiceID, InvoiceCode FROM Invoice;";
+		ps = conn.prepareStatement(query);
+		rs = ps.executeQuery();
+		while (rs.next()) {
+			String getInvoiceCode = rs.getString("InvoiceCode");
+			if (invoiceCode.equals(getInvoiceCode)) {
+				InvoiceID = rs.getInt("Invoice");
+			}
+		}
+		query = "INSERT TO Membership (MembershipProductID, MembershipInvoiceID, quantity) VALUES(?,?,?);";
+		ps.setInt(1, ProductID);
+		ps.setInt(2, InvoiceID);
+		ps.setInt(3, quantity);
+		ps.executeUpdate();
+		} catch (SQLIntegrityConstraintViolationException le) {
+			log.error(le);
+		} catch (SQLException e) {
+			log.error(e);
+		}
+		
+		try {
+			if(rs != null && !rs.isClosed())
+				rs.close();
+			if(ps != null && !ps.isClosed())
+				ps.close();
+		} catch (SQLException sqle) {
+			log.error(sqle);
+			
+		}
+        // Close connection
+		DatabaseInfo.closeConnection(conn);	
 	}
 
      /**
@@ -675,7 +847,83 @@ public class InvoiceData {
      * NOTE: membershipCode may be null
      */
     public static void addParkingPassToInvoice(String invoiceCode, String productCode, int quantity, String membershipCode) {
-    	/** TODO*/
+    	Connection conn = DatabaseInfo.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String query = null;
+		int ProductID = 0;
+		int InvoiceID = 0;
+		try {
+			if(membershipCode != null) {
+			// Check that Product is there
+			query = "SELECT ProductID, ProductCode FROM Products;";
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				String getProductCode = rs.getString("ProductCode");
+				if (productCode.equals(getProductCode)) {
+					ProductID = rs.getInt("ProductID");
+				}
+			}
+			query = "SELECT InvoiceID, InvoiceCode FROM Invoice;";
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				String getInvoiceCode = rs.getString("InvoiceCode");
+				if (invoiceCode.equals(getInvoiceCode)) {
+					InvoiceID = rs.getInt("Invoice");
+				}	
+			}
+			query = "INSERT TO Service (MembershipProductID, MembershipInvoiceID, quantity, ProductCodeAttach) VALUES(?,?,?);";
+			ps.setInt(1, ProductID);
+			ps.setInt(2, InvoiceID);
+			ps.setInt(3, quantity);
+			ps.setString(4, membershipCode);
+			ps.executeUpdate();
+			} else {
+				// Check that Product is there
+				query = "SELECT ProductID, ProductCode FROM Products;";
+				ps = conn.prepareStatement(query);
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					String getProductCode = rs.getString("ProductCode");
+					if (productCode.equals(getProductCode)) {
+						ProductID = rs.getInt("ProductID");
+					}
+				}
+				query = "SELECT InvoiceID, InvoiceCode FROM Invoice;";
+				ps = conn.prepareStatement(query);
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					String getInvoiceCode = rs.getString("InvoiceCode");
+					if (invoiceCode.equals(getInvoiceCode)) {
+						InvoiceID = rs.getInt("Invoice");
+					}	
+				}
+				query = "INSERT TO Service (MembershipProductID, MembershipInvoiceID, quantity, ProductCodeAttach) VALUES(?,?,?);";
+				ps.setInt(1, ProductID);
+				ps.setInt(2, InvoiceID);
+				ps.setInt(3, quantity);
+				ps.setString(4, null);
+				ps.executeUpdate();	
+			}
+		} catch (SQLIntegrityConstraintViolationException le) {
+			log.error(le);
+		} catch (SQLException e) {
+			log.error(e);
+		}
+		
+		try {
+			if(rs != null && !rs.isClosed())
+				rs.close();
+			if(ps != null && !ps.isClosed())
+				ps.close();
+		} catch (SQLException sqle) {
+			log.error(sqle);
+			
+		}
+        // Close connection
+		DatabaseInfo.closeConnection(conn);	
     }
 	
     /**
@@ -685,20 +933,90 @@ public class InvoiceData {
      * NOTE: membershipCode may be null
      */
     public static void addRentalToInvoice(String invoiceCode, String productCode, int quantity, String membershipCode) {
-    	/** TODO*/
+    	Connection conn = DatabaseInfo.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String query = null;
+		int ProductID = 0;
+		int InvoiceID = 0;
+		try {
+			if(membershipCode != null) {
+			// Check that Product is there
+			query = "SELECT ProductID, ProductCode FROM Products;";
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				String getProductCode = rs.getString("ProductCode");
+				if (productCode.equals(getProductCode)) {
+					ProductID = rs.getInt("ProductID");
+				}
+			}
+			query = "SELECT InvoiceID, InvoiceCode FROM Invoice;";
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				String getInvoiceCode = rs.getString("InvoiceCode");
+				if (invoiceCode.equals(getInvoiceCode)) {
+					InvoiceID = rs.getInt("Invoice");
+				}	
+			}
+			query = "INSERT TO Service (MembershipProductID, MembershipInvoiceID, quantity, ProductCodeAttach) VALUES(?,?,?);";
+			ps.setInt(1, ProductID);
+			ps.setInt(2, InvoiceID);
+			ps.setInt(3, quantity);
+			ps.setString(4, membershipCode);
+			ps.executeUpdate();
+			} else {
+				// Check that Product is there
+				query = "SELECT ProductID, ProductCode FROM Products;";
+				ps = conn.prepareStatement(query);
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					String getProductCode = rs.getString("ProductCode");
+					if (productCode.equals(getProductCode)) {
+						ProductID = rs.getInt("ProductID");
+					}
+				}
+				query = "SELECT InvoiceID, InvoiceCode FROM Invoice;";
+				ps = conn.prepareStatement(query);
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					String getInvoiceCode = rs.getString("InvoiceCode");
+					if (invoiceCode.equals(getInvoiceCode)) {
+						InvoiceID = rs.getInt("Invoice");
+					}	
+				}
+				query = "INSERT TO Service (MembershipProductID, MembershipInvoiceID, quantity, ProductCodeAttach) VALUES(?,?,?);";
+				ps.setInt(1, ProductID);
+				ps.setInt(2, InvoiceID);
+				ps.setInt(3, quantity);
+				ps.setString(4, null);
+				ps.executeUpdate();	
+			}
+		} catch (SQLIntegrityConstraintViolationException le) {
+			log.error(le);
+		} catch (SQLException e) {
+			log.error(e);
+		}
+		
+		try {
+			if(rs != null && !rs.isClosed())
+				rs.close();
+			if(ps != null && !ps.isClosed())
+				ps.close();
+		} catch (SQLException sqle) {
+			log.error(sqle);
+			
+		}
+        // Close connection
+		DatabaseInfo.closeConnection(conn);	
     }
     public static void main (String args[]) {
     	BasicConfigurator.configure();
-    	InvoiceData.addPerson("nwdoc5", "Huy", "Vuong", "246 street", "Lincoln", "Ne", "68503", "USA");
-    	InvoiceData.addEmail("nwdoc5", "vuongnguyenhuy@yahoo.com");
-    	InvoiceData.addMember("M001", "G", "nwdoc5", "Superman", "234 Steel Str", "Black", "KY", "365", "Krytonite");
-    	InvoiceData.addDayPass("fp12", "12/30/2016", "235 oldFater", "Lincoln", "NE", "68504", "USA", 350.0);
-    	InvoiceData.addYearPass("g305", "10/20/2015", "11/21/2017", "214 avenue", "Lincoln", "NE", "54355", "USA", "Gold Package", 450.0);
-    	InvoiceData.addRental("gg12", "Boxing-gloves", 25.0);
-    	InvoiceData.addParkingPass("ff22", 20.0);
-    	InvoiceData.removeAllPersons();
-    	InvoiceData.removeAllMembers();
-    	InvoiceData.removeAllProducts();
+    	InvoiceConsoleOutput invoiceWriter = new InvoiceConsoleOutput();
+		invoiceWriter.InvoiceReportWriter(); 
+    	
+    	
     }
    
 }
