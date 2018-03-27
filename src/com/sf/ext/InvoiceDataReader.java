@@ -148,7 +148,6 @@ public class InvoiceDataReader {
 			
 	        // Close connection
 			DatabaseInfo.closeConnection(conn);	
-			System.out.println("Success");
 			return personsList;
 		} catch (SQLIntegrityConstraintViolationException le) {
 			log.error(le);
@@ -175,8 +174,7 @@ public class InvoiceDataReader {
 			while (rs.next()) {
 				String productCode = rs.getString("ProductCode");
 				String productType = rs.getString("ProductType");
-				System.out.println(productType);
-				System.out.println(productCode);
+				
 				ProductsAddress address = null;
 				if (productType.equals("Y")) {
 					query = "SELECT * FROM Address;";
@@ -194,41 +192,33 @@ public class InvoiceDataReader {
 					psInner = conn.prepareStatement(query);
 					rsInner = psInner.executeQuery();
 					while (rsInner.next()) {
-						System.out.println("flag");
 						String startDate = rsInner.getString("StartDate");
 						String endDate = rsInner.getString("EndDate");
 						String membershipName = rsInner.getString("Name");
 						String price = rsInner.getString("Price");
 						YearMembership yearMembership = new YearMembership(productCode, productType, startDate, endDate,
 								address, membershipName, price);
-						System.out.println(yearMembership.toString());
 						productsList.add(yearMembership);
-						System.out.println("Product List: " +productsList);
-					}
-					
+					}		
 					
 					// Creates a Product object
-
 				}
 				if (productType.equals("D")) {
-					System.out.println("flag");
 					query = "SELECT * FROM Address;";
 					psInner = conn.prepareStatement(query);
 					rsInner = psInner.executeQuery();
 					while (rsInner.next()) {
-						System.out.println("flag");
 						String street = rsInner.getString("Street");
 						String city = rsInner.getString("City");
 						String state = rsInner.getString("State");
 						String zip = rsInner.getString("Zip");
-						String country = rs.getString("Country");
+						String country = rsInner.getString("Country");
 						address = new ProductsAddress(street, city, state, zip, country);
 					}
 					query = "SELECT * FROM DayMembership;";
 					psInner = conn.prepareStatement(query);
 					rsInner = psInner.executeQuery();
 					while(rsInner.next()) {
-						System.out.println("flag");
 						String startDate = rsInner.getString("StartDate");
 						String cost = rsInner.getString("Cost");
 						DayMembership dayMembership = new DayMembership(productCode, productType, startDate, address, cost);
@@ -236,7 +226,7 @@ public class InvoiceDataReader {
 					}
 				}
 				if (productType.equals("P")) {
-					query = "SElECT * FROM ParkingPasses;";
+					query = "SELECT * FROM ParkingPasses;";
 					psInner = conn.prepareStatement(query);
 					rsInner = psInner.executeQuery();
 					while (rsInner.next()) {
@@ -267,7 +257,6 @@ public class InvoiceDataReader {
 					System.out.println("Error");
 					log.error(sqle);
 				}
-				System.out.println("Product List: " + productsList);
 
 			}
 			try {
@@ -281,16 +270,16 @@ public class InvoiceDataReader {
 			}
 			
 	        // Close connection
-			System.out.println("Product List: " + productsList);
+
 			DatabaseInfo.closeConnection(conn);	
 			return productsList;
 		} catch (SQLIntegrityConstraintViolationException le) {
-			System.out.println("Error 1: " );
+		
 			log.error(le);
 			return null;
 		} catch (SQLException e) {
-			System.out.println("Error 2: " );
 			log.error(e);
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -322,17 +311,14 @@ public class InvoiceDataReader {
 				String invoiceCode = rs.getString("InvoiceCode");
 				int memberID = rs.getInt("InvoiceMemberID");
 				int personID = rs.getInt("InvoicePersonID");
-				System.out.println(memberID);
 				String invoiceDate = rs.getString("InvoiceDate");
 				query = "SELECT MemberID, MemberCode FROM Members;";
 				psInner = conn.prepareStatement(query);
 				rsInner = psInner.executeQuery();
 				while (rsInner.next()) {
 					int getMemberID = rsInner.getInt("MemberID");
-					System.out.println(getMemberID);
 					if (memberID == getMemberID) {
 						getMemberCode = rsInner.getString("MemberCode");
-						System.out.println(getMemberID);
 					}
 				}
 				query = "SELECT * FROM Persons;";

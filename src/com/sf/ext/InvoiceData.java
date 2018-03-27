@@ -1012,23 +1012,6 @@ public class InvoiceData {
         // Close connection
 		DatabaseInfo.closeConnection(conn);	
     }
-    public static void main (String args[]) {
-    	// 
-    	InvoiceData.removeAllInvoices();
-    	InvoiceData.removeAllMembers();
-    	InvoiceData.removeAllPersons();
-    	InvoiceData.removeAllProducts();
-    	InvoiceData.addMember("M001", "G", "abc123", "Consultant", "234 street", "Lincoln", "NE", "68503", "USA");
-    	InvoiceData.addPerson("abc123", "Guy", "Name", "23 street", "City", "Vietnam", "10000", "USA");
-    	InvoiceData.addEmail("abc123", "avb123@yahoo.com");
-    	InvoiceData.addInvoice("INV001", "M001", "abc123", "10/22/2014");
-    	InvoiceData.addYearPass("g244", "12/31/2000", "11/12/2001", "Some Street", "A city", "Need a State", "24521", "UK", "PlatinumPackage", 234.0);
-    	InvoiceData.addDayPass("fp12", "12/22/2013", "24 street", "lincoln", "ne", "43555", "USA", 24.00);
-    	InvoiceData.addDayPassToInvoice("INV001", "fp12", 20);
-    	InvoiceDataWriter invoiceWriter = new InvoiceDataWriter();
-		invoiceWriter.InvoiceReportWriter(); 
-    	
-    	
-    }
+    
    
 }
