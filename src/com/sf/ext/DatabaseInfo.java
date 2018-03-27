@@ -6,26 +6,24 @@ import java.sql.SQLException;
 
 public class DatabaseInfo {
 
-	public static final String url = "jdbc:mysql://cse.unl.edu/wkitay";
-	public static final String username = "wkitay";
-	public static final String password = "8P:PrY";
-	
+	public static final String url = "jdbc:mysql://cse.unl.edu/hvuong";
+	public static final String username = "hvuong";
+	public static final String password = "Vnh15111999";
+    public static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(InvoiceData.class);
+
 	static public Connection getConnection()
 	{
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 		} catch (InstantiationException e) {
 			System.out.println("InstantiationException: ");
-			e.printStackTrace();
-			throw new RuntimeException(e);
+			log.error(e);
 		} catch (IllegalAccessException e) {
 			System.out.println("IllegalAccessException: ");
-			e.printStackTrace();
-			throw new RuntimeException(e);
+			log.error(e);
 		} catch (ClassNotFoundException e) {
 			System.out.println("ClassNotFoundException: ");
-			e.printStackTrace();
-			throw new RuntimeException(e);
+			log.error(e);
 		}
 		
 		Connection conn = null;
@@ -34,8 +32,7 @@ public class DatabaseInfo {
 			conn = DriverManager.getConnection(DatabaseInfo.url, DatabaseInfo.username, DatabaseInfo.password);
 		} catch (SQLException e) {
 			System.out.println("SQLException: ");
-			e.printStackTrace();
-			throw new RuntimeException(e);
+			log.error(e);
 		}
 		return conn;
 	}

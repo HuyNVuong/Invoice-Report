@@ -15,6 +15,17 @@ import entities.PersonsAddress;
  * 
  */
 
+/*
+import com.sf.model.DayMembership;
+import com.sf.model.Invoice;
+import com.sf.model.Member;
+import com.sf.model.Membership;
+import com.sf.model.Parkingpass;
+import com.sf.model.Person;
+import com.sf.model.Product;
+import com.sf.model.RentalEquipment;
+import com.sf.model.YearLongMembership;
+*/
 public class InvoiceData {
 
 	/**
@@ -268,7 +279,67 @@ public class InvoiceData {
 	 * 4. Method that removes every member record from the database
 	 */
 	public static void removeAllMembers() {
-		/** TODO */
+		Connection conn = DatabaseInfo.getConnection();
+
+		String updateDayMembership = "TRUNCATE TABLE DayMembership;";
+		try {
+			PreparedStatement ps = conn.prepareStatement(updateDayMembership);
+			ps.executeUpdate();
+			ps.close();
+
+		} catch (SQLException e) {
+			System.out.println("SQLException: ");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+		// String updateAddress = "TRUNCATE TABLE Address;";
+		// try {
+		// PreparedStatement ps = conn.prepareStatement(updateAddress);
+		// ps.executeUpdate();
+		// ps.close();
+		//
+		// } catch (SQLException e) {
+		// System.out.println("SQLException: ");
+		// e.printStackTrace();
+		// throw new RuntimeException(e);
+		// }
+
+		String updateInvoiceProducts = "TRUNCATE TABLE InvoiceProducts;";
+		try {
+			PreparedStatement ps = conn.prepareStatement(updateInvoiceProducts);
+			ps.executeUpdate();
+			ps.close();
+
+		} catch (SQLException e) {
+			System.out.println("SQLException: ");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+		String updateInvoice = "TRUNCATE TABLE Invoice;";
+		try {
+			PreparedStatement ps = conn.prepareStatement(updateInvoice);
+			ps.executeUpdate();
+			ps.close();
+
+		} catch (SQLException e) {
+			System.out.println("SQLException: ");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+		String updateMembers = "TRUNCATE TABLE Memberss;";
+		try {
+			PreparedStatement ps = conn.prepareStatement(updateMembers);
+			ps.executeUpdate();
+			ps.close();
+			conn.close();
+		} catch (SQLException e) {
+			System.out.println("SQLException: ");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}		
 	}
 
 	/**
@@ -310,7 +381,7 @@ public class InvoiceData {
 					ps2.setString(2, city);
 					ps2.setString(3, state);
 					ps2.setString(4, zip);
-					ps2.setString(5, country);
+					ps2.setString(5, country);   
 					ps2.executeUpdate();
 					ps2.close();
 
@@ -501,13 +572,14 @@ public class InvoiceData {
 	 */
 	public static void addYearPass(String productCode, String StartDate, String EndDate, String street, String city,
 			String state, String zip, String country, String name, double pricePerUnit) {
-		
-		// FIXME must add invoice first? Since InvoiceProducts requires InvoiceID --> However, there will be a separate method to add a YearPass to the Invoice table below
+		Connection conn = DatabaseInfo.getConnection();
+		int InvoiceID  = -1;
+		String checkInvoiceQuery = "SELECT * FROM Invoice WHERE (InvoiceCode = ? AND InvoiceDate = ?";
 		
 		// check InvoiceProducts, insert if nonexistent, retrieve foreignKey regardless
 		String checkInvoiceProductsQuery = "SELECT * FROM InvoiceProducts WHERE (InvoiceProductCode = ? AND InvoiceProductType = ?);";
-		Connection conn = DatabaseInfo.getConnection();
-		int invoiceID = -1;
+		int ProductID = -1;
+	
 		try {
 			PreparedStatement ps = conn.prepareStatement(checkInvoiceProductsQuery);
 			ps.setString(1, productCode);
@@ -515,7 +587,7 @@ public class InvoiceData {
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
-				invoiceID = rs.getInt("InvoiceID");
+			//	invoiceID = rs.getInt("InvoiceID");
 			} else {
 				String insertInvoiceProductsQuery = "INSERT INTO InvoiceProducts (InvoiceProductCode, InvoiceProductType) VALUES (?,?);";
 				try {
@@ -527,7 +599,8 @@ public class InvoiceData {
 					PreparedStatement ps3 = conn.prepareStatement("SELECT LAST_INSERT_ID() AS LID;");
 					ResultSet rs2 = ps3.executeQuery();
 					rs2.next();
-					invoiceID = rs2.getInt("LID");
+					ProductID = rs.getInt("LAST_INSERT_ID()");
+				//	invoiceID = rs2.getInt("LID");
 					rs2.close();
 					ps3.close();
 					ps2.close();
@@ -604,7 +677,7 @@ public class InvoiceData {
 			ps.setString(2, EndDate);
 			ps.setString(3, name);
 			ps.setDouble(4, pricePerUnit);
-			ps.setInt(5, invoiceID);
+			ps.setInt(5, ProductID);
 			ps.setInt(6, addressID);
 			ps.setInt(7, 1);
 			ps.executeUpdate();
@@ -637,7 +710,7 @@ public class InvoiceData {
 	 * 11. Removes all invoice records from the database
 	 */
 	public static void removeAllInvoices() {
-		/** TODO */
+		
 	}
 
 	/**
