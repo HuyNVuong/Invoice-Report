@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.List;
+
 /*
  * This is a collection of utility methods that define a general API for
  * interacting with the database supporting this application.
@@ -15,7 +15,6 @@ import java.util.List;
  */
 
 import org.apache.log4j.BasicConfigurator;
-import writer.InvoiceConsoleOutput;
 //import com.sf.model.DayMembership;
 //import com.sf.model.Invoice;
 //import com.sf.model.Member;
@@ -1017,7 +1016,9 @@ public class InvoiceData {
     	InvoiceData.addMember("M001", "G", "abc123", "Consultant", "234 street", "Lincoln", "NE", "68503", "USA");
     	InvoiceData.addPerson("abc123", "Guy", "Name", "23 street", "City", "Vietnam", "10000", "USA");
     	InvoiceData.addEmail("abc123", "avb123@yahoo.com");
+    	InvoiceData.addInvoice("INV001", "M001", "abc123", "10/22/2014");
     	InvoiceData.addDayPass("fp12", "12/22/2013", "24 street", "lincoln", "ne", "43555", "USA", 24.00);
+    	
     	InvoiceDataWriter invoiceWriter = new InvoiceDataWriter();
 		invoiceWriter.InvoiceReportWriter(); 
     	

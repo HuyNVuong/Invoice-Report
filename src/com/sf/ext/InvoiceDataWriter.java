@@ -14,10 +14,6 @@ import entities.ParkingPasses;
 import entities.Persons;
 import entities.Products;
 import entities.YearMembership;
-import reader.InvoiceFileReader;
-import reader.MembersFileReader;
-import reader.PersonsFileReader;
-import reader.ProductsFileReader;
 
 public class InvoiceDataWriter {
 	public void InvoiceReportWriter () {
@@ -29,7 +25,7 @@ public class InvoiceDataWriter {
 		List<Products> productsList = invoice.readProducts();
 		List<Invoice> invoiceList = invoice.readInvoice(productsList, membersList, personsList);
 		// Create neccessarily variable to stores all subtotal, taxes, discount of summarize of all Invoice
-		double [] summaryReportArray = new double[4];
+		
 		System.out.println("Executive Summary Report");
 		System.out.println("=========================");
 		System.out.println(String.format("%-20s %-50s %-32s %-15s %-15s %-15s %-15s %-15s", "Invoice", "Member",  ""
@@ -282,7 +278,6 @@ public class InvoiceDataWriter {
 			for(Products elementsProducts : element.getProducts()) {
 				String yearLongNameType = null;
 				String dayLongNameType = null;
-				String serviceNameType = null;
 				if(elementsProducts.getProductsType().toLowerCase().equals("y")) {
 					yearLongNameType = "Year-long membership";
 					flagYear = 1;
@@ -327,7 +322,6 @@ public class InvoiceDataWriter {
 					storeDayLongTaxTotal = tax;
 				} 
 				if (elementsProducts.getProductsType().toLowerCase().equals("r")) {
-					serviceNameType = "Rental Equipment";
 					String getItem = null;
 					String discountAnnounce = new String("");
 					double subTotal = elementsProducts.getCost();
@@ -349,7 +343,6 @@ public class InvoiceDataWriter {
 					storeEquipmentTaxTotal = taxes;
 				} 
 				if (elementsProducts.getProductsType().toLowerCase().equals("p")) {
-					serviceNameType = "Parking Pass";
 					String freePasses = "";
 					double subTotal = elementsProducts.getCost();
 					double tax = elementsProducts.getTax();

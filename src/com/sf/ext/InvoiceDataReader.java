@@ -1,8 +1,6 @@
 package com.sf.ext;
 
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+
 
 import entities.DayMembership;
 import entities.EquipmentRentals;
@@ -162,6 +160,8 @@ public class InvoiceDataReader {
 	public ArrayList<Products> readProducts() {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		PreparedStatement psInner = null;
+		ResultSet rsInner = null;
 		Connection conn = DatabaseInfo.getConnection();
 		String query = null;
 		
@@ -177,9 +177,9 @@ public class InvoiceDataReader {
 				ProductsAddress address = null;
 				if (productType.equals("Y")) {
 					query = "SELECT * FROM Address;";
-					ps = conn.prepareStatement(query);
-					rs = ps.executeQuery();
-					while (rs.next()) {
+					psInner = conn.prepareStatement(query);
+					rsInner = psInner.executeQuery();
+					while (rsInner.next()) {
 						String street = rs.getString("Street");
 						String city = rs.getString("City");
 						String state = rs.getString("State");
@@ -188,9 +188,9 @@ public class InvoiceDataReader {
 						address = new ProductsAddress(street, city, state, zip, country);
 					}
 					query = "SELECT * FROM YearMembership;";
-					ps = conn.prepareStatement(query);
-					rs = ps.executeQuery();
-					while (rs.next()) {
+					psInner = conn.prepareStatement(query);
+					rsInner = psInner.executeQuery();
+					while (rsInner.next()) {
 						String startDate = rs.getString("StartDate");
 						String endDate = rs.getString("EndDate");
 						String membershipName = rs.getString("Name");
@@ -208,31 +208,31 @@ public class InvoiceDataReader {
 				}
 				if (productType.equals("D")) {
 					query = "SELECT * FROM Address;";
-					ps = conn.prepareStatement(query);
-					rs = ps.executeQuery();
-					
+					psInner = conn.prepareStatement(query);
+					rsInner = psInner.executeQuery();
+					while (rsInner.next()) {
 						String street = rs.getString("Street");
 						String city = rs.getString("City");
 						String state = rs.getString("State");
 						String zip = rs.getString("Zip");
 						String country = rs.getString("Country");
 						address = new ProductsAddress(street, city, state, zip, country);
-				
+					}
 					query = "SELECT * FROM DayMembership;";
-					ps = conn.prepareStatement(query);
-					rs = ps.executeQuery();
-					
+					psInner = conn.prepareStatement(query);
+					rsInner = psInner.executeQuery();
+					while(rs.next()) {
 						String startDate = rs.getString("StartDate");
 						String cost = rs.getString("Cost");
 						DayMembership dayMembership = new DayMembership(productCode, productType, startDate, address, cost);
 						productsList.add(dayMembership);
-				
+					}
 				}
 				if (productType.equals("P")) {
 					query = "SElECT * FROM ParkingPasses;";
-					ps = conn.prepareStatement(query);
-					while (rs.next()) {
-						rs = ps.executeQuery();
+					psInner = conn.prepareStatement(query);
+					rsInner = psInner.executeQuery();
+					while (rsInner.next()) {
 						String parkingFee = rs.getString("Fee");
 						ParkingPasses ParkingPasses = new ParkingPasses(productCode, productType, parkingFee);
 						// Creates a Product object
@@ -241,8 +241,8 @@ public class InvoiceDataReader {
 				}
 				if (productType.equals("R")) {
 					query = "SELECT * EquipmentRental;";
-					ps = conn.prepareStatement(query);
-					rs = ps.executeQuery();
+					psInner = conn.prepareStatement(query);
+					rsInner = psInner.executeQuery();
 					while (rs.next()) {
 						String name = rs.getString("Name");
 						String cost = rs.getString("Cost");
@@ -251,6 +251,16 @@ public class InvoiceDataReader {
 						productsList.add(EquipmentRentals);
 					}
 				}
+				try {
+					if(rsInner != null && !rsInner.isClosed())
+						rsInner.close();
+					if(psInner != null && !psInner.isClosed())
+						psInner.close();
+				} catch (SQLException sqle) {
+					
+					log.error(sqle);
+				}
+				
 
 			}
 			try {
@@ -282,7 +292,6 @@ public class InvoiceDataReader {
 		String query = null;
 		PreparedStatement psInner = null;
 		ResultSet rsInner = null;
-
 		try {
 
 			// This Invoice ArrayList stores the Invoice objects
@@ -304,9 +313,9 @@ public class InvoiceDataReader {
 				int memberCode = rs.getInt("InvoiceMemberID");
 				int personCode = rs.getInt("InvoicePersonID");
 				String invoiceDate = rs.getString("InvoiceDate");
-				query = "SELECT * FROM Members;";
+				query = "SELECT MemberID, MemberCode FROM Members;";
 				psInner = conn.prepareStatement(query);
-				rsInner = ps.executeQuery();
+				rsInner = psInner.executeQuery();
 				while (rsInner.next()) {
 					int getMemberID = rs.getInt("MemberID");
 					if (memberCode == getMemberID) {
@@ -315,7 +324,7 @@ public class InvoiceDataReader {
 				}
 				query = "SELECT * FROM Persons;";
 				psInner = conn.prepareStatement(query);
-				rsInner = ps.executeQuery();
+				rsInner = psInner.executeQuery();
 				while(rsInner.next()) {
 					int getPersonID = rs.getInt("PersonID");
 					if (personCode == getPersonID) {
@@ -334,51 +343,36 @@ public class InvoiceDataReader {
 					}
 				}
 				invoice = new Invoice(invoiceCode, foundMember, foundPerson, invoiceDate);
-				// creates array for list of products
-				String productGetCodeString = data[4];
-				String productCodeList[] = productGetCodeString.split(","); // Store the whole List of code of Product
-																			// in a string array and concatinates it
-				String productGetCodeList = null;
-				String productCode = null;
-				for (int i = 0; i < productCodeList.length; i++) {
-					productGetCodeList = productCodeList[i];
-					String productCodeDetails[] = productGetCodeList.split(":"); // Tokenize a Product to get its
-																					// productCode
-					int productCodeQuantity = 0;
-					String productCodeAttach = null;
-					if (productCodeDetails.length == 2) {
-						productCode = productCodeDetails[0];
-						productCodeQuantity = Integer.parseInt(productCodeDetails[1]);
-						// foundProduct.setProductsQuantity(productCodeQuantity);
-
-					}
-					if (productCodeDetails.length == 3) {
-						productCode = productCodeDetails[0];
-						productCodeQuantity = Integer.parseInt(productCodeDetails[1]);
-						productCodeAttach = productCodeDetails[2];
-						// foundProduct.setProductsQuantity(productCodeQuantity);
-						// foundProduct.setProductsCodeAttach(productCodeAttach);
-
-					}
-					// Products foundNewProduct = new Products(foundProduct);
+				
 					// For every products that matches the product Code, add it to the Product
 					// ArrayList
 					for (Products aProduct : productsList) {
-						if (productCode.equals(aProduct.getProductsCode())) {
-							if (aProduct instanceof YearMembership) {
-								foundProduct = aProduct;
-								foundProduct.setProductsQuantity(productCodeQuantity);
-								YearMembership newProduct = new YearMembership((YearMembership) aProduct,
-										foundProduct.getProductsQuantity());
-								invoice.addItem(newProduct);
-								/*
-								 * Also add a membership if one is attached only applies to Rentals and Parking
-								 * passes
-								 */
+						if (aProduct instanceof YearMembership) {
+							foundProduct = aProduct;
+							query = "SELECT * FROM Membership;";
+							ps = conn.prepareStatement(query);
+							rs = ps.executeQuery();
+							foundProduct = aProduct;
+							int quantity = 0;
+							while (rs.next()) {
+								quantity = rs.getInt("Quantity");
 							}
+							foundProduct.setProductsQuantity(quantity);
+							YearMembership newProduct = new YearMembership((YearMembership) aProduct,
+									foundProduct.getProductsQuantity());
+							invoice.addItem(newProduct);
+						}
 							if (aProduct instanceof DayMembership) {
 								foundProduct = aProduct;
-								foundProduct.setProductsQuantity(productCodeQuantity);
+								query = "SELECT * FROM Membership;";
+								ps = conn.prepareStatement(query);
+								rs = ps.executeQuery();
+								foundProduct = aProduct;
+								int quantity = 0;
+								while (rs.next()) {
+									quantity = rs.getInt("Quantity");
+								}
+								foundProduct.setProductsQuantity(quantity);
 								DayMembership newProduct = new DayMembership((DayMembership) aProduct,
 										foundProduct.getProductsQuantity());
 								invoice.addItem(newProduct);
@@ -389,9 +383,19 @@ public class InvoiceDataReader {
 							 */
 							if (aProduct instanceof EquipmentRentals) {
 								foundProduct = aProduct;
-								foundProduct.setProductsQuantity(productCodeQuantity);
-								if (productCodeAttach != null) {
-									foundProduct.setProductsCodeAttach(productCodeAttach);
+								query = "SELECT * FROM Service;";
+								ps = conn.prepareStatement(query);
+								rs = ps.executeQuery();
+								foundProduct = aProduct;
+								int quantity = 0;
+								String CodeAttach = null;
+								while (rs.next()) {
+									quantity = rs.getInt("Quantity");
+									CodeAttach = rs.getString("ProductCodeAttach");
+								}
+								foundProduct.setProductsQuantity(quantity);
+								if (CodeAttach != null) {
+									foundProduct.setProductsCodeAttach(CodeAttach);
 									EquipmentRentals newProduct = new EquipmentRentals((EquipmentRentals) aProduct,
 											foundProduct.getProductsQuantity(), foundProduct.getProductsCodeAttach());
 									invoice.addItem(newProduct);
@@ -403,9 +407,19 @@ public class InvoiceDataReader {
 							}
 							if (aProduct instanceof ParkingPasses) {
 								foundProduct = aProduct;
-								foundProduct.setProductsQuantity(productCodeQuantity);
-								if (productCodeAttach != null) {
-									foundProduct.setProductsCodeAttach(productCodeAttach);
+								query = "SELECT * FROM Service;";
+								ps = conn.prepareStatement(query);
+								rs = ps.executeQuery();
+								foundProduct = aProduct;
+								int quantity = 0;
+								String CodeAttach = null;
+								while (rs.next()) {
+									quantity = rs.getInt("Quantity");
+									CodeAttach = rs.getString("ProductCodeAttach");
+								}
+								foundProduct.setProductsQuantity(quantity);
+								if (CodeAttach != null) {
+									foundProduct.setProductsCodeAttach(CodeAttach);
 									ParkingPasses newProduct = new ParkingPasses((ParkingPasses) aProduct,
 											foundProduct.getProductsQuantity(), foundProduct.getProductsCodeAttach());
 									invoice.addItem(newProduct);
@@ -416,16 +430,36 @@ public class InvoiceDataReader {
 								}
 							}
 						}
+					try {
+						if(rsInner != null && !rsInner.isClosed())
+							rsInner.close();
+						if(psInner != null && !psInner.isClosed())
+							psInner.close();
+					} catch (SQLException sqle) {
+						
+						log.error(sqle);
 					}
-				}
-				invoiceList.add(invoice);
+					
+					}
+			try {
+				if(rs != null && !rs.isClosed())
+					rs.close();
+				if(ps != null && !ps.isClosed())
+					ps.close();
+			} catch (SQLException sqle) {
+				
+				log.error(sqle);
 			}
-			sc.close();
+			
+	        // Close connection
+			DatabaseInfo.closeConnection(conn);	
 			return invoiceList;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+		} catch (SQLIntegrityConstraintViolationException le) {
+			log.error(le);
+			return null;
+		} catch (SQLException e) {
+			log.error(e);
 			return null;
 		}
 	}
-	
 }
