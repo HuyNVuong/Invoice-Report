@@ -36,6 +36,14 @@ public class InvoiceData {
 		/** TODO*/
 		Connection conn = DatabaseInfo.getConnection();
 		PreparedStatement ps = null;
+		// Delete from Invoice
+		String InvoiceQuery = "DELETE FROM Invoice";
+		try {
+			ps = conn.prepareStatement(InvoiceQuery);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			log.error(e);
+		}
 		// Delete from email
 		String emailQuery = "DELETE FROM Email";
 		try {
@@ -45,12 +53,12 @@ public class InvoiceData {
 			log.error(e);
 		}
 		// Delete all Person after get rid of Email
-		String personQuery = "DELETE FROM Person";
+		String personQuery = "DELETE FROM Persons";
 		try {
 			ps = conn.prepareStatement(personQuery);
 			int delete = ps.executeUpdate();
 			if (delete > 0) {
-				System.out.println("Removes Every Peron Record From the Person Succeed");
+				System.out.println("Removes Every Person Record From the Person Succeed");
 			} else {
 				System.out.println("Empty Table.");
 			}
@@ -142,14 +150,74 @@ public class InvoiceData {
 	 * @param email
 	 */
 	public static void addEmail(String personCode, String email) {
-		/** TODO*/
+		Connection conn = DatabaseInfo.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			// Select PersonID  from Person
+			String personQuery = "SELECT PersonID FROM Persons WHERE PersonCode = ?";
+			ps = conn.prepareStatement(personQuery);
+			ps.setString(1, personCode);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				int personID = rs.getInt("PersonID");
+				// Insert into Email 
+				String emailQuery = "INSERT INTO Email (Email, PersonID) value (?,?);";
+				ps = conn.prepareStatement(emailQuery);
+				ps.setString(1, email);
+				ps.setInt(2, personID);
+				ps.executeUpdate();
+			}
+		} catch (SQLException e) {
+			log.error(e);
+		}
+		try {
+			if(rs != null && !rs.isClosed())
+				rs.close();
+			if(ps != null && !ps.isClosed())
+				ps.close();
+		} catch (SQLException sqle) {
+			
+			log.error(sqle);
+			
+		}
+		// Close connnection
+		DatabaseInfo.closeConnection(conn);
 	}
-
 	/**
 	 * 4. Method that removes every member record from the database
 	 */
 	public static void removeAllMembers() {
-		/** TODO*/
+		Connection conn = DatabaseInfo.getConnection();
+		PreparedStatement ps = null;
+		// Remove all Invoice of a Member
+		String InvoiceQuery = "DELETE FROM Invoice";
+		try {
+			ps = conn.prepareStatement(InvoiceQuery);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			log.error(e);
+		}
+		// Remove all Member
+		String memberQuery = "DELETE FROM Members";
+		try {
+			ps = conn.prepareStatement(memberQuery);
+			int delete = ps.executeUpdate();
+			if (delete > 0) {
+				System.out.println("Removes Every Member Record From the Members Succeed");
+			} else {
+				System.out.println("Empty Table.");
+			}
+		} catch (SQLException e) {
+			log.error(e);
+		}
+		try {
+			if(ps != null && !ps.isClosed())
+				ps.close();
+		} catch (SQLException e) {
+			log.error(e);
+		}
+		DatabaseInfo.closeConnection(conn);
 	}
 	/**
 	 * 5. Method to add a member record to the database with the provided data
@@ -164,49 +232,413 @@ public class InvoiceData {
 	 * @param country
 	 */
 	public static void addMember(String memberCode, String memberType, String primaryContactPersonCode,String name, String street, String city, String state, String zip, String country) {
-		/** TODO*/
+		Connection conn = DatabaseInfo.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int addressID = 0;
+		try {
+			// Check that address is there
+			String addressQuery = "SELECT AddressID FROM Address;";
+			ps = conn.prepareStatement(addressQuery);
+			rs = ps.executeQuery();
+			// if the address is not exist, then insert a new one in
+			if (!rs.next()) {
+				addressQuery  = "INSERT INTO Address (Street, City, State, Zip, Country) "
+						+ "VALUES (?,?,?,?,?)";
+				ps = conn.prepareStatement(addressQuery);
+				ps.setString(1, street);
+				ps.setString(2, city);
+				ps.setString(3, state);
+				ps.setString(4, zip);
+				ps.setString(5, country);
+				ps.executeUpdate();
+				ps = conn.prepareStatement("SELECT LAST_INSERT_ID()");
+				rs = ps.executeQuery();
+				rs.next();
+				addressID = rs.getInt("LAST_INSERT_ID()");
+			} else {
+				addressID = rs.getInt("addressID");
+			}
+			// Insert into the person
+			String memberQuery = "INSERT INTO Members (MemberCode, MemberType, MemberContact, MemberName, MemberAddressID) values (?,?,?,?,?)";
+			ps = conn.prepareStatement(memberQuery);
+			ps.setString(1, memberCode);
+			ps.setString(2, memberType);
+			ps.setString(3, primaryContactPersonCode);
+			ps.setString(4, name);
+			ps.setInt(5, addressID);
+			ps.executeUpdate();
+		} catch (SQLIntegrityConstraintViolationException le) {
+			log.error(le);
+		} catch (SQLException e) {
+			log.error(e);
+		}
+		try {
+			if(rs != null && !rs.isClosed())
+				rs.close();
+			if(ps != null && !ps.isClosed())
+				ps.close();
+		} catch (SQLException sqle) {
+			
+			log.error(sqle);
+			
+		}
+
+        // Close connection
+		DatabaseInfo.closeConnection(conn);	
 	}
 	
 	/**
 	 * 6. Removes all product records from the database
 	 */
 	public static void removeAllProducts() {
-		/** TODO*/
+		Connection conn = DatabaseInfo.getConnection();
+		PreparedStatement ps = null;
+		String query = null;
+		// Remove all YearMembership that contains in Products
+		query = "DELETE FROM YearMembership;";
+		try {
+			ps = conn.prepareStatement(query);
+			int delete = ps.executeUpdate();
+			if (delete > 0) {
+				System.out.println("Removes Every YearMembership Record From Products successfully");
+			} else {
+				System.out.println("YearMembership table Empty.");
+			}
+		} catch (SQLException e) {
+			log.error(e);
+		}
+		try {
+			if(ps != null && !ps.isClosed())
+				ps.close();
+		} catch (SQLException e) {
+			log.error(e);
+		}
+		// Remove all DayMembership that contains in Products
+		query = "DELETE FROM DayMembership;";
+		try {
+			ps = conn.prepareStatement(query);
+			int delete = ps.executeUpdate();
+			if (delete > 0) {
+				System.out.println("Removes Every DayMembeship Record From Products successfully");
+			} else {
+				System.out.println("DayMembership Table Empty.");
+			}
+		} catch (SQLException e) {
+			log.error(e);
+		}
+		try {
+			if(ps != null && !ps.isClosed())
+				ps.close();
+		} catch (SQLException e) {
+			log.error(e);
+		}
+		// Remove all EquipmentRental that contains in Products
+		query = "DELETE FROM EquipmentRental;";
+		try {
+			ps = conn.prepareStatement(query);
+			int delete = ps.executeUpdate();
+			if (delete > 0) {
+				System.out.println("Removes Every EquipmentRental Record From Products successfully");
+			} else {
+				System.out.println("EquipmentRental table Empty.");
+			}
+		} catch (SQLException e) {
+			log.error(e);
+		}
+		try {
+			if(ps != null && !ps.isClosed())
+				ps.close();
+		} catch (SQLException e) {
+			log.error(e);
+		}
+		// Remove all ParkingPasses that contains in Products
+		query = "DELETE FROM ParkingPasses;";
+		try {
+			ps = conn.prepareStatement(query);
+			int delete = ps.executeUpdate();
+			if (delete > 0) {
+				System.out.println("Removes Every ParkingPasses Record From Products successfully");
+			} else {
+				System.out.println("ParkingPasses table Empty.");
+			}
+		} catch (SQLException e) {
+			log.error(e);
+		}
+		try {
+			if(ps != null && !ps.isClosed())
+				ps.close();
+		} catch (SQLException e) {
+			log.error(e);
+		}
+		// Delete all Products
+		query = "DELETE FROM Products";
+		try {
+			ps = conn.prepareStatement(query);
+			int delete = ps.executeUpdate();
+			if (delete > 0) {
+				System.out.println("Removes Every Product Record From Products successfully");
+			} else {
+				System.out.println("Empty Table.");
+			}
+		} catch (SQLException e) {
+			log.error(e);
+		}
+		try {
+			if(ps != null && !ps.isClosed())
+				ps.close();
+		} catch (SQLException e) {
+			log.error(e);
+		}
+		DatabaseInfo.closeConnection(conn);
 	}
 
 	/**
 	 * 7. Adds a day-pass record to the database with the provided data.
 	 */
 	public static void addDayPass(String productCode, String dateTime, String street, String city, String state, String zip, String country, double pricePerUnit) {
-		/** TODO*/
+		Connection conn = DatabaseInfo.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String query = null;
+		int addressID = 0;
+		int ProductID = 0;
+		try {
+			// Insert into Product
+			query = "INSERT INTO Products (ProductCode, ProductType) VALUES (?,?);";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, productCode);
+			ps.setString(2, "D");
+			ps.executeUpdate();
+			ps = conn.prepareStatement("SELECT LAST_INSERT_ID()");
+			rs = ps.executeQuery();
+			rs.next();
+			ProductID = rs.getInt("LAST_INSERT_ID()");
+			// Check that address is there
+			query = "SELECT AddressID FROM Address;";
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			// if the address is not exist, then insert a new one in
+			if (!rs.next()) {
+				query  = "INSERT INTO Address (Street, City, State, Zip, Country) "
+						+ "VALUES (?,?,?,?,?)";
+				ps = conn.prepareStatement(query);
+				ps.setString(1, street);
+				ps.setString(2, city);
+				ps.setString(3, state);
+				ps.setString(4, zip);
+				ps.setString(5, country);
+				ps.executeUpdate();
+				ps = conn.prepareStatement("SELECT LAST_INSERT_ID()");
+				rs = ps.executeQuery();
+				rs.next();
+				addressID = rs.getInt("LAST_INSERT_ID()");
+			} else {
+				addressID = rs.getInt("addressID");
+			}
+			// Insert into the person
+			query = "INSERT INTO DayMembership (StartDate, Cost, DayAddressID, DayProductID) values (?,?,?,?)";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, dateTime);
+			ps.setDouble(2, pricePerUnit);
+			ps.setInt(3, addressID);
+			ps.setInt(4, ProductID);
+			
+			ps.executeUpdate();
+		} catch (SQLIntegrityConstraintViolationException le) {
+			log.error(le);
+		} catch (SQLException e) {
+			log.error(e);
+		}
+		try {
+			if(rs != null && !rs.isClosed())
+				rs.close();
+			if(ps != null && !ps.isClosed())
+				ps.close();
+		} catch (SQLException sqle) {
+			
+			log.error(sqle);
+			
+		}
+
+        // Close connection
+		DatabaseInfo.closeConnection(conn);	
 	}
 
 	/**
 	 * 8. Adds a year-long-pass record to the database with the provided data.
 	 */
 	public static void addYearPass(String productCode, String StartDate, String EndDate,String street, String city, String state, String zip, String country, String name, double pricePerUnit) {
-		/** TODO*/
+		Connection conn = DatabaseInfo.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String query = null;
+		int addressID = 0;
+		int ProductID = 0;
+		try {
+			// Insert into Product
+			query = "INSERT INTO Products (ProductCode, ProductType) VALUES (?,?);";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, productCode);
+			ps.setString(2, "Y");
+			ps.executeUpdate();
+			ps = conn.prepareStatement("SELECT LAST_INSERT_ID()");
+			rs = ps.executeQuery();
+			rs.next();
+			ProductID = rs.getInt("LAST_INSERT_ID()");
+			// Check that address is there
+			query = "SELECT AddressID FROM Address;";
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			// if the address is not exist, then insert a new one in
+			if (!rs.next()) {
+				query  = "INSERT INTO Address (Street, City, State, Zip, Country) "
+						+ "VALUES (?,?,?,?,?)";
+				ps = conn.prepareStatement(query);
+				ps.setString(1, street);
+				ps.setString(2, city);
+				ps.setString(3, state);
+				ps.setString(4, zip);
+				ps.setString(5, country);
+				ps.executeUpdate();
+				ps = conn.prepareStatement("SELECT LAST_INSERT_ID()");
+				rs = ps.executeQuery();
+				rs.next();
+				addressID = rs.getInt("LAST_INSERT_ID()");
+			} else {
+				addressID = rs.getInt("addressID");
+			}
+			// Insert into the person
+			query = "INSERT INTO YearMembership (StartDate, EndDate, Name, Price, YearProductID, YearAddressID) values (?,?,?,?,?,?)";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, StartDate);
+			ps.setString(2, EndDate);
+			ps.setString(3, productCode);
+			ps.setDouble(4, pricePerUnit);
+			ps.setInt(5, ProductID);
+			ps.setInt(6, addressID);
+			ps.executeUpdate();
+		} catch (SQLIntegrityConstraintViolationException le) {
+			log.error(le);
+		} catch (SQLException e) {
+			log.error(e);
+		}
+		try {
+			if(rs != null && !rs.isClosed())
+				rs.close();
+			if(ps != null && !ps.isClosed())
+				ps.close();
+		} catch (SQLException sqle) {
+			
+			log.error(sqle);
+			
+		}
+        // Close connection
+		DatabaseInfo.closeConnection(conn);	
 	}
 
 	/**
 	 * 9. Adds a ParkingPass record to the database with the provided data.
 	 */
 	public static void addParkingPass(String productCode, double parkingFee) {
-        /** TODO*/
+		Connection conn = DatabaseInfo.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String query = null;
+		int ProductID = 0;
+		try {
+			// Insert into Product
+			query = "INSERT INTO Products (ProductCode, ProductType) VALUES (?,?);";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, productCode);
+			ps.setString(2, "P");
+			ps.executeUpdate();
+			ps = conn.prepareStatement("SELECT LAST_INSERT_ID()");
+			rs = ps.executeQuery();
+			rs.next();
+			ProductID = rs.getInt("LAST_INSERT_ID()");
+			query = "INSERT INTO ParkingPasses(Fee, ParkingProductID) VALUES (?,?);";
+			ps = conn.prepareStatement(query);
+			ps.setDouble(1, parkingFee);
+			ps.setInt(2, ProductID);
+			ps.executeUpdate();
+			
+		} catch (SQLIntegrityConstraintViolationException le) {
+			log.error(le);
+		} catch (SQLException e) {
+			log.error(e);
+		}
+		
+		try {
+			if(rs != null && !rs.isClosed())
+				rs.close();
+			if(ps != null && !ps.isClosed())
+				ps.close();
+		} catch (SQLException sqle) {
+			
+			log.error(sqle);
+			
+		}
+        // Close connection
+		DatabaseInfo.closeConnection(conn);	
 	}
 
 	/**
 	 * 10. Adds an equipment rental record to the database with the provided data.
 	 */
 	public static void addRental(String productCode, String name, double cost) {
-        /** TODO*/
+		Connection conn = DatabaseInfo.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String query = null;
+		int ProductID = 0;
+		try {
+			// Insert into Product
+			query = "INSERT INTO Products (ProductCode, ProductType) VALUES (?,?);";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, productCode);
+			ps.setString(2, "R");
+			ps.executeUpdate();
+			ps = conn.prepareStatement("SELECT LAST_INSERT_ID()");
+			rs = ps.executeQuery();
+			rs.next();
+			ProductID = rs.getInt("LAST_INSERT_ID()");
+			query = "INSERT INTO EquipmentRental(Name, Cost, RentalProductID) VALUES (?,?,?);";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, name);
+			ps.setDouble(2, cost);
+			ps.setInt(3, ProductID);
+			ps.executeUpdate();
+			
+		} catch (SQLIntegrityConstraintViolationException le) {
+			log.error(le);
+		} catch (SQLException e) {
+			log.error(e);
+		}
+		
+		try {
+			if(rs != null && !rs.isClosed())
+				rs.close();
+			if(ps != null && !ps.isClosed())
+				ps.close();
+		} catch (SQLException sqle) {
+			
+			log.error(sqle);
+			
+		}
+        // Close connection
+		DatabaseInfo.closeConnection(conn);	
+	
 	}
 
 	/**
 	 * 11. Removes all invoice records from the database
 	 */
 	public static void removeAllInvoices() {
-        /** TODO*/
+		Connection conn = DatabaseInfo.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String query = null;
 	}
 
 	/**
@@ -256,8 +688,16 @@ public class InvoiceData {
     }
     public static void main (String args[]) {
     	BasicConfigurator.configure();
-    	InvoiceData i = new InvoiceData();
     	InvoiceData.addPerson("nwdoc5", "Huy", "Vuong", "246 street", "Lincoln", "Ne", "68503", "USA");
+    	InvoiceData.addEmail("nwdoc5", "vuongnguyenhuy@yahoo.com");
+    	InvoiceData.addMember("M001", "G", "nwdoc5", "Superman", "234 Steel Str", "Black", "KY", "365", "Krytonite");
+    	InvoiceData.addDayPass("fp12", "12/30/2016", "235 oldFater", "Lincoln", "NE", "68504", "USA", 350.0);
+    	InvoiceData.addYearPass("g305", "10/20/2015", "11/21/2017", "214 avenue", "Lincoln", "NE", "54355", "USA", "Gold Package", 450.0);
+    	InvoiceData.addRental("gg12", "Boxing-gloves", 25.0);
+    	InvoiceData.addParkingPass("ff22", 20.0);
+    	InvoiceData.removeAllPersons();
+    	InvoiceData.removeAllMembers();
+    	InvoiceData.removeAllProducts();
     }
    
 }
