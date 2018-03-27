@@ -18,11 +18,12 @@ import entities.YearMembership;
 public class InvoiceDataWriter {
 	public void InvoiceReportWriter () {
 		// for parsing string got from products file to pattern
-		
 		InvoiceDataReader invoice = new InvoiceDataReader();
+		
 		List<Members> membersList = invoice.readMembers();
 		List<Persons> personsList = invoice.readPersons();
 		List<Products> productsList = invoice.readProducts();
+		
 		List<Invoice> invoiceList = invoice.readInvoice(productsList, membersList, personsList);
 		// Create neccessarily variable to stores all subtotal, taxes, discount of summarize of all Invoice
 		

@@ -174,29 +174,33 @@ public class InvoiceDataReader {
 			while (rs.next()) {
 				String productCode = rs.getString("ProductCode");
 				String productType = rs.getString("ProductType");
+				System.out.println(productType);
+				System.out.println(productCode);
 				ProductsAddress address = null;
 				if (productType.equals("Y")) {
 					query = "SELECT * FROM Address;";
 					psInner = conn.prepareStatement(query);
 					rsInner = psInner.executeQuery();
 					while (rsInner.next()) {
-						String street = rs.getString("Street");
-						String city = rs.getString("City");
-						String state = rs.getString("State");
-						String zip = rs.getString("Zip");
-						String country = rs.getString("Country");
+						String street = rsInner.getString("Street");
+						String city = rsInner.getString("City");
+						String state = rsInner.getString("State");
+						String zip = rsInner.getString("Zip");
+						String country = rsInner.getString("Country");
 						address = new ProductsAddress(street, city, state, zip, country);
 					}
 					query = "SELECT * FROM YearMembership;";
 					psInner = conn.prepareStatement(query);
 					rsInner = psInner.executeQuery();
 					while (rsInner.next()) {
-						String startDate = rs.getString("StartDate");
-						String endDate = rs.getString("EndDate");
-						String membershipName = rs.getString("Name");
-						String price = rs.getString("Price");
+						System.out.println("flag");
+						String startDate = rsInner.getString("StartDate");
+						String endDate = rsInner.getString("EndDate");
+						String membershipName = rsInner.getString("Name");
+						String price = rsInner.getString("Price");
 						YearMembership yearMembership = new YearMembership(productCode, productType, startDate, endDate,
 								address, membershipName, price);
+						System.out.println(yearMembership.toString());
 						productsList.add(yearMembership);
 					}
 					
@@ -207,23 +211,26 @@ public class InvoiceDataReader {
 
 				}
 				if (productType.equals("D")) {
+					System.out.println("flag");
 					query = "SELECT * FROM Address;";
 					psInner = conn.prepareStatement(query);
 					rsInner = psInner.executeQuery();
 					while (rsInner.next()) {
-						String street = rs.getString("Street");
-						String city = rs.getString("City");
-						String state = rs.getString("State");
-						String zip = rs.getString("Zip");
+						System.out.println("flag");
+						String street = rsInner.getString("Street");
+						String city = rsInner.getString("City");
+						String state = rsInner.getString("State");
+						String zip = rsInner.getString("Zip");
 						String country = rs.getString("Country");
 						address = new ProductsAddress(street, city, state, zip, country);
 					}
 					query = "SELECT * FROM DayMembership;";
 					psInner = conn.prepareStatement(query);
 					rsInner = psInner.executeQuery();
-					while(rs.next()) {
-						String startDate = rs.getString("StartDate");
-						String cost = rs.getString("Cost");
+					while(rsInner.next()) {
+						System.out.println("flag");
+						String startDate = rsInner.getString("StartDate");
+						String cost = rsInner.getString("Cost");
 						DayMembership dayMembership = new DayMembership(productCode, productType, startDate, address, cost);
 						productsList.add(dayMembership);
 					}
@@ -233,7 +240,7 @@ public class InvoiceDataReader {
 					psInner = conn.prepareStatement(query);
 					rsInner = psInner.executeQuery();
 					while (rsInner.next()) {
-						String parkingFee = rs.getString("Fee");
+						String parkingFee = rsInner.getString("Fee");
 						ParkingPasses ParkingPasses = new ParkingPasses(productCode, productType, parkingFee);
 						// Creates a Product object
 						productsList.add(ParkingPasses);
@@ -244,8 +251,8 @@ public class InvoiceDataReader {
 					psInner = conn.prepareStatement(query);
 					rsInner = psInner.executeQuery();
 					while (rs.next()) {
-						String name = rs.getString("Name");
-						String cost = rs.getString("Cost");
+						String name = rsInner.getString("Name");
+						String cost = rsInner.getString("Cost");
 						EquipmentRentals EquipmentRentals = new EquipmentRentals(productCode, productType, name, cost);
 						// Creates a Product object
 						productsList.add(EquipmentRentals);
@@ -310,25 +317,28 @@ public class InvoiceDataReader {
 				String getPersonCode = null;
 				// Stores the array elements of each line into strings
 				String invoiceCode = rs.getString("InvoiceCode");
-				int memberCode = rs.getInt("InvoiceMemberID");
-				int personCode = rs.getInt("InvoicePersonID");
+				int memberID = rs.getInt("InvoiceMemberID");
+				int personID = rs.getInt("InvoicePersonID");
+				System.out.println(memberID);
 				String invoiceDate = rs.getString("InvoiceDate");
 				query = "SELECT MemberID, MemberCode FROM Members;";
 				psInner = conn.prepareStatement(query);
 				rsInner = psInner.executeQuery();
 				while (rsInner.next()) {
-					int getMemberID = rs.getInt("MemberID");
-					if (memberCode == getMemberID) {
-						getMemberCode = rs.getString("MemberCode");
+					int getMemberID = rsInner.getInt("MemberID");
+					System.out.println(getMemberID);
+					if (memberID == getMemberID) {
+						getMemberCode = rsInner.getString("MemberCode");
+						System.out.println(getMemberID);
 					}
 				}
 				query = "SELECT * FROM Persons;";
 				psInner = conn.prepareStatement(query);
 				rsInner = psInner.executeQuery();
 				while(rsInner.next()) {
-					int getPersonID = rs.getInt("PersonID");
-					if (personCode == getPersonID) {
-						getPersonCode = rs.getString("PersonCode");
+					int getPersonID = rsInner.getInt("PersonID");
+					if (personID == getPersonID) {
+						getPersonCode = rsInner.getString("PersonCode");
 					}
 				}
 				
@@ -439,7 +449,7 @@ public class InvoiceDataReader {
 						
 						log.error(sqle);
 					}
-					
+					invoiceList.add(invoice);
 					}
 			try {
 				if(rs != null && !rs.isClosed())
@@ -452,6 +462,7 @@ public class InvoiceDataReader {
 			}
 			
 	        // Close connection
+			
 			DatabaseInfo.closeConnection(conn);	
 			return invoiceList;
 		} catch (SQLIntegrityConstraintViolationException le) {
