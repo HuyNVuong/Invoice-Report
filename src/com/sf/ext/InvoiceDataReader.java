@@ -148,6 +148,7 @@ public class InvoiceDataReader {
 			
 	        // Close connection
 			DatabaseInfo.closeConnection(conn);	
+			System.out.println("Success");
 			return personsList;
 		} catch (SQLIntegrityConstraintViolationException le) {
 			log.error(le);
@@ -202,12 +203,11 @@ public class InvoiceDataReader {
 								address, membershipName, price);
 						System.out.println(yearMembership.toString());
 						productsList.add(yearMembership);
+						System.out.println("Product List: " +productsList);
 					}
 					
 					
 					// Creates a Product object
-
-					
 
 				}
 				if (productType.equals("D")) {
@@ -264,10 +264,10 @@ public class InvoiceDataReader {
 					if(psInner != null && !psInner.isClosed())
 						psInner.close();
 				} catch (SQLException sqle) {
-					
+					System.out.println("Error");
 					log.error(sqle);
 				}
-				
+				System.out.println("Product List: " + productsList);
 
 			}
 			try {
@@ -276,17 +276,20 @@ public class InvoiceDataReader {
 				if(ps != null && !ps.isClosed())
 					ps.close();
 			} catch (SQLException sqle) {
-				
+				System.out.println("Error 0: ");
 				log.error(sqle);
 			}
 			
 	        // Close connection
+			System.out.println("Product List: " + productsList);
 			DatabaseInfo.closeConnection(conn);	
 			return productsList;
 		} catch (SQLIntegrityConstraintViolationException le) {
+			System.out.println("Error 1: " );
 			log.error(le);
 			return null;
 		} catch (SQLException e) {
+			System.out.println("Error 2: " );
 			log.error(e);
 			return null;
 		}
