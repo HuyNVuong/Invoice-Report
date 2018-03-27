@@ -19,7 +19,6 @@ public class InvoiceDataWriter {
 	public void InvoiceReportWriter () {
 		// for parsing string got from products file to pattern
 		InvoiceDataReader invoice = new InvoiceDataReader();
-		
 		List<Members> membersList = invoice.readMembers();
 		List<Persons> personsList = invoice.readPersons();
 		List<Products> productsList = invoice.readProducts();
