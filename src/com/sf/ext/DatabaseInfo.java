@@ -36,4 +36,16 @@ public class DatabaseInfo {
 		}
 		return conn;
 	}
+	public static void closeConnection(Connection conn) {
+        
+		//Close connection
+		try {
+			if(conn != null && !conn.isClosed())
+				conn.close();
+		} catch (SQLException sqle) {
+			log.error(sqle);
+		}
+
+	}
+
 }
