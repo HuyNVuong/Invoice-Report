@@ -36,18 +36,20 @@ public class InvoiceDataReader {
 			// This Members ArrayList stores the Members objects 
 			ArrayList<Members> membersList = new ArrayList<Members>();
 			MembersAddress address = null;
-			query = "SELECT * FROM Members AS m JOIN Address AS a ON m.AddressID = a.AddressID;";
+			query = "SELECT * FROM Members AS m JOIN Address AS a ON m.MemberAddressID = a.AddressID;";
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();
 			while (rs.next()) {
+				
 				address = new MembersAddress (rs.getString("Street"), rs.getString("City"), rs.getString("State")
 						, rs.getString("Zip"), rs.getString("Country"));
 				String MemberCode = rs.getString("MemberCode");
 				String MemberType = rs.getString("MemberType");
 				String MemberContact = rs.getString("MemberContact");
-				String MemberName = rs.getString("Membername");
+				String MemberName = rs.getString("MemberName");
 				Members member = new Members(MemberCode, MemberType, MemberContact, MemberName, address);
 				membersList.add(member);
+	
 			}
 			try {
 				if(rs != null && !rs.isClosed())
@@ -63,9 +65,11 @@ public class InvoiceDataReader {
 			DatabaseInfo.closeConnection(conn);	
 			return membersList;
 		} catch (SQLIntegrityConstraintViolationException le) {
+			
 			log.error(le);
 			return null;
 		} catch (SQLException e) {
+			
 			log.error(e);
 			return null;
 		}
@@ -82,7 +86,7 @@ public class InvoiceDataReader {
 			// This Person ArrayList stores the Person objects 
 			ArrayList<Persons> personsList = new ArrayList<Persons>();
 			PersonsAddress address = null;
-			query = "SELECT * FROM Persons as p JOIN Address as a on p.PersonsID = a.AddressID;";
+			query = "SELECT * FROM Persons as p JOIN Address as a on p.PersonAddressID = a.AddressID;";
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();
 			// Adding stuff to Address
@@ -236,7 +240,7 @@ public class InvoiceDataReader {
 				String PersonCode = rs.getString("PersonCode");
 				String MemberCode = rs.getString("MemberCode");
 				for (Members aMember : membersList) {
-					if (MemberCode.equals(member.getMemberCode())) {
+					if (MemberCode.equals(aMember.getMemberCode())) {
 						member = aMember;
 					}
 				}
@@ -246,7 +250,77 @@ public class InvoiceDataReader {
 					}
 				}
 				invoice = new Invoice(rs.getString("InvoiceCode"), member, person, rs.getString("InvoiceDate"));
+				ResultSet rsInner = null;
+				// Retrieve all Membership into Invoice
+				query = "SELECT * FROM Products AS p LEFT JOIN Membership AS m ON p.ProductID = m.MembershipProductID "
+						+ "LEFT JOIN Invoice AS i ON m.MembershipInvoiceID = i.InvoiceID WHERE InvoiceID = ?;";
+				ps = conn.prepareStatement(query);
+				ps.setInt(1, rs.getInt("InvoiceID"));
+				rsInner = ps.executeQuery();
+				while (rsInner.next()) {
+					for (Products product : productsList) {
+						if(rsInner.getString("ProductCode").equals(product.getProductsCode())) {
+	
+							// Retrieve a YearMembership 
+							if(rsInner.getString("ProductType").equals(product.getProductsType())) {
+								product.setProductsQuantity(rsInner.getInt("Quantity"));
+								YearMembership newProduct = new YearMembership((YearMembership) product,
+										product.getProductsQuantity());
+								invoice.addItem(newProduct);
+							}
+							
+							// Retrive a DayMembership
+							if(product instanceof DayMembership) {
+								product.setProductsQuantity(rsInner.getInt("Quantity"));
+								DayMembership newProduct = new DayMembership((DayMembership) product,
+										product.getProductsQuantity());
+								invoice.addItem(newProduct);
+							}
+						}
+					}
+				}
+				// Retrieve all Service into Invoice
+				query = "SELECT * FROM Products AS p LEFT JOIN Service AS s ON p.ProductID = s.ServiceProductID "
+						+ "LEFT JOIN Invoice AS i ON s.ServiceInvoiceID = i.InvoiceID WHERE InvoiceID = ?;";
+				ps = conn.prepareStatement(query);
+				ps.setInt(1, rs.getInt("InvoiceID"));
+				rsInner = ps.executeQuery();
+				while (rsInner.next()) {
+					for (Products product : productsList) {
+						if(rsInner.getString("ProductCode").equals(product.getProductsCode())) {
+							
+							// Retrieve an EquipmentRental
+							if(product instanceof EquipmentRentals) {
+								product.setProductsQuantity(rsInner.getInt("Quantity"));
+								String codeAttach = rsInner.getString("ProductCodeAttach");
+								if (codeAttach != null) {
+									EquipmentRentals newProduct = new EquipmentRentals((EquipmentRentals) product,
+											product.getProductsQuantity(), codeAttach);
+									invoice.addItem(newProduct);
+								} else {
+									EquipmentRentals newProduct = new EquipmentRentals((EquipmentRentals) product,
+											product.getProductsQuantity());
+									invoice.addItem(newProduct);
+								}
+							}
+							if(product instanceof ParkingPasses) {
+								product.setProductsQuantity(rsInner.getInt("Quantity"));
+								String codeAttach = rsInner.getString("ProductCodeAttach");
+								if (codeAttach != null) {
+									ParkingPasses newProduct = new ParkingPasses((ParkingPasses) product,
+											product.getProductsQuantity(), codeAttach);
+									invoice.addItem(newProduct);
+								} else {
+									ParkingPasses newProduct = new ParkingPasses((ParkingPasses) product,
+											product.getProductsQuantity());
+									invoice.addItem(newProduct);
+								}
+							}
+						}
+					}
+				}
 				
+				invoiceList.add(invoice);
 			}
 					
 			try {
