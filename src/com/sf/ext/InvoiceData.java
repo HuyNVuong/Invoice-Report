@@ -36,26 +36,27 @@ public class InvoiceData {
 		/** TODO*/
 		Connection conn = DatabaseInfo.getConnection();
 		PreparedStatement ps = null;
+		String query = null;
 		// Delete from Invoice
-		String InvoiceQuery = "DELETE FROM Invoice";
+		query = "DELETE FROM Invoice";
 		try {
-			ps = conn.prepareStatement(InvoiceQuery);
+			ps = conn.prepareStatement(query);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			log.error(e);
 		}
 		// Delete from email
-		String emailQuery = "DELETE FROM Email";
+		query = "DELETE FROM Email";
 		try {
-			ps = conn.prepareStatement(emailQuery);
+			ps = conn.prepareStatement(query);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			log.error(e);
 		}
 		// Delete all Person after get rid of Email
-		String personQuery = "DELETE FROM Persons";
+		query = "DELETE FROM Persons";
 		try {
-			ps = conn.prepareStatement(personQuery);
+			ps = conn.prepareStatement(query);
 			int delete = ps.executeUpdate();
 			if (delete > 0) {
 				System.out.println("Removes Every Person Record From the Person Succeed");
@@ -93,8 +94,9 @@ public class InvoiceData {
 		int addressID = 0;
 		try {
 			// Check that address is there
-			String addressQuery = "SELECT AddressID FROM Address;";
+			String addressQuery = "SELECT AddressID FROM Address WHERE Street = ?;";
 			ps = conn.prepareStatement(addressQuery);
+			ps.setString(1, street);
 			rs = ps.executeQuery();
 			// if the address is not exist, then insert a new one in
 			if (!rs.next()) {
@@ -238,8 +240,9 @@ public class InvoiceData {
 		int addressID = 0;
 		try {
 			// Check that address is there
-			String addressQuery = "SELECT AddressID FROM Address;";
+			String addressQuery = "SELECT AddressID FROM Address WHERE Street = ?;";
 			ps = conn.prepareStatement(addressQuery);
+			ps.setString(1, street);
 			rs = ps.executeQuery();
 			// if the address is not exist, then insert a new one in
 			if (!rs.next()) {
@@ -257,9 +260,9 @@ public class InvoiceData {
 				rs.next();
 				addressID = rs.getInt("LAST_INSERT_ID()");
 			} else {
-				addressID = rs.getInt("addressID");
+				addressID = rs.getInt("AddressID");
 			}
-			// Insert into the person
+			// Insert into the member
 			String memberQuery = "INSERT INTO Members (MemberCode, MemberType, MemberContact, MemberName, MemberAddressID) values (?,?,?,?,?)";
 			ps = conn.prepareStatement(memberQuery);
 			ps.setString(1, memberCode);
@@ -415,8 +418,9 @@ public class InvoiceData {
 			rs.next();
 			ProductID = rs.getInt("LAST_INSERT_ID()");
 			// Check that address is there
-			query = "SELECT AddressID FROM Address;";
-			ps = conn.prepareStatement(query);
+			String addressQuery = "SELECT AddressID FROM Address WHERE Street = ?;";
+			ps = conn.prepareStatement(addressQuery);
+			ps.setString(1, street);
 			rs = ps.executeQuery();
 			// if the address is not exist, then insert a new one in
 			if (!rs.next()) {
@@ -434,9 +438,9 @@ public class InvoiceData {
 				rs.next();
 				addressID = rs.getInt("LAST_INSERT_ID()");
 			} else {
-				addressID = rs.getInt("addressID");
+				addressID = rs.getInt("AddressID");
 			}
-			// Insert into the person
+			// Insert into the DayMembership
 			query = "INSERT INTO DayMembership (StartDate, Cost, DayAddressID, DayProductID) values (?,?,?,?)";
 			ps = conn.prepareStatement(query);
 			ps.setString(1, dateTime);
@@ -487,13 +491,14 @@ public class InvoiceData {
 			rs.next();
 			ProductID = rs.getInt("LAST_INSERT_ID()");
 			// Check that address is there
-			query = "SELECT AddressID FROM Address;";
-			ps = conn.prepareStatement(query);
+			String addressQuery = "SELECT AddressID FROM Address WHERE Street = ?;";
+			ps = conn.prepareStatement(addressQuery);
+			ps.setString(1, street);
 			rs = ps.executeQuery();
 			// if the address is not exist, then insert a new one in
 			if (!rs.next()) {
 				query  = "INSERT INTO Address (Street, City, State, Zip, Country) "
-						+ "VALUES (?,?,?,?,?)";
+						+ "VALUES (?,?,?,?,?);";
 				ps = conn.prepareStatement(query);
 				ps.setString(1, street);
 				ps.setString(2, city);
@@ -506,7 +511,7 @@ public class InvoiceData {
 				rs.next();
 				addressID = rs.getInt("LAST_INSERT_ID()");
 			} else {
-				addressID = rs.getInt("addressID");
+				addressID = rs.getInt("AddressID");
 			}
 			// Insert into the person
 			query = "INSERT INTO YearMembership (StartDate, EndDate, Name, Price, YearProductID, YearAddressID) values (?,?,?,?,?,?)";
@@ -742,25 +747,26 @@ public class InvoiceData {
 		int InvoiceID = 0;
 		try {
 		// Check that Product is there
-		query = "SELECT ProductID, ProductCode FROM Products;";
+			query = "SELECT * FROM Invoice;";
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				String getInvoiceCode = rs.getString("InvoiceCode");
+				if (invoiceCode.equals(getInvoiceCode)) {
+					InvoiceID = rs.getInt("InvoiceID");
+				}
+			}
+		query = "SELECT * FROM Products WHERE ProductCode = ?;";
 		ps = conn.prepareStatement(query);
+		ps.setString(1, productCode);
 		rs = ps.executeQuery();
 		while (rs.next()) {
-			String getProductCode = rs.getString("ProductCode");
-			if (productCode.equals(getProductCode)) {
-				ProductID = rs.getInt("ProductID");
-			}
+			ProductID = rs.getInt("ProductID");
+			
 		}
-		query = "SELECT InvoiceID, InvoiceCode FROM Invoice;";
+		
+		query = "INSERT INTO Membership (MembershipProductID, MembershipInvoiceID, quantity) VALUES(?,?,?);";
 		ps = conn.prepareStatement(query);
-		rs = ps.executeQuery();
-		while (rs.next()) {
-			String getInvoiceCode = rs.getString("InvoiceCode");
-			if (invoiceCode.equals(getInvoiceCode)) {
-				InvoiceID = rs.getInt("Invoice");
-			}
-		}
-		query = "INSERT TO Membership (MembershipProductID, MembershipInvoiceID, quantity) VALUES(?,?,?);";
 		ps.setInt(1, ProductID);
 		ps.setInt(2, InvoiceID);
 		ps.setInt(3, quantity);
@@ -797,26 +803,26 @@ public class InvoiceData {
 		int ProductID = 0;
 		int InvoiceID = 0;
 		try {
-		// Check that Product is there
-		query = "SELECT ProductID, ProductCode FROM Products;";
-		ps = conn.prepareStatement(query);
-		rs = ps.executeQuery();
-		while (rs.next()) {
-			String getProductCode = rs.getString("ProductCode");
-			if (productCode.equals(getProductCode)) {
-				ProductID = rs.getInt("ProductID");
-			}
-		}
-		query = "SELECT InvoiceID, InvoiceCode FROM Invoice;";
+			
+		query = "SELECT * FROM Invoice;";
 		ps = conn.prepareStatement(query);
 		rs = ps.executeQuery();
 		while (rs.next()) {
 			String getInvoiceCode = rs.getString("InvoiceCode");
 			if (invoiceCode.equals(getInvoiceCode)) {
-				InvoiceID = rs.getInt("Invoice");
+				InvoiceID = rs.getInt("InvoiceID");
 			}
 		}
-		query = "INSERT TO Membership (MembershipProductID, MembershipInvoiceID, quantity) VALUES(?,?,?);";
+		// Check that Product is there
+		query = "SELECT * FROM Products WHERE ProductCode = ?;";
+		ps = conn.prepareStatement(query);
+		ps.setString(1, productCode);
+		rs = ps.executeQuery();
+		while (rs.next()) {
+			ProductID = rs.getInt("ProductID");
+		}
+		query = "INSERT INTO Membership (MembershipProductID, MembershipInvoiceID, quantity) VALUES(?,?,?);";
+		ps = conn.prepareStatement(query);
 		ps.setInt(1, ProductID);
 		ps.setInt(2, InvoiceID);
 		ps.setInt(3, quantity);
@@ -854,59 +860,33 @@ public class InvoiceData {
 		int ProductID = 0;
 		int InvoiceID = 0;
 		try {
-			if(membershipCode != null) {
-			// Check that Product is there
-			query = "SELECT ProductID, ProductCode FROM Products;";
-			ps = conn.prepareStatement(query);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				String getProductCode = rs.getString("ProductCode");
-				if (productCode.equals(getProductCode)) {
-					ProductID = rs.getInt("ProductID");
-				}
-			}
-			query = "SELECT InvoiceID, InvoiceCode FROM Invoice;";
-			ps = conn.prepareStatement(query);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				String getInvoiceCode = rs.getString("InvoiceCode");
-				if (invoiceCode.equals(getInvoiceCode)) {
-					InvoiceID = rs.getInt("Invoice");
-				}	
-			}
-			query = "INSERT TO Service (MembershipProductID, MembershipInvoiceID, quantity, ProductCodeAttach) VALUES(?,?,?);";
-			ps.setInt(1, ProductID);
-			ps.setInt(2, InvoiceID);
-			ps.setInt(3, quantity);
-			ps.setString(4, membershipCode);
-			ps.executeUpdate();
-			} else {
-				// Check that Product is there
-				query = "SELECT ProductID, ProductCode FROM Products;";
-				ps = conn.prepareStatement(query);
-				rs = ps.executeQuery();
-				while (rs.next()) {
-					String getProductCode = rs.getString("ProductCode");
-					if (productCode.equals(getProductCode)) {
-						ProductID = rs.getInt("ProductID");
-					}
-				}
+//			if(membershipCode != null) {
 				query = "SELECT InvoiceID, InvoiceCode FROM Invoice;";
 				ps = conn.prepareStatement(query);
 				rs = ps.executeQuery();
 				while (rs.next()) {
 					String getInvoiceCode = rs.getString("InvoiceCode");
 					if (invoiceCode.equals(getInvoiceCode)) {
-						InvoiceID = rs.getInt("Invoice");
+						InvoiceID = rs.getInt("InvoiceID");
 					}	
 				}
-				query = "INSERT TO Service (MembershipProductID, MembershipInvoiceID, quantity, ProductCodeAttach) VALUES(?,?,?);";
-				ps.setInt(1, ProductID);
-				ps.setInt(2, InvoiceID);
-				ps.setInt(3, quantity);
-				ps.setString(4, null);
-				ps.executeUpdate();	
+			// Check that Product is there
+			query = "SELECT * FROM Products WHERE ProductCode = ?;";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, productCode);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				ProductID = rs.getInt("ProductID");
 			}
+			
+			query = "INSERT INTO Service (ServiceProductID, ServiceInvoiceID, quantity, ProductCodeAttach) VALUES(?,?,?,?);";
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, ProductID);
+			ps.setInt(2, InvoiceID);
+			ps.setInt(3, quantity);
+			ps.setString(4, membershipCode);
+			ps.executeUpdate();
+		//	}
 		} catch (SQLIntegrityConstraintViolationException le) {
 			log.error(le);
 		} catch (SQLException e) {
@@ -940,59 +920,35 @@ public class InvoiceData {
 		int ProductID = 0;
 		int InvoiceID = 0;
 		try {
-			if(membershipCode != null) {
+		//	if(membershipCode != null) {
 			// Check that Product is there
-			query = "SELECT ProductID, ProductCode FROM Products;";
-			ps = conn.prepareStatement(query);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				String getProductCode = rs.getString("ProductCode");
-				if (productCode.equals(getProductCode)) {
-					ProductID = rs.getInt("ProductID");
-				}
-			}
 			query = "SELECT InvoiceID, InvoiceCode FROM Invoice;";
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				String getInvoiceCode = rs.getString("InvoiceCode");
 				if (invoiceCode.equals(getInvoiceCode)) {
-					InvoiceID = rs.getInt("Invoice");
+					InvoiceID = rs.getInt("InvoiceID");
 				}	
 			}
-			query = "INSERT TO Service (MembershipProductID, MembershipInvoiceID, quantity, ProductCodeAttach) VALUES(?,?,?);";
+			
+			query = "SELECT * FROM Products WHERE ProductCode = ?;";
+			ps = conn.prepareStatement(query);
+			ps.setString(1, productCode);
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				ProductID = rs.getInt("ProductID");
+			}
+			
+			query = "INSERT INTO Service (ServiceProductID, ServiceInvoiceID, quantity, ProductCodeAttach) VALUES(?,?,?,?);";
+			ps = conn.prepareStatement(query);
 			ps.setInt(1, ProductID);
 			ps.setInt(2, InvoiceID);
 			ps.setInt(3, quantity);
 			ps.setString(4, membershipCode);
 			ps.executeUpdate();
-			} else {
-				// Check that Product is there
-				query = "SELECT ProductID, ProductCode FROM Products;";
-				ps = conn.prepareStatement(query);
-				rs = ps.executeQuery();
-				while (rs.next()) {
-					String getProductCode = rs.getString("ProductCode");
-					if (productCode.equals(getProductCode)) {
-						ProductID = rs.getInt("ProductID");
-					}
-				}
-				query = "SELECT InvoiceID, InvoiceCode FROM Invoice;";
-				ps = conn.prepareStatement(query);
-				rs = ps.executeQuery();
-				while (rs.next()) {
-					String getInvoiceCode = rs.getString("InvoiceCode");
-					if (invoiceCode.equals(getInvoiceCode)) {
-						InvoiceID = rs.getInt("Invoice");
-					}	
-				}
-				query = "INSERT TO Service (MembershipProductID, MembershipInvoiceID, quantity, ProductCodeAttach) VALUES(?,?,?);";
-				ps.setInt(1, ProductID);
-				ps.setInt(2, InvoiceID);
-				ps.setInt(3, quantity);
-				ps.setString(4, null);
-				ps.executeUpdate();	
-			}
+	//		}
 		} catch (SQLIntegrityConstraintViolationException le) {
 			log.error(le);
 		} catch (SQLException e) {
@@ -1010,9 +966,6 @@ public class InvoiceData {
 		}
         // Close connection
 		DatabaseInfo.closeConnection(conn);	
-    }
-    public static void main(String args[]) {
-    	
     }
    
 }

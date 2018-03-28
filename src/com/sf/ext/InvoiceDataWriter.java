@@ -62,9 +62,10 @@ public class InvoiceDataWriter {
 			for(Members aMember : membersList) {
 				if(aMember.getMemberCode().equals(element.getMembersCode().getMemberCode())) {
 					System.out.println("  " + aMember.getName() + " (" + aMember.getMemberCode() + ")");
-					if(aMember.getType().toLowerCase().equals("s")) {
+					if(aMember.getType().toLowerCase().equals("student")) {
 						System.out.println("  [Student]");
 					} else {
+						
 						System.out.println("  [General]");
 					}
 					// 3rd enhanced for loops thats goes all over Persons list, whose code included in memebers.dat
@@ -236,7 +237,7 @@ public class InvoiceDataWriter {
 			totalTotal = InvoiceSubtotalTotal + InvoiceTaxTotal;
 			studentDiscount = -1.0*(InvoiceSubtotalTotal * 8.0 / 100.0 + InvoiceTaxTotal);
 			allTotalTotal = totalTotal + studentDiscount;
-			if(element.getMembersCode().getType().toLowerCase().equals("s")) {
+			if(element.getMembersCode().getType().toLowerCase().equals("student")) {
 				System.out.println(String.format("%s %78s %9.2f  %s %9.2f  %s %9.2f", "SUB-TOTALS", "$", InvoiceSubtotalTotal, "$", InvoiceTaxTotal, "$", totalTotal));
 				System.out.println(String.format("%s %84s %9.2f", "DISCOUNT (8% STUDENT & NO TAX)", "$", studentDiscount));
 				System.out.println(String.format("%s %90s %9.2f", "ADDITIONAL FEE (STUDENT)", "$", 10.50));
@@ -278,6 +279,7 @@ public class InvoiceDataWriter {
 			for(Products elementsProducts : element.getProducts()) {
 				String yearLongNameType = null;
 				String dayLongNameType = null;
+				
 				if(elementsProducts.getProductsType().toLowerCase().equals("y")) {
 					yearLongNameType = "Year-long membership";
 					flagYear = 1;
@@ -381,9 +383,10 @@ public class InvoiceDataWriter {
 			totalTotal = InvoiceSubtotalTotal + InvoiceTaxTotal;
 			studentDiscount = -1.0*(InvoiceSubtotalTotal * 8.0 / 100.0 + InvoiceTaxTotal);
 			allTotalTotal = totalTotal + studentDiscount;
-			if(element.getMembersCode().getType().toLowerCase().equals("s")) {
+			if(element.getMembersCode().getType().toLowerCase().equals("student")) {
 				additionalFee = 10.50;
 			} 
+		
 			System.out.println(String.format("%-20s %-50s %-29s %s %9.2f  %s %9.2f  %s %12.2f  %s %14.2f  %s %10.2f", element.getInvoiceCode(),
 					element.getMembersCode().getName(), element.getPersonsCode(), "$", InvoiceSubtotalTotal, "$", additionalFee, "$", InvoiceTaxTotal, "$", studentDiscount, "$", totalTotal));
 			totals[0] += InvoiceSubtotalTotal;

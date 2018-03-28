@@ -232,6 +232,7 @@ public class InvoiceDataReader {
 			Invoice invoice = null;
 			Members member = null;
 			Persons person = null;
+			
 			query = "SELECT * FROM Invoice as i JOIN Members AS m ON i.InvoiceMemberID = m.MemberID "
 					+ "JOIN Persons AS p ON i.InvoicePersonID = p.PersonID;";
 			ps = conn.prepareStatement(query);
@@ -262,7 +263,7 @@ public class InvoiceDataReader {
 						if(rsInner.getString("ProductCode").equals(product.getProductsCode())) {
 	
 							// Retrieve a YearMembership 
-							if(rsInner.getString("ProductType").equals(product.getProductsType())) {
+							if(product instanceof YearMembership) {
 								product.setProductsQuantity(rsInner.getInt("Quantity"));
 								YearMembership newProduct = new YearMembership((YearMembership) product,
 										product.getProductsQuantity());
