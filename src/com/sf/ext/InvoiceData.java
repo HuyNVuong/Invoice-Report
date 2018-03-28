@@ -14,7 +14,6 @@ import java.sql.SQLIntegrityConstraintViolationException;
  * 
  */
 
-import org.apache.log4j.BasicConfigurator;
 //import com.sf.model.DayMembership;
 //import com.sf.model.Invoice;
 //import com.sf.model.Member;
@@ -1012,6 +1011,8 @@ public class InvoiceData {
         // Close connection
 		DatabaseInfo.closeConnection(conn);	
     }
-    
+    public static void main(String args[]) {
+    	
+    }
    
 }

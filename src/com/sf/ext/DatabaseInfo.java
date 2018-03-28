@@ -9,7 +9,7 @@ public class DatabaseInfo {
 	public static final String url = "jdbc:mysql://cse.unl.edu/hvuong";
 	public static final String username = "hvuong";
 	public static final String password = "Vnh15111999";
-    public static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(InvoiceData.class);
+    public static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DatabaseInfo.class);
 
 	static public Connection getConnection()
 	{
