@@ -1,5 +1,12 @@
 package driver;
 
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+
 import com.sf.ext.InvoiceDataWriter;
 
 /**
@@ -17,26 +24,40 @@ import com.sf.ext.InvoiceDataWriter;
  *
  */
 public class DatabaseInvoiceReport {
-	/* Block of code got from TA Jordan Schimitz
-	private static final Logger logger;
-	static {
-	ConfigurationBuilder<BuiltConfiguration> builder = ConfigurationBuilderFactory.newConfigurationBuilder();
-	builder.setStatusLevel(Level.ERROR);
-	builder.setConfigurationName("BuilderTest");
-	builder.add(builder.newFilter("ThresholdFilter", Filter.Result.ACCEPT, Filter.Result.NEUTRAL).addAttribute("level", Level.DEBUG));
-	AppenderComponentBuilder appenderBuilder = builder.newAppender("Stdout", "CONSOLE").addAttribute("target", ConsoleAppender.Target.SYSTEM_OUT);
-	appenderBuilder.add(builder.newLayout("PatternLayout").addAttribute("pattern", "%d [%t] %-5level: %msg%n%throwable"));
-	appenderBuilder.add(builder.newFilter("MarkerFilter", Filter.Result.DENY, Filter.Result.NEUTRAL).addAttribute("marker", "FLOW"));
-	builder.add(appenderBuilder);
-	builder.add(builder.newLogger("org.apache.logging.log4j", Level.DEBUG).add(builder.newAppenderRef("Stdout")).addAttribute("additivity", false));
-	builder.add(builder.newRootLogger(Level.ERROR).add(builder.newAppenderRef("Stdout")));
-	Configurator.initialize(builder.build());
-	logger = LogManager.getLogger(Demo.class);
-	}
-	*/
-	public static void main (String args[]) {
+	  static Logger log = Logger.getLogger(DatabaseInvoiceReport.class.getName());
+	    public static void main(String[] args) throws IOException,SQLException {
+	    	
+	    
+		   /* Create a new directory (e.g., lib) and
+			    store the log4j.properties file in that directory.
+		    */
+			
+			
+	    	   /* Convert the relative path of the properties file
+	    	        into the absolute path using the getAbsolutePath() method of the File class */
+			
+			File file = new File("log4j.properties");
+			String propFilePath = file.getAbsolutePath();
+			
+			/* PropertyConfigurator class initializes log4j with 
+			      the configuration properties specified in log4j.properties.*/
+			PropertyConfigurator.configure(propFilePath);
+			
 	
-		InvoiceDataWriter invoiceWriter = new InvoiceDataWriter();
-		invoiceWriter.InvoiceReportWriter(); 
-	}
+			
+			try { 
+				InvoiceDataWriter invoiceWriter = new InvoiceDataWriter();
+				invoiceWriter.InvoiceReportWriter(); 
+			  }catch(Exception e) {
+				System.out.println("Exception/Error information is written on the log file.");
+				log.fatal("This is a fatal message: ", e);
+				log.error("This is an error message: ", e);
+				log.warn("This is a warning message.");
+				log.info("This is an info message.");
+				log.debug("This is a debug message.");
+				log.trace("This is a trace message.");
+			  }
+
+	    }
+	
 }

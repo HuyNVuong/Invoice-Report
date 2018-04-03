@@ -1,0 +1,13 @@
+2018-04-03 11:19:15 ERROR com.sf.ext.InvoiceDataReader:73 - com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'OM Members AS m JOIN Address AS a ON m.MemberAddressID = a.AddressID' at line 1
+2018-04-03 11:19:15 FATAL driver.DatabaseInvoiceReport:53 - This is a fatal message: 
+java.lang.NullPointerException
+	at com.sf.ext.InvoiceDataReader.readInvoice(InvoiceDataReader.java:243)
+	at com.sf.ext.InvoiceDataWriter.InvoiceReportWriter(InvoiceDataWriter.java:26)
+	at driver.DatabaseInvoiceReport.main(DatabaseInvoiceReport.java:50)
+2018-04-03 11:19:15 ERROR driver.DatabaseInvoiceReport:54 - This is an error message: 
+java.lang.NullPointerException
+	at com.sf.ext.InvoiceDataReader.readInvoice(InvoiceDataReader.java:243)
+	at com.sf.ext.InvoiceDataWriter.InvoiceReportWriter(InvoiceDataWriter.java:26)
+	at driver.DatabaseInvoiceReport.main(DatabaseInvoiceReport.java:50)
+2018-04-03 11:19:15 WARN  driver.DatabaseInvoiceReport:55 - This is a warning message.
+2018-04-03 11:19:15 INFO  driver.DatabaseInvoiceReport:56 - This is an info message.
