@@ -21,7 +21,9 @@ import com.sf.ext.InvoiceDataWriter;
  * @file InvoiceDataReader.java
  * @file InvoiceDataWriter.java
  * @file DatabaseInvoiceReport.java
- *
+ * BONUS: log4j
+ * @file log4j.properties
+ * @file javalog.out
  */
 public class DatabaseInvoiceReport {
 	  static Logger log = Logger.getLogger(DatabaseInvoiceReport.class.getName());
