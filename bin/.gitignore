@@ -1,2 +1,13 @@
+<<<<<<< HEAD
 /adt/
 /.gitignore
+=======
+/change_logs.txt
+/com/
+/driver/
+/entities/
+/reader/
+/umlDiagram.ucls
+/writer/
+/adt/
+>>>>>>> branch 'master' of git@git.unl.edu:vuongnguyenhuy/156-Project.git
