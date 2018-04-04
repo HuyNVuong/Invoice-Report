@@ -10,7 +10,16 @@ public class Invoice {
 	private Persons personsCode;  
 	private String invoiceDate;
 	private List<Products> products;
+	private double subtotal;
 	
+	public double getSubtotal() {
+		return subtotal;
+	}
+
+	public void setSubtotal(double subtotal) {
+		this.subtotal = subtotal;
+	}
+
 	public String getInvoiceCode() {
 		return invoiceCode;
 	}
@@ -63,6 +72,7 @@ public class Invoice {
 	// Method for adding products to the products list
 	public void addItem(Products invoiceProduct) {
 		this.products.add(invoiceProduct);
+		this.subtotal += invoiceProduct.getCost();
 
 	}
 

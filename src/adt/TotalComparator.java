@@ -7,10 +7,14 @@ public class TotalComparator implements Comparator<Invoice>{
 
 	@Override
 	public int compare(Invoice inv1, Invoice inv2) {
-		if (inv1.getInvoiceCode().equals(inv2.getInvoiceCode())){
-			
+		if (inv1.getSubtotal() == inv2.getSubtotal()){
+			return 0;
+		} else if (inv1.getSubtotal() < inv2.getSubtotal()) {
+			return -1;
+		} else if (inv1.getSubtotal() > inv2.getSubtotal()) {
+			return 1;
 		}
-		return 0;
+		return -999;
 	}
 	
 }
