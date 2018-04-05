@@ -50,18 +50,11 @@ public class InvoiceList implements Iterable<Invoice> {
 				newInvoiceNode.setNext(start);
 				start = newInvoiceNode;
 				size++;
-			}
-//			else if (this.comp.compare(newInvoiceNode.getItem(), start.getNext().getItem()) == 1) { // if new node is bigger than nextNode
-//				start.setNext(newInvoiceNode);
-//				newInvoiceNode.setNext(nextNode);
-//				size++;
-//			}	
+			}	
 			else { // if new node is less than or equal to nextNode
 				InvoiceNode<Invoice> currentNode = start;
 				boolean added = false;
 				while (currentNode.getNext() != null) {
-					//a c d
-					//a c
 					if(this.comp.compare(newInvoiceNode.getItem(), currentNode.getNext().getItem()) >= 0) {
 						newInvoiceNode.setNext(currentNode.getNext());
 						currentNode.setNext(newInvoiceNode);
@@ -75,9 +68,6 @@ public class InvoiceList implements Iterable<Invoice> {
 						currentNode.setNext(newInvoiceNode);
 						size++;
 					}
-				
-				
-				
 			}
 		}
 
