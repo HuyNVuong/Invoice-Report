@@ -9,6 +9,10 @@ import org.apache.log4j.PropertyConfigurator;
 
 import com.sf.ext.InvoiceDataWriter;
 
+import adt.InvoiceList;
+import adt.TotalComparator;
+import entities.Invoice;
+
 /**
  * 
  * Assignment 4, Database and Connectivity - Project Phase 3
@@ -49,6 +53,21 @@ public class DatabaseInvoiceReport {
 		PropertyConfigurator.configure(propFilePath);
 
 		try {
+			
+			/*
+			 * // Read from database
+			// create DB reader object from DB reader class
+			// read data from DB using that object
+			// it should create a list of invoices (e.g. InvList)
+
+		// Order using ADT
+		InvoiceList<Invoice> invoiceOrderedList = new InvoiceList<Invoice>(new TotalComparator());
+		// add list of invoices (e.g. InvList) into the invoiceOrderedList
+
+		// write to Stdout
+			 */
+			
+			
 			InvoiceDataWriter invoiceWriter = new InvoiceDataWriter();
 			invoiceWriter.InvoiceReportWriter();
 		} catch (Exception e) {

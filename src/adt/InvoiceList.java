@@ -1,16 +1,18 @@
 package adt;
 
 import java.util.Comparator;
-
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import entities.Invoice;
 
 public class InvoiceList implements Iterable<Invoice> {
 
-	private InvoiceNode<Invoice> start;
-	private int size;
 	private Comparator<Invoice> comp;
+	private InvoiceNode<Invoice> start;
+
+	private int size;
+
 
 	@Override
 	public Iterator<Invoice> iterator() {
@@ -22,17 +24,36 @@ public class InvoiceList implements Iterable<Invoice> {
 		
 		@Override 
 		public boolean hasNext() {
-			// TODO
+			if (start != null) {
+				return true;
+			}
+			return false;
 		}
 		
 		@Override
 		public Invoice next() {
-			// TODO
+			InvoiceNode<Invoice> nextNode;
+			nextNode = start;
+			if (!hasNext()) {
+				throw new NoSuchElementException();
+			}
+			Invoice result = nextNode.getItem();
+			nextNode = nextNode.getNext();
+			return result;
 		}
 		
-		@Override
+		@Override // FIXME
 		public void remove() {
-			// TODO
+			InvoiceNode<Invoice> currentNode;
+			InvoiceNode<Invoice> nextNode;
+			if (start == null) {
+				throw new NoSuchElementException();
+			} else {
+				currentNode = start;
+				nextNode = start.getNext();
+				
+			}
+			
 		}
 	}
 
