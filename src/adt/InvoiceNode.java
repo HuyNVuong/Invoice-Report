@@ -4,7 +4,6 @@ import entities.Invoice;
 
 public class InvoiceNode<T> {
 
-	private InvoiceNode<T> previous;
 	private InvoiceNode<T> next;
 	private Invoice item;
 
@@ -24,14 +23,6 @@ public class InvoiceNode<T> {
 
 	public Invoice getItem() {
 		return item;
-	}
-
-	public InvoiceNode<T> getPrevious() {
-		return previous;
-	}
-
-	public void setPrevious(InvoiceNode<T> previous) {
-		this.previous = previous;
 	}
 
 }
