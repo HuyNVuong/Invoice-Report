@@ -8,8 +8,8 @@ import entities.Invoice;
 public class InvoiceList implements Iterable<Invoice> {
 
 	private InvoiceNode<Invoice> start;
-	private InvoiceNode<Invoice> previousNode;
 	private InvoiceNode<Invoice> nextNode;
+	private InvoiceNode<Invoice> currentNode;
 	private int size;
 	private Comparator<Invoice> comp;
 
@@ -46,17 +46,20 @@ public class InvoiceList implements Iterable<Invoice> {
 				size++;
 			}
 		} else {
-			if (this.comp.compare(newInvoiceNode.getItem(), start.getItem()) == -1) { // if new node is smaller than start
-				start.setNext(newInvoiceNode);
+			if (this.comp.compare(newInvoiceNode.getItem(), start.getItem()) == 1) { // if new node is bigger than start
+				newInvoiceNode.setNext(start);
+				start = newInvoiceNode;
 				size++;
 			}
-			else if (this.comp.compare(newInvoiceNode.getItem(), start.getNext().getItem()) == -1) { // if new node is smaller than nextNODE
-				nextNode = start.getNext();
-				nextNode.setNext(newInvoiceNode);
+			else if (this.comp.compare(newInvoiceNode.getItem(), start.getNext().getItem()) == 1) { // if new node is bigger than nextNode
+				
+				start.setNext(newInvoiceNode);
+				newInvoiceNode.setNext(nextNode);
 				size++;
 			}	
-			else { // if new node is greater than or equal to nextNode
-				start.setNext(newInvoiceNode);
+			else { // if new node is less than or equal to nextNode
+				currentNode.setNext(newInvoiceNode);
+				currentNode = newInvoiceNode;
 				size++;
 			}
 		}
