@@ -1,6 +1,7 @@
 package adt;
 
 import java.util.Comparator;
+
 import java.util.Iterator;
 
 import entities.Invoice;
@@ -46,7 +47,7 @@ public class InvoiceList implements Iterable<Invoice> {
 		return comp;
 	}
 
-	public void add(Invoice item) { /// HIGHEST TO LOWEST --> in the notes, Hasan sets it as lowest to highest: be careful
+	public void add(Invoice item) { // order is highest to lowest
 		InvoiceNode<Invoice> newInvoiceNode = new InvoiceNode<Invoice>(item);
 
 		if (start == null) { // if no nodes exist
