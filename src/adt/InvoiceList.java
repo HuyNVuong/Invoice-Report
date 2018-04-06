@@ -30,15 +30,15 @@ public class InvoiceList implements Iterable<Invoice> {
 			return false;
 		}
 		
-		@Override // FIXME I dont think this is right
+		@Override
 		public Invoice next() {
-			InvoiceNode<Invoice> nextNode = start;
+			InvoiceNode<Invoice> nextNode = start.getNext();
 			if (!hasNext()) {
 				throw new NoSuchElementException();
+			} else {
+				Invoice result = nextNode.getItem();
+				return result;
 			}
-			Invoice result = nextNode.getItem();
-			nextNode = nextNode.getNext();
-			return result;
 		}
 		
 		@Override
