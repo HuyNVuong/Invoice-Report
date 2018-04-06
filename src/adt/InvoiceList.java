@@ -16,7 +16,7 @@ public class InvoiceList implements Iterable<Invoice> {
 
 	@Override
 	public Iterator<Invoice> iterator() {
-		return new IteraterInvoice();
+		return new IteratorInvoice();
 	}
 	
 	class IteratorInvoice implements Iterator<Invoice> {
@@ -48,7 +48,6 @@ public class InvoiceList implements Iterable<Invoice> {
 			} else {
 				start = start.getNext();
 			}
-			
 		}
 	}
 
