@@ -20,7 +20,7 @@ public class InvoiceList implements Iterable<Invoice> {
 	}
 	
 	class IteratorInvoice implements Iterator<Invoice> {
-		int index = 0;
+		int index = 0; // FIXME how/why did Hasan want us to use this?
 		
 		@Override 
 		public boolean hasNext() {
@@ -30,10 +30,9 @@ public class InvoiceList implements Iterable<Invoice> {
 			return false;
 		}
 		
-		@Override
+		@Override // FIXME I dont think this is right
 		public Invoice next() {
-			InvoiceNode<Invoice> nextNode;
-			nextNode = start;
+			InvoiceNode<Invoice> nextNode = start;
 			if (!hasNext()) {
 				throw new NoSuchElementException();
 			}
@@ -42,16 +41,12 @@ public class InvoiceList implements Iterable<Invoice> {
 			return result;
 		}
 		
-		@Override // FIXME
+		@Override
 		public void remove() {
-			InvoiceNode<Invoice> currentNode;
-			InvoiceNode<Invoice> nextNode;
 			if (start == null) {
 				throw new NoSuchElementException();
 			} else {
-				currentNode = start;
-				nextNode = start.getNext();
-				
+				start = start.getNext();
 			}
 			
 		}
