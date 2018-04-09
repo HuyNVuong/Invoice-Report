@@ -20,8 +20,8 @@ public class InvoiceList<T> implements Iterable<Invoice> {
 
 	class IteratorInvoice implements Iterator<Invoice> {
 		int index = 0; // FIXME how/why did Hasan want us to use this?
+		
 		InvoiceNode<T> curr = start;
-
 		@Override
 		public boolean hasNext() {
 			if (curr != null) {
@@ -32,12 +32,13 @@ public class InvoiceList<T> implements Iterable<Invoice> {
 
 		@Override
 		public Invoice next() {
-			// InvoiceNode<Invoice> nextNode = start.getNext();
+			
+			InvoiceNode<T> nextNode = start.getNext();
 			if (!hasNext()) {
 				throw new NoSuchElementException();
 			} else {
 				Invoice result = curr.getItem();
-				curr.getNext();
+				curr = curr.getNext();
 				return result;
 			}
 		}
@@ -119,7 +120,7 @@ public class InvoiceList<T> implements Iterable<Invoice> {
 		sb.append('[');
 		InvoiceNode<T> node = start;
 		while (node != null) {
-			sb.append(node.getItem());
+			sb.append(node.getItem().getInvoiceCode());
 			if (node.getNext() == null) {
 				break;
 			} else {

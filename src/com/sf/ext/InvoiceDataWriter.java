@@ -32,7 +32,9 @@ public class InvoiceDataWriter {
 			if(invoiceOrderedList.add(i)) {
 				System.out.println("added successfully");
 			}
+			System.out.println(invoiceOrderedList.iterator());
 			System.out.println(i.getSubtotal());
+			System.out.println(invoiceOrderedList.toString());
 		
 		}
 		for (Invoice i : invoiceOrderedList) {
@@ -69,7 +71,6 @@ public class InvoiceDataWriter {
 			double storeDayLongSubTotal = 0.0, storeDayLongTaxTotal = 0.0;
 			double storeEquipmentSubTotal = 0.0 , storeEquipmentTaxTotal = 0.0;
 			double storeFeeSubTotal = 0.0 , storeFeeTaxTotal = 0.0;
-
 			System.out.println("Invoice " + element.getInvoiceCode());
 			System.out.println("========================================");
 			System.out.println("Personal trainer: " + element.getPersonsCode());
