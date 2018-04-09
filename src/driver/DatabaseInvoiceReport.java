@@ -67,7 +67,7 @@ public class DatabaseInvoiceReport {
 		// write to Stdout
 			 */
 			
-			
+//			InvoiceList<Invoice> invoiceOrderedList = new InvoiceList<Invoice>(new TotalComparator());
 			InvoiceDataWriter invoiceWriter = new InvoiceDataWriter();
 			invoiceWriter.InvoiceReportWriter();
 		} catch (Exception e) {

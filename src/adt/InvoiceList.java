@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 
 import entities.Invoice;
 
-public class InvoiceList implements Iterable<Invoice> {
+public class InvoiceList<T> implements Iterable<Invoice> {
 
 	private Comparator<Invoice> comp;
 	private InvoiceNode<Invoice> start;
@@ -50,6 +50,7 @@ public class InvoiceList implements Iterable<Invoice> {
 			}
 		}
 	}
+	
 
 	public InvoiceList(Comparator<Invoice> comp) {
 		super();
@@ -103,6 +104,7 @@ public class InvoiceList implements Iterable<Invoice> {
 			}
 		}
 
+		
 	}
 
 }

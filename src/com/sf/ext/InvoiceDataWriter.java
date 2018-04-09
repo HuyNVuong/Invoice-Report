@@ -6,6 +6,8 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import adt.InvoiceList;
+import adt.TotalComparator;
 import entities.DayMembership;
 import entities.EquipmentRentals;
 import entities.Invoice;
@@ -22,27 +24,33 @@ public class InvoiceDataWriter {
 		List<Members> membersList = invoice.readMembers();
 		List<Persons> personsList = invoice.readPersons();
 		List<Products> productsList = invoice.readProducts();
+		InvoiceList<Invoice> invoiceOrderedList = new InvoiceList<Invoice>(new TotalComparator());
 		
 		List<Invoice> invoiceList = invoice.readInvoice(productsList, membersList, personsList);
+		for (Invoice i : invoiceList) {
+			invoiceOrderedList.add(i);
+			System.out.println(invoiceOrderedList.hashCode());
+			System.out.println(invoiceOrderedList.getComp());
+		}
 		// Create neccessarily variable to stores all subtotal, taxes, discount of summarize of all Invoice
 		
 		System.out.println("Executive Summary Report");
 		System.out.println("=========================");
 		System.out.println(String.format("%-20s %-50s %-32s %-15s %-15s %-15s %-15s %-15s", "Invoice", "Member",  ""
 				+ "Personal Trainer", "Subtotal", "Fees", "Taxes", "Discount", "Total"));
-		double[] totals = printExecReport(invoiceList, membersList, personsList, productsList);
+		double[] totals = printExecReport(invoiceOrderedList, membersList, personsList, productsList);
 		System.out.println("==================================================================================================================================================================================");
 		System.out.println(String.format("TOTALS %96s %9.2f  %s %9.2f  %s %12.2f  %s %14.2f  %s %10.2f",  "$", totals[0], "$", totals[1], "$", totals[2], "$", totals[3], "$", totals[4]));
 		System.out.println("\nIndividual Invoice Detail Reports");
 		System.out.println("=================================================");
 		
-		printIndividualReport(invoiceList, membersList, personsList, productsList);
+		printIndividualReport(invoiceOrderedList, membersList, personsList, productsList);
 	}
 		// First enhanced for loops that goes all over the invoice list
-	public void printIndividualReport(List<Invoice> invoiceList, List<Members> membersList, List<Persons> personsList, List<Products> productsLists) {
+	public void printIndividualReport(InvoiceList <Invoice> invoiceOrdered, List<Members> membersList, List<Persons> personsList, List<Products> productsLists) {
 		DateTimeFormatter m = DateTimeFormat.forPattern("yyyy-MM-dd");
 		DateTimeFormatter s = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
-		for(Invoice element : invoiceList) {
+		for(Invoice element : invoiceOrdered) {
 			// Create neccessarily variable to store subtotal, taxes, discount,etc
 			double allTotalTotal = 0.0;
 			double InvoiceSubtotalTotal = 0.0;
@@ -251,11 +259,11 @@ public class InvoiceDataWriter {
 			// summaryReportArray = new double [] {InvoiceSubtotalTotal, 10.50, InvoiceTaxTotal, studentDiscount, totalTotal};  
 		}
 	}
-	public double[] printExecReport(List<Invoice> invoiceList, List<Members> membersList, List<Persons> personsList, List<Products> productsLists) {
+	public double[] printExecReport(InvoiceList<Invoice> invoiceOrdered, List<Members> membersList, List<Persons> personsList, List<Products> productsLists) {
 		DateTimeFormatter m = DateTimeFormat.forPattern("yyyy-MM-dd");
 		DateTimeFormatter s = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
 		double[] totals = new double[5];
-		for(Invoice element : invoiceList) {
+		for(Invoice element : invoiceOrdered) {
 			// Create neccessarily variable to store subtotal, taxes, discount,etc
 			double additionalFee = 0.0;
 			double InvoiceSubtotalTotal = 0.0;
