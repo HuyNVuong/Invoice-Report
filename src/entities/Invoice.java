@@ -72,10 +72,14 @@ public class Invoice {
 	// Method for adding products to the products list
 	public void addItem(Products invoiceProduct) {
 		this.products.add(invoiceProduct);
-		this.subtotal += invoiceProduct.getCost();
+		double total = 0;
+		for (Products p : this.getProducts()) {
+			total += p.getTotal();
+		}
+		this.subtotal = total;
 
 	}
-
+	@Override
 	public String toString() {
 		return "Invoice [ " + invoiceCode + " " + membersCode + " " + personsCode + " " + invoiceDate + " " + products
 				+ "]";

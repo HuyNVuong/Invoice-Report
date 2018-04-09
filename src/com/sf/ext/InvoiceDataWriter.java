@@ -29,8 +29,16 @@ public class InvoiceDataWriter {
 		List<Invoice> invoiceList = invoice.readInvoice(productsList, membersList, personsList);
 		for (Invoice i : invoiceList) {
 			invoiceOrderedList.add(i);
-			System.out.println(invoiceOrderedList.hashCode());
-			System.out.println(invoiceOrderedList.getComp());
+			if(invoiceOrderedList.add(i)) {
+				System.out.println("added successfully");
+			}
+			System.out.println(i.getSubtotal());
+		
+		}
+		for (Invoice i : invoiceOrderedList) {
+			System.out.println(i);
+			System.out.println("In order");
+			System.out.println(i.getSubtotal());
 		}
 		// Create neccessarily variable to stores all subtotal, taxes, discount of summarize of all Invoice
 		
