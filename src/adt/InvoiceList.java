@@ -19,7 +19,7 @@ public class InvoiceList<T> implements Iterable<Invoice> {
 	}
 
 	class IteratorInvoice implements Iterator<Invoice> {
-		int index = 0; // FIXME how/why did Hasan want us to use this?
+		// int index = 0; // FIXME how/why did Hasan want us to use this?
 		
 		InvoiceNode<T> curr = start;
 		@Override
