@@ -19,9 +19,14 @@ public class InvoiceList<T> implements Iterable<Invoice> {
 	}
 
 	class IteratorInvoice implements Iterator<Invoice> {
-		// int index = 0; // FIXME how/why did Hasan want us to use this?
 		
-		InvoiceNode<T> curr = start;
+		
+		InvoiceNode<T> curr;
+		
+		public IteratorInvoice() {
+			curr = InvoiceList.this.start;
+		}
+
 		@Override
 		public boolean hasNext() {
 			if (curr != null) {
@@ -33,13 +38,12 @@ public class InvoiceList<T> implements Iterable<Invoice> {
 		@Override
 		public Invoice next() {
 			
-			InvoiceNode<T> nextNode = start.getNext();
 			if (!hasNext()) {
 				throw new NoSuchElementException();
 			} else {
-				Invoice result = curr.getItem();
+				Invoice newInv = curr.getItem();
 				curr = curr.getNext();
-				return result;
+				return newInv;
 			}
 		}
 
@@ -68,7 +72,7 @@ public class InvoiceList<T> implements Iterable<Invoice> {
 		InvoiceNode<T> newInvoiceNode = new InvoiceNode<T>(item);
 
 		if (start == null) { // if no nodes exist
-			newInvoiceNode = this.start;
+			this.start = newInvoiceNode;
 			size++;
 			return true;
 		} else if (size == 1) { // if 1 node exists
@@ -92,7 +96,7 @@ public class InvoiceList<T> implements Iterable<Invoice> {
 				InvoiceNode<T> currentNode = start;
 				boolean added = false;
 				while (currentNode.getNext() != null) {
-					if (this.comp.compare(newInvoiceNode.getItem(), currentNode.getNext().getItem()) <= 0) {
+					if (this.comp.compare(newInvoiceNode.getItem(), currentNode.getNext().getItem()) >= 0) {
 						newInvoiceNode.setNext(currentNode.getNext());
 						currentNode.setNext(newInvoiceNode);
 						added = true;
