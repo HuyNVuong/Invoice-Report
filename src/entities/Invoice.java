@@ -73,8 +73,12 @@ public class Invoice {
 	public void addItem(Products invoiceProduct) {
 		this.products.add(invoiceProduct);
 		double total = 0;
+		// Getting subtotal for Invoice -> supporting comaprator classes
 		for (Products p : this.getProducts()) {
-			total += p.getTotal();
+			total += p.getCost();
+		}
+		if (this.membersCode.getType().toLowerCase().equals("s")) {
+			total = total + 10.50;
 		}
 		this.subtotal = total;
 

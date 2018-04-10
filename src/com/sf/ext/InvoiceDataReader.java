@@ -294,6 +294,7 @@ public class InvoiceDataReader {
 							if(product instanceof EquipmentRentals) {
 								product.setProductsQuantity(rsInner.getInt("Quantity"));
 								String codeAttach = rsInner.getString("ProductCodeAttach");
+								product.setProductsCodeAttach(codeAttach);
 								if (codeAttach != null) {
 									EquipmentRentals newProduct = new EquipmentRentals((EquipmentRentals) product,
 											product.getProductsQuantity(), codeAttach);
@@ -307,6 +308,7 @@ public class InvoiceDataReader {
 							if(product instanceof ParkingPasses) {
 								product.setProductsQuantity(rsInner.getInt("Quantity"));
 								String codeAttach = rsInner.getString("ProductCodeAttach");
+								product.setProductsCodeAttach(codeAttach);
 								if (codeAttach != null) {
 									ParkingPasses newProduct = new ParkingPasses((ParkingPasses) product,
 											product.getProductsQuantity(), codeAttach);

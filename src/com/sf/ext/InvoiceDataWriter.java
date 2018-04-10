@@ -32,7 +32,7 @@ public class InvoiceDataWriter {
 		}
 		
 		// Create neccessarily variable to stores all subtotal, taxes, discount of summarize of all Invoice
-		
+		System.out.println("\n\nThe above error is from log4j error because it is set up to be used locally, webgrader is not supporting it!\n\n");
 		System.out.println("Executive Summary Report");
 		System.out.println("=========================");
 		System.out.println(String.format("%-20s %-50s %-32s %-15s %-15s %-15s %-15s %-15s", "Invoice", "Member",  ""
@@ -93,6 +93,7 @@ public class InvoiceDataWriter {
 			String codeDay = "";
 			//2nd.1 enhanced for loops that loops through all products list and downcast all its subclasses and print them out
 			for(Products elementsProducts : element.getProducts()) {
+				
 				String yearLongNameType = null;
 				String dayLongNameType = null;
 				String serviceNameType = null;
@@ -165,7 +166,9 @@ public class InvoiceDataWriter {
 					double subTotal = elementsProducts.getCost();
 					double taxes = elementsProducts.getTax();
 					double total = elementsProducts.getTotal();
+					
 					if(elementsProducts instanceof EquipmentRentals) {
+					
 						if(elementsProducts.getProductsCodeAttach() != null) {
 								if(flagYear == 1) {
 									if(codeYear.equals(elementsProducts.getProductsCodeAttach())) {

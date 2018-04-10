@@ -19,12 +19,14 @@ import entities.Invoice;
  * 
  * @author HUY VUONG, Will Kitay
  * @version 3.0
- * @date 3/29/2017 File associating with this assignment
+ * @date 3/29/2017 
+ * File associating with this assignment
  * @file DatabaseInfo.java
  * @file InvoiceData.java
  * @file InvoiceDataReader.java
  * @file InvoiceDataWriter.java
- * @file DatabaseInvoiceReport.java BONUS: log4j
+ * @file DatabaseInvoiceReport.java
+ * BONUS: log4j
  * @file log4j.properties
  * @file javalog.out
  */
@@ -53,21 +55,29 @@ public class DatabaseInvoiceReport {
 		PropertyConfigurator.configure(propFilePath);
 
 		try {
-			
-			/*
-			 * // Read from database
-			// create DB reader object from DB reader class
-			// read data from DB using that object
-			// it should create a list of invoices (e.g. InvList)
-
-		// Order using ADT
-		InvoiceList<Invoice> invoiceOrderedList = new InvoiceList<Invoice>(new TotalComparator());
-		// add list of invoices (e.g. InvList) into the invoiceOrderedList
-
-		// write to Stdout
+			/**
+			 * 
+			 * Assignment 5, ADT Sorted List - Project Phase 4
+			 * 
+			 * @author HUY VUONG, Will Kitay
+			 * @version 4.0
+			 * @date 4/10/2017. 
+			 * File associating with this assignment File for from previous
+			 *       database
+			 * @file DatabaseInfo.java
+			 * @file InvoiceData.java
+			 * @file InvoiceDataReader.java
+			 * @file InvoiceDataWriter.java
+			 * @file DatabaseInvoiceReport.java. 
+			 * File for ADT sorted list
+			 * @file InvoiceList.java
+			 * @file InvoiceNode.java
+			 * @file TotalComparator.java 
+			 * BONUS: log4j
+			 * @file log4j.properties
+			 * @file javalog.out
 			 */
-			
-//			InvoiceList<Invoice> invoiceOrderedList = new InvoiceList<Invoice>(new TotalComparator());
+
 			InvoiceDataWriter invoiceWriter = new InvoiceDataWriter();
 			invoiceWriter.InvoiceReportWriter();
 		} catch (Exception e) {
